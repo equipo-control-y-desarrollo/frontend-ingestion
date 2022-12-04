@@ -1,6 +1,7 @@
 @import url('./fonts.scss');
 
 $main-blue-green: #00171F;
+$module-color: #003459;
 
 #loginForm{
 
@@ -36,9 +37,39 @@ $main-blue-green: #00171F;
 
 .modules-menu{
     display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    width: 70%;
+    width: 100vw;
+    height: 100vh;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 60px;
+
+    h2{
+        font-family: "Raleway", "Roboto", sans-serif;
+        font-weight: 600;
+        font-size: 48px;
+    }
+}
+
+.modules-container{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 60px 30px;
+}
+
+.module{
+    display: flex;
+    flex-direction: column;
+    width: 200px;
+    height: 200px;
+    font-family: "Raleway", "Roboto", sans-serif;
+    font-weight: 600;
+    font-size: 20px;
+    background-color: $module-color;
+    color: white;
+    justify-content: center;
+    align-items: center;
 }
 
 .vertical-navbar{
@@ -61,20 +92,62 @@ $main-blue-green: #00171F;
     flex-direction: column;
     width: 100%;
     height: 100vh;
+
+    overflow-y: scroll;
+
+    // Remove scrollbar
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+    &::-webkit-scrollbar {
+        display: none;
+    }
+
 }
 
 .companies-list{
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 50px;
+    gap: 20px;
     width: 100%;
     height: 100%;
     font-family: "Raleway", "Robot", sans-serif;
     font-weight: 600;
     font-size: 20px;
     color: white;
+
+
+    div{
+        display:flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        height: 70px;
+    }
+
+    div:hover{
+        background-color: white;
+        color: $main-blue-green;
+    }
 }
+
+.vertical-navbar-footer{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    width: 100%;
+    height: 20%;
+
+    svg{
+        width: 30px;
+        height: 30px;
+        color: white;
+    }
+}
+
+
 
 .inputs-form-login{
     display: flex;

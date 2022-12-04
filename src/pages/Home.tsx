@@ -9,7 +9,7 @@ export default function Home(){
 
     const [loading, setLoading] = useState(true);
 
-    const companiesTest = ["Empresa 1", "Empresa 2", "Empresa 3", "Empresa 4", "Empresa 5", "Empresa 6", "Empresa 7"];
+    const companiesTest = ["Empresa 1", "Empresa 2", "Empresa 3", "Empresa 4", "Empresa 5", "Empresa 6", "Empresa 7", "Empresa 8", "Empresa 9", "Empresa 10"];
     const modulesTest = ["Cuentas por pagar","Cartera","Cuentas bancarias","Flujo de caja","Cuadro de ventas","Registro de ventas"];
 
     const loadingDiv = () => {

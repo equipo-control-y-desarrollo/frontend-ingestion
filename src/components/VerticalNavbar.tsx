@@ -1,3 +1,7 @@
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { faRightFromBracket } from "@fortawesome/free-solid-svg-icons"
+import { Tooltip } from '@chakra-ui/react'
+
 export default function VerticalNavbar({logoImage, companies}: {logoImage: string, companies: string[]}){
     return (
         <div className="vertical-navbar">
@@ -14,9 +18,11 @@ export default function VerticalNavbar({logoImage, companies}: {logoImage: strin
                         )})}
                 </div>
             </div>
-            <hr></hr>
             <div className="vertical-navbar-footer">
-                <h4>Log Out</h4>
+                <hr></hr>
+                <Tooltip label='Cerrar Sesion'>
+                    <FontAwesomeIcon icon={faRightFromBracket}/>            
+                </Tooltip>
             </div>
         </div>
     )
