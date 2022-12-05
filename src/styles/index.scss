@@ -1,4 +1,5 @@
 @import url('./fonts.scss');
+@import url('./effects.scss');
 
 $main-blue-green: #00171F;
 $module-color: #003459;
@@ -47,7 +48,7 @@ $module-color: #003459;
     h2{
         font-family: "Raleway", "Roboto", sans-serif;
         font-weight: 600;
-        font-size: 48px;
+        font-size: 57px;
     }
 }
 
@@ -61,8 +62,8 @@ $module-color: #003459;
 .module{
     display: flex;
     flex-direction: column;
-    width: 200px;
-    height: 200px;
+    width: 300px;
+    height: 300px;
     font-family: "Raleway", "Roboto", sans-serif;
     font-weight: 600;
     font-size: 20px;
@@ -70,6 +71,13 @@ $module-color: #003459;
     color: white;
     justify-content: center;
     align-items: center;
+    gap: 10px;
+
+    svg{
+        width: 150px;
+        height: 150px;
+    }
+
 }
 
 .vertical-navbar{

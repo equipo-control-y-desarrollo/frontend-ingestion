@@ -2,6 +2,8 @@ import React, {useState, useEffect} from 'react';
 import VerticalNavbar from '../components/VerticalNavbar';
 import ModulesMenu from '../components/ModulesMenu';
 import { backend_api } from '../Utils/util';
+import { faFileInvoice, faWallet, faBuildingColumns  } from '@fortawesome/free-solid-svg-icons';
+import { faBox, faCashRegister, faBagShopping  } from '@fortawesome/free-solid-svg-icons';
 import { Spinner } from '@chakra-ui/react'
 import Swal from 'sweetalert2';
 
@@ -10,7 +12,14 @@ export default function Home(){
     const [loading, setLoading] = useState(true);
 
     const companiesTest = ["Empresa 1", "Empresa 2", "Empresa 3", "Empresa 4", "Empresa 5", "Empresa 6", "Empresa 7", "Empresa 8", "Empresa 9", "Empresa 10"];
-    const modulesTest = ["Cuentas por pagar","Cartera","Cuentas bancarias","Flujo de caja","Cuadro de ventas","Registro de ventas"];
+    const modulesTest = [
+        {name: "Cuentas por pagar", icon: faFileInvoice},
+        {name: "Cartera", icon: faWallet },
+        {name: "Cuentas bancarias", icon: faBuildingColumns},
+        {name: "Flujo de caja", icon: faBox},
+        {name: "Cuadro de ventas", icon: faCashRegister},
+        {name: "Registro de ventas", icon: faBagShopping}
+    ];
 
     const loadingDiv = () => {
         return (
