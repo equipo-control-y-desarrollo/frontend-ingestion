@@ -1,13 +1,20 @@
 import { IconDefinition } from "@fortawesome/fontawesome-svg-core"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2"
 
 export default function ModulesMenu({modules}: {modules: {name: string, icon: IconDefinition}[]}){
     
-    const navigate = useNavigate();
-
-    const sendToView = (registerName: string) => {
-        navigate(`/view/${registerName}`);
+    const selectModule = (module: string) => {
+        console.log(`Module selected: ${module}`);
+        let enterprise = localStorage.getItem('enterprise');
+        if(enterprise !== "") console.log("Rendering module...");
+        else{
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Por favor, seleccione una empresa',
+            });
+        }
     };
 
     return (
@@ -16,7 +23,7 @@ export default function ModulesMenu({modules}: {modules: {name: string, icon: Ic
             <div className="modules-container">
                 {modules.map((module) => {
                     return (
-                        <div className="module grow" onClick={() => sendToView(module.name)}>
+                        <div className="module grow" onClick={() => selectModule(module.name)}>
                             <FontAwesomeIcon icon={module.icon} size="2x"/>
                             <h3>{module.name}</h3>
                         </div>

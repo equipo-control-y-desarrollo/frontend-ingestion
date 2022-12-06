@@ -1,17 +1,18 @@
 import React, {useState, useEffect} from 'react';
-import VerticalNavbar from '../components/VerticalNavbar';
+import VerticalNavbar from '../components/Layouts/Vertical/VerticalNavbar';
 import ModulesMenu from '../components/ModulesMenu';
 import { backend_api } from '../Utils/util';
 import { faFileInvoice, faWallet, faBuildingColumns  } from '@fortawesome/free-solid-svg-icons';
 import { faBox, faCashRegister, faBagShopping  } from '@fortawesome/free-solid-svg-icons';
 import { Spinner } from '@chakra-ui/react'
 import Swal from 'sweetalert2';
+import Layout from '../components/Layouts/Layout';
 
 export default function Home(){
 
     const [loading, setLoading] = useState(true);
+    const [enterprise, setEnterprise] = useState('');
 
-    const companiesTest = ["Empresa 1", "Empresa 2", "Empresa 3", "Empresa 4", "Empresa 5", "Empresa 6", "Empresa 7", "Empresa 8", "Empresa 9", "Empresa 10"];
     const modulesTest = [
         {name: "Cuentas por pagar", icon: faFileInvoice},
         {name: "Cartera", icon: faWallet },
@@ -33,8 +34,9 @@ export default function Home(){
     const homeDiv = () => {
         return (
             <div className="main-menu">
-                <VerticalNavbar logoImage="https://i.ibb.co/0nQqZ1F/Logo-1.png" companies={companiesTest}></VerticalNavbar>
-                <ModulesMenu modules={modulesTest}></ModulesMenu>
+                <Layout>
+                    <ModulesMenu modules={modulesTest}></ModulesMenu>
+                </Layout>
             </div>
         )
     }

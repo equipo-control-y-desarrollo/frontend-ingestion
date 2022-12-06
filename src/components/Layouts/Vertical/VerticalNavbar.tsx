@@ -1,8 +1,10 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faRightFromBracket } from "@fortawesome/free-solid-svg-icons"
 import { Tooltip } from '@chakra-ui/react'
+import { useEffect } from "react"
 
-export default function VerticalNavbar({logoImage, companies}: {logoImage: string, companies: string[]}){
+export default function VerticalNavbar({logoImage, companies, chooseCompany}: {logoImage: string, companies: string[], chooseCompany: any}){
+
     return (
         <div className="vertical-navbar">
             <div className="logo-container">
@@ -12,7 +14,7 @@ export default function VerticalNavbar({logoImage, companies}: {logoImage: strin
                 <div className="companies-list">
                     {companies.map((company) => {
                         return (
-                            <div className="company">
+                            <div key={company} className="company" onClick={(event) => chooseCompany(event)}>
                                 <h3>{company}</h3>
                             </div>
                         )})}
