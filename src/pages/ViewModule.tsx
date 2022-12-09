@@ -25,7 +25,8 @@ export default function ViewModule(){
         })
         */
         setRows([{id: "1", fecha:"9-12-2022"},{id: "2", fecha:"9-12-2022"},{id: "3", fecha:"9-12-2022"},
-        {id: "4", fecha:"9-12-2022"},{id: "5", fecha:"9-12-2022"}]);
+        {id: "4", fecha:"9-12-2022"},{id: "5", fecha:"9-12-2022"},{id: "6", fecha:"9-12-2022"},{id: "7", fecha:"9-12-2022"}
+        ,{id: "8", fecha:"9-12-2022"},{id: "9", fecha:"9-12-2022"}, {id: "10", fecha:"9-12-2022"}]);
         //setRows([]);
     },[])
 

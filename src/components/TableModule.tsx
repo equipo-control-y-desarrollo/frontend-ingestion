@@ -1,13 +1,10 @@
 import RowTable from "./RowTable"; 
+import PaginatedItems from "./PaginatedItems";
 
-export default function TableModule({rows} : {rows: any[]}){
+export default function TableModule({rows} : {rows: {}[]}){
     return(
         <div className="tableData">
-            {rows.map((row) => {
-                    return (
-                        <RowTable id={row.id} fecha={row.fecha}></RowTable>
-                    )
-                })}
+            <PaginatedItems items={rows} itemsPerPage={5}></PaginatedItems>
         </div>
     )
 }

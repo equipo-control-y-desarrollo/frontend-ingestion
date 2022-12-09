@@ -4,14 +4,10 @@ import ModulesMenu from '../components/ModulesMenu';
 import { backend_api } from '../Utils/util';
 import { Spinner } from '@chakra-ui/react'
 import Swal from 'sweetalert2';
-import Layout from '../components/Layouts/LayoutVertical';
 
 export default function Home(){
 
     const [loading, setLoading] = useState(true);
-    const [enterprise, setEnterprise] = useState('');
-
-
 
     const loadingDiv = () => {
         return (
@@ -25,6 +21,7 @@ export default function Home(){
     const homeDiv = () => {
         return (
             <div className="main-menu">
+                <ModulesMenu/>
             </div>
         )
     }
