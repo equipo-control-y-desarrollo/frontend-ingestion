@@ -2,8 +2,16 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faRightFromBracket } from "@fortawesome/free-solid-svg-icons"
 import { Tooltip } from '@chakra-ui/react'
 import { useEffect } from "react"
+import { useNavigate } from "react-router-dom"
 
 export default function VerticalNavbar({logoImage, companies, chooseCompany}: {logoImage: string, companies: string[], chooseCompany: any}){
+
+    const navigate = useNavigate();
+
+    const Logout = () => {
+        localStorage.setItem('enterprise', '');
+        navigate('/');
+    }
 
     return (
         <div className="vertical-navbar">
@@ -22,9 +30,11 @@ export default function VerticalNavbar({logoImage, companies, chooseCompany}: {l
             </div>
             <div className="vertical-navbar-footer">
                 <hr></hr>
-                <Tooltip label='Cerrar Sesion'>
-                    <FontAwesomeIcon icon={faRightFromBracket}/>            
-                </Tooltip>
+                <div onClick={() => Logout()}>
+                    <Tooltip label='Cerrar Sesion'>
+                        <FontAwesomeIcon icon={faRightFromBracket}/>            
+                    </Tooltip>
+                </div>
             </div>
         </div>
     )

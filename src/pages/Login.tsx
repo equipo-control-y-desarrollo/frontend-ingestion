@@ -60,7 +60,7 @@ export default function Login(){
             })
         })
         */
-        navigate('/home');
+        navigate('/home/modules');
     }
 
     const alertForget = () => {
