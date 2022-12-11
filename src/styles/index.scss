@@ -104,6 +104,48 @@ $main-blue-lines: #00A8E8;
     }
 }
 
+.viewDataGrid{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    gap: 55px;
+    align-items: center;
+}
+
+.displayDataGrid{
+    display: grid;
+    width: 90%;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr;
+    row-gap: 50px;
+}
+
+.titleShow{
+    font-family: "Raleway", "Roboto", sans-serif;
+    font-weight: 600;
+    font-size: 38px;
+    margin-top: 5px;
+}
+
+.fieldData {
+    display: flex;
+    flex-direction: column;
+    
+    h2{
+        font-family: "Raleway", "Roboto", sans-serif;
+        font-weight: 600;
+        font-size: 18px;
+    }
+
+    input{
+        background-color: $row-color;
+        border-radius: 15px;
+        width: 75%;
+        height: 48px;
+        text-align: center;
+    }
+}
+
 .row{
     display: flex;
     direction: row;

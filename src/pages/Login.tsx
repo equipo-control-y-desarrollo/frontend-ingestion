@@ -32,7 +32,7 @@ export default function Login(){
         }
         console.log(`Sending data to server...(${data.username},${data.password})`);
         /*
-        backend_api.post("", {
+        backend_api.post("auth/login", {
             username: data.username,
             password: data.password
         }).then((res) => {
@@ -43,7 +43,7 @@ export default function Login(){
                     title: 'Bienvenido',
                     text: 'Ingreso exitoso',
                 }).then((res) => {
-                    navigate('/home');
+                    navigate('/home/modules');
                 });
             }else{
                 Swal.fire({
@@ -53,6 +53,7 @@ export default function Login(){
                 });
             }        
         }).catch((err) => {
+            console.log(err);
             Swal.fire({
                 icon: 'error',
                 title: 'Oops :(',
