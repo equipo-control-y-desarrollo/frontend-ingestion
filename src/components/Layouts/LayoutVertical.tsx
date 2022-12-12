@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react"
 import VerticalNavbar from "../VerticalNavbar"
 import { Outlet } from 'react-router-dom';
-
+import useLocalStorage from "../../hooks/useLocalStorage";
 
 export default function Layout() {
 
@@ -11,6 +11,7 @@ export default function Layout() {
         let elements : any = document.getElementsByClassName("company");
         console.log(`Enterprise selected: ${event.target.innerText}`);
         localStorage.setItem('enterprise', event.target.innerText);
+        window.dispatchEvent(new Event("storage"));
         for (let i = 0; i < elements.length; i++) {
             if(elements[i].innerText === event.target.innerText){
                 elements[i].style.backgroundColor = 'white';

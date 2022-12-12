@@ -20,8 +20,10 @@ export default function ModulesMenu(){
     const selectModule = (module: string) => {
         console.log(`Module selected: ${module}`);
         let enterprise = localStorage.getItem('enterprise');
-        if(enterprise !== "") navigate(`../${enterprise}`, {replace: true, state: {enterprise: enterprise, module: module}});
-        else{
+        if(enterprise !== ""){
+            localStorage.setItem('module', module);   
+            navigate(`../${enterprise}`, {replace: true, state: {enterprise: enterprise, module: module}});
+        }else{
             Swal.fire({
                 icon: 'error',
                 title: 'Oops...',
