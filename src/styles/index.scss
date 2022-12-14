@@ -5,6 +5,7 @@ $main-blue-green: #00171F;
 $module-color: #003459;
 $row-color: #D9D9D9;
 $main-blue-lines: #00A8E8;
+$input-placeholder-text: rgba(0, 52, 89, 0.5);
 
 #pencil{
 
@@ -46,19 +47,61 @@ $main-blue-lines: #00A8E8;
     }
 }
 
-.addView{
-    display: flex;
-    flex-direction: row;
 
+.addView-Cols{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 40px;
+    align-items: center;
+}
+
+.addView-Rows{
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    justify-content: space-around;
+    padding-left: 20px;
     hr{
-        height: 20px;
+        height: 100%;
         border-left: 12px solid $main-blue-lines;
     }
 }
 
 .add-form{
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    gap: 20px;
+    
+    .form{
+        display: flex;
+        flex-direction: column;
+        gap: 25px;
+    }
+}
+
+.add-view-field{
+    h2{        
+        padding-left: 20px;
+        font-family: 'Raleway';
+        font-style: normal;
+        font-weight: 600;
+        font-size: 20px;
+    }
+}
+
+.input-field-add{
+    width: 268px !important;
+    border-radius: 19px !important;
+    background-color: $row-color !important;
+    font-family: 'Raleway', 'Roboto', sans-serif;
+    font-weight: 600;
+
+    &::placeholder{
+        color: $input-placeholder-text;
+        font-family: 'Raleway', 'Roboto', sans-serif;
+    }
+
 }
 
 .viewModule{

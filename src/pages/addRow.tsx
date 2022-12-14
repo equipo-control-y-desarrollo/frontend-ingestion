@@ -1,9 +1,10 @@
 import { useNavigate, useLocation } from "react-router-dom";
 import { useEffect, useState} from "react";
 import { backend_api } from "../Utils/util";
-import { Spinner } from "@chakra-ui/react";
+import { Spinner, Input, Button} from "@chakra-ui/react";
 import Swal from 'sweetalert2';
 import Axios from "axios";
+import { resourceLimits } from "worker_threads";
 
 
 export default function AddRow(){
@@ -41,39 +42,68 @@ export default function AddRow(){
         }
     }, [])
 
+    const sendData = () => {
+        Swal.fire({
+            icon: 'success',
+            title: 'Creación exitosa',
+            text: `El registro fue creado en la tabla ${localStorage.getItem('module')} fue realizado de manera exitosa. ¿Desea crear uno nuevo o regresar al menu?`,
+            showDenyButton: true,
+            showCancelButton: true,
+            showConfirmButton: true,
+            confirmButtonText: 'Crear otro',
+            denyButtonText: `Ir al menu de modulos`,
+        }).then((res) => {
+            if(!res.isConfirmed){
+                navigate('../modules', {replace: true});
+            }
+        })
+    }
+
     const createField = (low: number ,upper: number ) => {
         let fields = []
         for(let i = low; i < upper; i++){
             let curr : string = columns[i];
+            let date : boolean = curr.includes('fecha') || curr.includes('date');
             console.log(curr);
-            if(curr.includes('fecha') || curr.includes('date')){
-                fields.push(
-                <div>
-                    Fecha
-                </div>)
-            }else{
-                fields.push(
-                    <div>
-                        Text
-                    </div>
-                )
-            }
+            fields.push(
+                <div className="add-view-field">
+                    <h2>{curr}</h2>
+                    <Input
+                    className="input-field-add"
+                    placeholder={`Escriba la ${curr}`}
+                    size="md"
+                    type={date === true ? 'date' : 'text'}
+                    />
+                </div>
+            )
         }
         return fields;
     }
 
     const addDiv = () => {
         return(
-            <div className="addView">
-                <hr className="blueLine"></hr>
-                <div className="add-form">
-                    {createField(0,8)}
+            <div className="addView-Cols">
+                <h2 className='titleShow'>Creación en {localStorage.getItem('module')}</h2>
+                <div className="addView-Rows">
+                    <div className="add-form">
+                        <hr className="blueLine"></hr>
+                        <div className="form">
+                            {createField(0,8)} 
+                        </div> 
+                    </div>
+                    <div className="add-form">
+                        <hr className="blueLine"></hr>
+                        <div className="form">
+                            {createField(8,16)} 
+                        </div> 
+                    </div>
                 </div>
-                <hr className="blueLine"></hr>
-                <div className="add-form">
-                    {createField(8,16)} 
+                <div className="buttons">
+                    <Button colorScheme='gray' onClick={() => navigate('../modules', {replace: true})}>Ir atras</Button>
+                    <Button colorScheme='whatsapp' onClick={() => sendData()}>Crear Elemento</Button>
                 </div>
             </div>
+
         )
     }
 
