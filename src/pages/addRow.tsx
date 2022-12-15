@@ -4,14 +4,14 @@ import { backend_api } from "../Utils/util";
 import { Spinner, Input, Button} from "@chakra-ui/react";
 import Swal from 'sweetalert2';
 import Axios from "axios";
-import { resourceLimits } from "worker_threads";
-
+ 
 
 export default function AddRow(){
 
     const [loading, setLoading] = useState(true);
     const [columns, setColumns] = useState<string[]>([]);
-    const [data, setData] = useState<any>([]);
+    const [data, setData] = useState<any>({});
+    const [dataRes, setDataRes] = useState<any>({})
     const navigate = useNavigate();
     const location  = useLocation();
 
@@ -22,9 +22,9 @@ export default function AddRow(){
             console.log('We are editing a new row');
             Axios.get('https://random-data-api.com/api/v2/users').then((res) => {
                 setData(res.data);
-                setColumns(Object.keys(data));
+                setDataRes(res.data);
+                setColumns(Object.keys(res.data));
                 setLoading(false);
-                console.log(columns);
             }).catch((err) => {
                 Swal.fire({
                     icon: 'error',
@@ -36,11 +36,17 @@ export default function AddRow(){
             console.log('We are adding a row');
             Axios.get('https://random-data-api.com/api/v2/users').then((res) => {
                 setColumns(Object.keys(res.data));
-                console.log(columns)
                 setLoading(false);
             })
         }
     }, [])
+
+    const handleDataChange = (event: any) => {
+        setData({
+            ...data,
+            [event.target.name]: event.target.value.length === 0 ? dataRes[event.target.name] : event.target.value 
+        })
+    }
 
     const sendData = () => {
         Swal.fire({
@@ -64,13 +70,15 @@ export default function AddRow(){
         for(let i = low; i < upper; i++){
             let curr : string = columns[i];
             let date : boolean = curr.includes('fecha') || curr.includes('date');
-            console.log(curr);
             fields.push(
-                <div className="add-view-field">
+                <div className="add-view-field" key={curr}>
                     <h2>{curr}</h2>
                     <Input
+                    name={curr}
                     className="input-field-add"
                     placeholder={`Escriba la ${curr}`}
+                    value={data[curr]}
+                    onChange={handleDataChange}
                     size="md"
                     type={date === true ? 'date' : 'text'}
                     />
@@ -100,7 +108,7 @@ export default function AddRow(){
                 </div>
                 <div className="buttons">
                     <Button colorScheme='gray' onClick={() => navigate('../modules', {replace: true})}>Ir atras</Button>
-                    <Button colorScheme='whatsapp' onClick={() => sendData()}>Crear Elemento</Button>
+                    <Button colorScheme='whatsapp' onClick={() => sendData()}>{data_state.isEdit ? 'Editar Registro' : 'Crear Registro'}</Button>
                 </div>
             </div>
 

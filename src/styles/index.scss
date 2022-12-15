@@ -1,11 +1,15 @@
 @import url('./fonts.scss');
 @import url('./effects.scss');
 
+// Style variables
 $main-blue-green: #00171F;
 $module-color: #003459;
 $row-color: #D9D9D9;
 $main-blue-lines: #00A8E8;
 $input-placeholder-text: rgba(0, 52, 89, 0.5);
+
+// Media query variables
+$breakpoint-tablet: 900px;
 
 #pencil{
 
@@ -191,6 +195,7 @@ $input-placeholder-text: rgba(0, 52, 89, 0.5);
         width: 75%;
         height: 48px;
         text-align: center;
+        color: rgb(88, 88, 88);
     }
 }
 
@@ -281,6 +286,18 @@ main{
         height: 150px;
     }
 
+}
+
+@media screen and (max-width: $breakpoint-tablet) {
+    .module{
+        height: 180px;
+        width: 180px;
+        
+        svg{
+            width: 100px;
+            height: 100px;
+        }
+    }
 }
 
 .vertical-navbar{
