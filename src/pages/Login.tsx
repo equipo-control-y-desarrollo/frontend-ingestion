@@ -2,7 +2,6 @@ import React, {useState} from 'react';
 import Swal from 'sweetalert2';
 import {useNavigate} from 'react-router-dom'; 
 import {Input} from '@chakra-ui/react';
-import { Spinner } from '@chakra-ui/react'
 import { backend_api } from '../Utils/util';
 
 import '../styles/index.scss';
@@ -31,7 +30,6 @@ export default function Login(){
             return;
         }
         console.log(`Sending data to server...(${data.username},${data.password})`);
-        /*
         backend_api.post("auth/login", {
             username: data.username,
             password: data.password
@@ -45,23 +43,23 @@ export default function Login(){
                 }).then((res) => {
                     navigate('/home/modules');
                 });
-            }else{
+            }     
+        }).catch((err) => {
+            console.log(err);
+            if(err.response.message === "Usuario not found"){
                 Swal.fire({
                     icon: 'error',
                     title: 'Oops...',
                     text: 'Usuario o contraseña incorrectos',
                 });
-            }        
-        }).catch((err) => {
-            console.log(err);
-            Swal.fire({
-                icon: 'error',
-                title: 'Oops :(',
-                text: 'Error al intentar ingresar, por favor pruebe más tarde',
-            })
+            }else{
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops :(',
+                    text: 'Error al intentar ingresar, por favor pruebe más tarde',
+                })
+            }
         })
-        */
-        navigate('/home/modules');
     }
 
     const alertForget = () => {

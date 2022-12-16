@@ -1,28 +1,19 @@
-import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faFileInvoice, faWallet, faBuildingColumns  } from '@fortawesome/free-solid-svg-icons';
-import { faBox, faCashRegister, faBagShopping  } from '@fortawesome/free-solid-svg-icons';
+import { useNavigate } from "react-router-dom";
+import { useCompany } from "./Layouts/LayoutVertical";
+import propsModules from "../interfaces";
 import Swal from "sweetalert2";
 
-export default function ModulesMenu(){
+export default function ModulesMenu({modules} : {modules: propsModules[] | []}){
     
     const navigate = useNavigate();
-
-    const modulesTest = [
-        {name: "Cuentas por pagar", icon: faFileInvoice},
-        {name: "Cartera", icon: faWallet },
-        {name: "Cuentas bancarias", icon: faBuildingColumns},
-        {name: "Flujo de caja", icon: faBox},
-        {name: "Cuadro de ventas", icon: faCashRegister},
-        {name: "Registro de ventas", icon: faBagShopping}
-    ];
+    const {company} = useCompany();
 
     const selectModule = (module: string) => {
         console.log(`Module selected: ${module}`);
-        let enterprise = localStorage.getItem('enterprise');
-        if(enterprise !== ""){
+        if(company !== ""){
             localStorage.setItem('module', module);   
-            navigate(`../${enterprise}`, {replace: true, state: {enterprise: enterprise, module: module}});
+            navigate(`../${module}`, {replace: true});
         }else{
             Swal.fire({
                 icon: 'error',
@@ -36,9 +27,9 @@ export default function ModulesMenu(){
         <div className="modules-menu">
             <h2>Registros</h2>
             <div className="modules-container">
-                {modulesTest.map((module) => {
+                {modules.map((module) => {
                     return (
-                        <div className="module grow" onClick={() => selectModule(module.name)}>
+                        <div key={module.name} className="module grow" onClick={() => selectModule(module.name)}>
                             <FontAwesomeIcon icon={module.icon} size="2x"/>
                             <h3>{module.name}</h3>
                         </div>

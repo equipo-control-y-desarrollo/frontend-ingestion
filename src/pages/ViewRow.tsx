@@ -32,14 +32,6 @@ export default function ViewRow(){
             setLoading(false);
             setIsError(true);
         })
-        /*
-        backend_api.get("")
-        .then((res) => {
-            console.log(res.data);
-            setData(res.data);
-        })
-        .catch(() => {
-        */
     },[])
 
     const loadingDiv = () => {

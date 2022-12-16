@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from 'react';
-import ReactDOM from 'react-dom';
+import React, { useState } from 'react';
 import ReactPaginate from 'react-paginate';
 import RowTable from './RowTable';
 
@@ -7,8 +6,8 @@ function Items({ currentItems } : {currentItems: {}[]}) {
   return (
     <>
       {currentItems &&
-        currentItems.map((row: any) => (
-          <div className="row-container">
+        currentItems.map((row: any, index: number) => (
+          <div key={index} className="row-container">
             <RowTable id={row.id} fecha={row.fecha}></RowTable>
           </div>
         ))}

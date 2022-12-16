@@ -9,7 +9,8 @@ $main-blue-lines: #00A8E8;
 $input-placeholder-text: rgba(0, 52, 89, 0.5);
 
 // Media query variables
-$breakpoint-tablet: 900px;
+$breakpoint-medium: 1283px;
+$breakpoint-tablet: 949px;
 
 #pencil{
 
@@ -23,6 +24,10 @@ $breakpoint-tablet: 900px;
     &:hover{
         color: red;
     }
+}
+
+#backButton{
+    background-color: $main-blue-green;
 }
 
 #loginForm{
@@ -179,6 +184,12 @@ $breakpoint-tablet: 900px;
     margin-top: 20px;
 }
 
+.NoData{
+    text-align: center;
+    font-family: 'Raleway', 'Roboto', sans-serif;
+    font-size: 30px;
+}
+
 .fieldData {
     display: flex;
     flex-direction: column;
@@ -288,6 +299,18 @@ main{
 
 }
 
+@media screen and (max-width: $breakpoint-medium) {
+    .module{
+        height: 220px;
+        width: 220px;
+        
+        svg{
+            width: 100px;
+            height: 100px;
+        }
+    }
+}
+
 @media screen and (max-width: $breakpoint-tablet) {
     .module{
         height: 180px;
@@ -299,6 +322,8 @@ main{
         }
     }
 }
+
+
 
 .vertical-navbar{
     display: flex;

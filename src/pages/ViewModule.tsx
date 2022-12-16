@@ -1,25 +1,19 @@
-import TableModule from "../components/TableModule"
-import { Navigate, useLocation } from "react-router-dom"
-import { backend_api } from "../Utils/util";
-import { Button } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
+import { Button } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
-import useLocalStorage from "../hooks/useLocalStorage";
 import Swal from 'sweetalert2';
+import TableModule from "../components/TableModule"
+import { backend_api } from "../Utils/util";
+import { useCompany } from "../components/Layouts/LayoutVertical";
 
 export default function ViewModule(){
 
     const [rows, setRows] = useState([{}]);    
-    const location = useLocation();
-    const {module} = location.state;
     const navigate = useNavigate();
-    const [enterpriseLS, setEnterpriseLS] = useState(localStorage.getItem('enterprise'));
+    let enterprise = useCompany().company;
+    let module = localStorage.getItem('module');
 
     useEffect(() => {
-        window.addEventListener('storage', () => {
-            console.log("Change to : " + localStorage.getItem('enterprise'));
-            setEnterpriseLS(localStorage.getItem('enterprise'));
-        })
         /*backend_api.get("").then((res) => {
             setRows(res.data);
         }).catch(() => {
@@ -35,22 +29,22 @@ export default function ViewModule(){
         ,{id: "8", fecha:"9-12-2022"},{id: "9", fecha:"9-12-2022"}, {id: "10", fecha:"9-12-2022"}]);
         //setRows([]);
         console.log("Re-render with new enterprise")
-    },[enterpriseLS]);
+    },[enterprise]);
 
     const showNoData = () => {
         return (
-            <div>
-                La tabla {module} para la empresa {enterpriseLS} no cuenta con información por el momento 
+            <div className="NoData">
+                La tabla {module} para la empresa {enterprise} no cuenta con información por el momento :(
             </div>
         )
     }
 
     return(
         <div className="viewModule">
-            <h3>{module} para {enterpriseLS}</h3>
+            <h3>{module} para {enterprise}</h3>
             {rows.length === 0 ? showNoData() : <TableModule rows={rows}/>}
             <div className="buttons">
-                <Button colorScheme='gray' onClick={() => navigate('../modules', {replace: true})}>Ir atras</Button>
+                <Button id="backButton" colorScheme={"#00171F"} onClick={() => navigate('../modules', {replace: true})}>Ir atras</Button>
                 <Button colorScheme='whatsapp' onClick={() => navigate(`../addRow/${module}`, {replace: true, state:{id: -1, isEdit: false}})}>Crear elemento</Button>
             </div>
         </div>

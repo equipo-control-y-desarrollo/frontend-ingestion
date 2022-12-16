@@ -4,7 +4,6 @@ import { backend_api } from "../Utils/util";
 import { Spinner, Input, Button} from "@chakra-ui/react";
 import Swal from 'sweetalert2';
 import Axios from "axios";
- 
 
 export default function AddRow(){
 

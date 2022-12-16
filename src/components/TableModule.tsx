@@ -1,4 +1,3 @@
-import RowTable from "./RowTable"; 
 import PaginatedItems from "./PaginatedItems";
 
 export default function TableModule({rows} : {rows: {}[]}){
