@@ -12,6 +12,7 @@ export default function Login(){
 
     const navigate = useNavigate();
 
+
     const changeData = (event: any) => {
         setData({
             ...data,
@@ -21,7 +22,7 @@ export default function Login(){
 
     const sendForm = (event: any) => {
         event.preventDefault();
-        if(data.username === '' && data.password === ''){
+        if(!(data.username && data.password)){
             Swal.fire({
                 icon: 'error',
                 title: 'Oops...',
@@ -35,18 +36,19 @@ export default function Login(){
             password: data.password
         }).then((res) => {
             console.log(res);
+            let empresas = res.data.empresas;
             if(res.status === 200){
                 Swal.fire({
                     icon: 'success',
                     title: 'Bienvenido',
                     text: 'Ingreso exitoso',
                 }).then((res) => {
-                    navigate('/home/modules');
+                    navigate('/home/modules', {state: {enterprises: empresas}});
                 });
             }     
         }).catch((err) => {
             console.log(err);
-            if(err.response.message === "Usuario not found"){
+            if(err.response?.message === "Usuario not found"){
                 Swal.fire({
                     icon: 'error',
                     title: 'Oops...',
@@ -56,7 +58,7 @@ export default function Login(){
                 Swal.fire({
                     icon: 'error',
                     title: 'Oops :(',
-                    text: 'Error al intentar ingresar, por favor pruebe más tarde',
+                    text: 'Error al intentar ingresar, por favor intenté más tarde',
                 })
             }
         })

@@ -32,7 +32,7 @@ export default function ViewRow(){
             setLoading(false);
             setIsError(true);
         })
-    },[])
+    }, [])
 
     const loadingDiv = () => {
         return (

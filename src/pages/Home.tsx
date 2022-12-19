@@ -46,12 +46,12 @@ export default function Home(){
             })
         })*/ 
         setModules([
-            {name: "Cuentas por pagar", icon: match_module_icon("Cuentas por pagar")},
-            {name: "Cartera", icon: match_module_icon("Cartera")},
-            {name: "Cuentas bancarias", icon: match_module_icon("Cuentas bancarias")},
-            {name: "Flujo de caja", icon: match_module_icon("Flujo de caja")},
-            {name: "Cuadro de ventas", icon: match_module_icon("Cuadro de ventas")},
-            {name: "Registro de ventas", icon: match_module_icon("Registro de ventas")}
+            {name: "Cuentas por pagar", value:"cuenta_pendiente", icon: match_module_icon("Cuentas por pagar")},
+            {name: "Cartera", value: "cartera", icon: match_module_icon("Cartera")},
+            {name: "Cuentas bancarias", value: "cuentas", icon: match_module_icon("Cuentas bancarias")},
+            {name: "Flujo de caja",  value:"flujocaja", icon: match_module_icon("Flujo de caja")},
+            {name: "Cuadro de ventas", value:"", icon: match_module_icon("Cuadro de ventas")},
+            {name: "Registro de ventas", value:"ventas", icon: match_module_icon("Registro de ventas")}
         ]);
         setTimeout(() => setLoading(false),1000);
     },[enterprise]);

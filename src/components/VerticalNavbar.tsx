@@ -8,7 +8,6 @@ export default function VerticalNavbar({logoImage, companies, chooseCompany}: {l
     const navigate = useNavigate();
 
     const Logout = () =>  navigate('/');
-    
 
     return (
         <div className="vertical-navbar">
@@ -17,12 +16,15 @@ export default function VerticalNavbar({logoImage, companies, chooseCompany}: {l
             </div>
             <div className="companies-container">
                 <div className="companies-list">
-                    {companies.map((company) => {
+                    {companies.length === 0 ? 
+                    <div>There is no company to this user</div>
+                    : companies.map((company) => {
                         return (
                             <div key={company} className="company" onClick={(event) => chooseCompany(event)}>
                                 <h3>{company}</h3>
                             </div>
-                        )})}
+                        )})
+                    }
                 </div>
             </div>
             <div className="vertical-navbar-footer">

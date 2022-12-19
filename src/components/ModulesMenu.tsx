@@ -29,7 +29,7 @@ export default function ModulesMenu({modules} : {modules: propsModules[] | []}){
             <div className="modules-container">
                 {modules.map((module) => {
                     return (
-                        <div key={module.name} className="module grow" onClick={() => selectModule(module.name)}>
+                        <div key={module.name} className="module grow" onClick={() => selectModule(module.value)}>
                             <FontAwesomeIcon icon={module.icon} size="2x"/>
                             <h3>{module.name}</h3>
                         </div>
