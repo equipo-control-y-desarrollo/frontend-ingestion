@@ -1,8 +1,10 @@
 import React, {useState} from 'react';
 import Swal from 'sweetalert2';
+import Cookies from 'universal-cookie';
 import {useNavigate} from 'react-router-dom'; 
 import {Input} from '@chakra-ui/react';
 import { backend_api } from '../Utils/util';
+
 
 import '../styles/index.scss';
 
@@ -31,21 +33,21 @@ export default function Login(){
             return;
         }
         console.log(`Sending data to server...(${data.username},${data.password})`);
-        backend_api.post("auth/login", {
+        backend_api.post('/auth/login', {
             username: data.username,
             password: data.password
         }).then((res) => {
-            console.log(res);
-            let empresas = res.data.empresas;
-            if(res.status === 200){
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Bienvenido',
-                    text: 'Ingreso exitoso',
-                }).then((res) => {
-                    navigate('/home/modules', {state: {enterprises: empresas}});
-                });
-            }     
+            console.log(res.data);
+            let empresas = res.data.usuario.empresas;
+            const cookies = new Cookies();
+            cookies.set('token', res.data.token, {path: '/'});
+            Swal.fire({
+                icon: 'success',
+                title: 'Bienvenido',
+                text: 'Ingreso exitoso',
+            }).then((res) => {
+                navigate('/home/modules', {state: {enterprises: empresas}});
+            });
         }).catch((err) => {
             console.log(err);
             if(err.response?.message === "Usuario not found"){

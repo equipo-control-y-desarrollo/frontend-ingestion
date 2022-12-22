@@ -1,15 +1,23 @@
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import VerticalNavbar from "../VerticalNavbar"
 import { useLocation, Outlet, useOutletContext } from 'react-router-dom';
+import { backend_api } from "../../Utils/util";
 
 type ContextType = {company: string, idCompany: string};
 
 export default function Layout() {
 
     const [company, setCompany] = useState<string>('');
+    const [listCompanies, setListCompanies] = useState<string[]>([]);
     const [idCompany, setIdCompany] = useState<string>('1');
     
     const check_page = new RegExp("\/home\/(modules|\w+)");
+
+    useEffect(() => {
+        backend_api.get('empresa/user').then((res) => {
+            setListCompanies(res.data);
+        })
+    }, [])
 
     const companiesTest = ["Empresa 1", "Empresa 2", "Empresa 3", "Empresa 4", "Empresa 5", "Empresa 6", "Empresa 7", "Empresa 8", "Empresa 9", "Empresa 10"];
 
@@ -33,7 +41,7 @@ export default function Layout() {
 
     return (
         <div className="Layout">
-            <VerticalNavbar companies={companiesTest} chooseCompany={selectEnterprise} logoImage="https://i.ibb.co/0nQqZ1F/Logo-1.png"></VerticalNavbar>
+            <VerticalNavbar companies={listCompanies.length === 0 ? companiesTest : listCompanies} chooseCompany={selectEnterprise} logoImage="https://i.ibb.co/0nQqZ1F/Logo-1.png"></VerticalNavbar>
             <main>
                 <Outlet context={{company, idCompany}}/>
             </main>

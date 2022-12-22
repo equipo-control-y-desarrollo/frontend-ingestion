@@ -12,12 +12,13 @@ export default function ViewModule(){
     const navigate = useNavigate();
     let enterprise = useCompany().company;
     let id_enterprise = useCompany().idCompany;
-    let module = localStorage.getItem('module');
+    let data : any = JSON.parse(localStorage.getItem('module') || "" );
 
+    console.log(data);
 
     console.log(useCompany());
     useEffect(() => {
-        backend_api.get(`${module}/empresas/${id_enterprise}`).then((res) => {
+        backend_api.get(`${data.query}/empresas/${id_enterprise}`).then((res) => {
             console.log('Fetch Status for the rows: OK')
             console.log(res.data);
             setRows(res.data);
@@ -40,14 +41,14 @@ export default function ViewModule(){
     const showNoData = () => {
         return (
             <div className="NoData">
-                La tabla {module} para la empresa {enterprise} no cuenta con información por el momento :(
+                La tabla {data.name} para la empresa {enterprise} no cuenta con información por el momento :(
             </div>
         )
     }
 
     return(
         <div className="viewModule">
-            <h3>{module} para {enterprise}</h3>
+            <h3>{data.name} para {enterprise}</h3>
             {rows.length === 0 ? showNoData() : <TableModule rows={rows}/>}
             <div className="buttons">
                 <Button id="backButton" colorScheme={"#00171F"} onClick={() => navigate('../modules', {replace: true})}>Ir atras</Button>
