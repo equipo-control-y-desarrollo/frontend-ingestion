@@ -2,12 +2,17 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faRightFromBracket } from "@fortawesome/free-solid-svg-icons"
 import { Tooltip } from '@chakra-ui/react'
 import { useNavigate } from "react-router-dom"
+import Cookies from "universal-cookie";
 
-export default function VerticalNavbar({logoImage, companies, chooseCompany}: {logoImage: string, companies: string[], chooseCompany: any}){
+export default function VerticalNavbar({logoImage, companies, chooseCompany}: {logoImage: string, companies: any[], chooseCompany: any}){
 
     const navigate = useNavigate();
 
-    const Logout = () =>  navigate('/');
+    const Logout = () => { 
+        const cookie = new Cookies()
+        cookie.remove('token', {path: "/"});
+        navigate('/')
+    };
 
     return (
         <div className="vertical-navbar">
@@ -20,8 +25,8 @@ export default function VerticalNavbar({logoImage, companies, chooseCompany}: {l
                     <div>There is no company to this user</div>
                     : companies.map((company) => {
                         return (
-                            <div key={company} className="company" onClick={(event) => chooseCompany(event)}>
-                                <h3>{company}</h3>
+                            <div key={company.name} data-value={company.id} className="company" onClick={(event) => chooseCompany(event)}>
+                                <h3 data-value={company.id}>{company.name}</h3>
                             </div>
                         )})
                     }

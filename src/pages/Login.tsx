@@ -40,10 +40,11 @@ export default function Login(){
             console.log(res.data);
             let empresas = res.data.usuario.empresas;
             const cookies = new Cookies();
+            console.log('Cookies has been set')
             cookies.set('token', res.data.token, {path: '/'});
             Swal.fire({
                 icon: 'success',
-                title: 'Bienvenido',
+                title: `Bienvenido ${data.username}`,
                 text: 'Ingreso exitoso',
             }).then((res) => {
                 navigate('/home/modules', {state: {enterprises: empresas}});

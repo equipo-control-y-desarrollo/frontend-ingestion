@@ -18,7 +18,7 @@ export default function ViewModule(){
 
     console.log(useCompany());
     useEffect(() => {
-        backend_api.get(`${data.query}/empresas/${id_enterprise}`).then((res) => {
+        backend_api.get(`${data.query}/empresa/${id_enterprise}`).then((res) => {
             console.log('Fetch Status for the rows: OK')
             console.log(res.data);
             setRows(res.data);

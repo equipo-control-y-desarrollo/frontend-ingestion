@@ -1,32 +1,47 @@
 import React, { useEffect, useState } from "react"
 import VerticalNavbar from "../VerticalNavbar"
-import { useLocation, Outlet, useOutletContext } from 'react-router-dom';
+import { Outlet, useOutletContext } from 'react-router-dom';
 import { backend_api } from "../../Utils/util";
+import Swal from "sweetalert2";
 
 type ContextType = {company: string, idCompany: string};
 
 export default function Layout() {
 
     const [company, setCompany] = useState<string>('');
-    const [listCompanies, setListCompanies] = useState<string[]>([]);
-    const [idCompany, setIdCompany] = useState<string>('1');
+    const [listCompanies, setListCompanies] = useState<{}[]>([]);
+    const [idCompany, setIdCompany] = useState<string>('8');
     
-    const check_page = new RegExp("\/home\/(modules|\w+)");
+    const regex = /\/home\/(modules|\w+)/gm;
 
     useEffect(() => {
+        backend_api.get('empresa').then((res) => {
+            console.log(res.data);
+        })
         backend_api.get('empresa/user').then((res) => {
+            console.log('Setting companies')
             setListCompanies(res.data);
+        }).catch((err) => {
+            console.log(err);
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: '¡Algo ha salido mal! por favor intenta más tarde',
+            })
         })
     }, [])
 
-    const companiesTest = ["Empresa 1", "Empresa 2", "Empresa 3", "Empresa 4", "Empresa 5", "Empresa 6", "Empresa 7", "Empresa 8", "Empresa 9", "Empresa 10"];
+    const companiesTest = [{name: "Empresa 1", id: 8}, {name: "Empresa 2", id: 8}, {name: "Empresa 3", id: 8}, {name: "Empresa 4", id: 8}, {name: "Empresa 5", id: 8}];
 
     const selectEnterprise = (event: any) => {
         let current_page : string = window.location.pathname;
-        if(check_page.test(current_page)){
+        console.log(current_page);
+        if(regex.test(current_page)){
+            console.log("Entre");
             let elements : any = document.getElementsByClassName("company");
-            console.log(`Enterprise selected: ${event.target.innerText}`);
+            console.log(`Enterprise selected: ${event.target.innerText} id ${event.target.dataset.value}`);
             setCompany(event.target.innerText);
+            setIdCompany(event.target.dataset.value)
             for (let i = 0; i < elements.length; i++) {
                 if(elements[i].innerText === event.target.innerText){
                     elements[i].style.backgroundColor = 'white';

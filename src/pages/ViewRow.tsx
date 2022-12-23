@@ -18,11 +18,11 @@ export default function ViewRow(){
     useEffect(() => {
         console.log(`Fetching data for the row with id: ${id}`);
         axios.get("https://random-data-api.com/api/v2/users").then((res) => {
-            console.log("Success");
-            console.log(res.data)
+            console.log(`Success : ${res.data}`)
             setData(res.data);
             setLoading(false);
         }).catch((err) => {
+            console.log(err)
             Swal.fire({
                 icon: 'error',
                 title: 'Oops...',

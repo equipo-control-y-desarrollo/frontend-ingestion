@@ -10,11 +10,11 @@ export default function ModulesMenu({modules} : {modules: propsModules[] | []}){
     const {company} = useCompany();
 
     const selectModule = (module_value: string, module_name: string) => {
-        console.log(`Module selected: ${module}`);
+        console.log(`Module selected: ${module_name}`);
         if(company !== ""){
             let data = {query: module_value, name: module_name}
             localStorage.setItem('module', JSON.stringify(data));   
-            navigate(`../${module}`, {replace: true});
+            navigate(`../${module_name}`, {replace: true});
         }else{
             Swal.fire({
                 icon: 'error',
