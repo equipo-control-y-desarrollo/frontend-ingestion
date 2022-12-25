@@ -10,15 +10,15 @@ export default function Layout() {
 
     const [company, setCompany] = useState<string>('');
     const [listCompanies, setListCompanies] = useState<{}[]>([]);
-    const [idCompany, setIdCompany] = useState<string>('8');
+    const [idCompany, setIdCompany] = useState<string>('2');
     
     const regex = /\/home\/(modules|\w+)/gm;
 
     useEffect(() => {
-        backend_api.get('empresa').then((res) => {
+        backend_api.get('empresas').then((res) => {
             console.log(res.data);
         })
-        backend_api.get('empresa/user').then((res) => {
+        backend_api.get('empresas/user').then((res) => {
             console.log('Setting companies')
             setListCompanies(res.data);
         }).catch((err) => {
@@ -31,11 +31,10 @@ export default function Layout() {
         })
     }, [])
 
-    const companiesTest = [{name: "Empresa 1", id: 8}, {name: "Empresa 2", id: 8}, {name: "Empresa 3", id: 8}, {name: "Empresa 4", id: 8}, {name: "Empresa 5", id: 8}];
+    const companiesTest = [{name: "Empresa 1", id: 2}, {name: "Empresa 2", id: 2}, {name: "Empresa 3", id: 2}, {name: "Empresa 4", id: 2}, {name: "Empresa 5", id: 2}];
 
     const selectEnterprise = (event: any) => {
         let current_page : string = window.location.pathname;
-        console.log(current_page);
         if(regex.test(current_page)){
             console.log("Entre");
             let elements : any = document.getElementsByClassName("company");

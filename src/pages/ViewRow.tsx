@@ -15,11 +15,14 @@ export default function ViewRow(){
     const location = useLocation();
     const id = location.state.id;
 
+    const module = JSON.parse(localStorage.getItem('module') || '{}');
+    console.log(module);
+
     useEffect(() => {
         console.log(`Fetching data for the row with id: ${id}`);
-        axios.get("https://random-data-api.com/api/v2/users").then((res) => {
+        backend_api.get(`${module.query}/${id}`).then((res) => {
             console.log(`Success : ${res.data}`)
-            setData(res.data);
+            setData(res.data.data);
             setLoading(false);
         }).catch((err) => {
             console.log(err)

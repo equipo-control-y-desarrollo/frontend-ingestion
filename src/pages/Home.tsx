@@ -32,25 +32,12 @@ export default function Home(){
     }
 
     useEffect(() => {
-        /*backend_api.get('/').then((response) => {
-            // Query to get the companies 
-            backend_api.get('/').then((response) => {
-                // Query to get the modules
-                setLoading(false);
-            })
-        }).catch((error) => {
-            Swal.fire({
-                icon: 'error',
-                title: 'Error',
-                text: 'No se pudo conectar con el servidor',
-            })
-        })*/ 
         setModules([
-            {name: "Cuentas por pagar", value:"cuenta_pendiente", icon: match_module_icon("Cuentas por pagar")},
-            {name: "Cartera", value: "cartera", icon: match_module_icon("Cartera")},
-            {name: "Cuentas bancarias", value: "cuentas", icon: match_module_icon("Cuentas bancarias")},
-            {name: "Flujo de caja",  value:"flujocaja", icon: match_module_icon("Flujo de caja")},
-            {name: "Cuadro de ventas", value:"", icon: match_module_icon("Cuadro de ventas")},
+            {name: "Cuentas por pagar", value:"cuentas_pendientes", icon: match_module_icon("Cuentas por pagar")},
+            {name: "Cartera", value: "carteras", icon: match_module_icon("Cartera")},
+            {name: "Cuentas bancarias", value: "cuentas", icon: match_module_icon("Cuentas Bancarias")},
+            {name: "Flujo de caja",  value:"flujoscaja", icon: match_module_icon("Flujo de caja")},
+            {name: "Cuadro de ventas", value:"ventas/cuadros", icon: match_module_icon("Cuadro de ventas")},
             {name: "Registro de ventas", value:"ventas", icon: match_module_icon("Registro de ventas")}
         ]);
         setTimeout(() => setLoading(false),1000);

@@ -23,6 +23,10 @@ function match_module_icon(module: string) : IconDefinition {
   }
 }
 
+function checkTypes() : boolean {
+  return true;
+}
+
 export {
     backend_api,
     match_module_icon

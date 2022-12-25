@@ -4,7 +4,7 @@ import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 import { backend_api } from "../Utils/util";
 
-export default function RowTable({id,fecha}: {id: string, fecha: string}){
+export default function RowTable({id}: {id: string, fecha: string}){
 
     const navigate = useNavigate();
 
@@ -32,9 +32,9 @@ export default function RowTable({id,fecha}: {id: string, fecha: string}){
 
     const deleteThisRow = (event: any) => {
         event.stopPropagation();
+        let query = JSON.parse(localStorage.getItem('module') || '{}').query;
         console.log("Deleting row of with id: " + id);       
-        /*
-        backend_api.post("", {id: id}).then((res) => {
+        backend_api.delete(`${query}/${id}`).then((res) => {
             Swal.fire({
                 icon: 'success',
                 title: 'Success',
@@ -48,14 +48,12 @@ export default function RowTable({id,fecha}: {id: string, fecha: string}){
                 footer: 'Por favor intenta más tarde de nuevo'
             });
         });
-        */
     };
 
     return(
         <div className="row grow" onClick={viewThisRow}>
             <div className="crucialData">
                 <div>ID # {id}</div>
-                <div>Creación : {fecha}</div>
             </div>
             <div className="crucialData optionsRow ">
                 <FontAwesomeIcon onClick={editThisRow} icon={faPencil} className="icon" id="pencil"></FontAwesomeIcon>
