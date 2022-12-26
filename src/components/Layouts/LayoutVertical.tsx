@@ -12,7 +12,7 @@ export default function Layout() {
     const [listCompanies, setListCompanies] = useState<{}[]>([]);
     const [idCompany, setIdCompany] = useState<string>('2');
     
-    const regex = /\/home\/(modules|\w+)/gm;
+    const regex = /\/home\/modules/gm;
 
     useEffect(() => {
         backend_api.get('empresas').then((res) => {
@@ -31,14 +31,12 @@ export default function Layout() {
         })
     }, [])
 
-    const companiesTest = [{name: "Empresa 1", id: 2}, {name: "Empresa 2", id: 2}, {name: "Empresa 3", id: 2}, {name: "Empresa 4", id: 2}, {name: "Empresa 5", id: 2}];
+    const companiesTest = [{name: "Jaula", id: 2}, {name: "Cafe", id: 2}, {name: "Prueba", id: 2}, {name: "La Jaula", id: 2}, {name: "Cafe el Diario", id: 2}];
 
     const selectEnterprise = (event: any) => {
         let current_page : string = window.location.pathname;
         if(regex.test(current_page)){
-            console.log("Entre");
             let elements : any = document.getElementsByClassName("company");
-            console.log(`Enterprise selected: ${event.target.innerText} id ${event.target.dataset.value}`);
             setCompany(event.target.innerText);
             setIdCompany(event.target.dataset.value)
             for (let i = 0; i < elements.length; i++) {

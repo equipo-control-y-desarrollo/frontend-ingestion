@@ -22,6 +22,13 @@ function match_module_icon(module: string) : IconDefinition {
       return faBagShopping;
   }
 }
+ 
+function checkModule(module: string, enterprise: string) : boolean{
+  if((module === "Registro de ventas" && !enterprise.includes("Jaula")) || (module === "Cuadro de ventas" && !enterprise.includes('Cafe'))){
+    return false;
+  }
+  return true;
+}
 
 function checkTypes() : boolean {
   return true;
@@ -29,5 +36,6 @@ function checkTypes() : boolean {
 
 export {
     backend_api,
-    match_module_icon
+    match_module_icon,
+    checkModule
 }
