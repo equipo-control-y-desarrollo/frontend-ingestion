@@ -153,7 +153,7 @@ export default function AddRow(){
                     </div>
                 </div>
                 <div className="buttons">
-                    <Button colorScheme='gray' onClick={() => navigate('../modules', {replace: true})}>Ir atras</Button>
+                    <Button colorScheme='gray' onClick={() => navigate(-1)}>Ir atras</Button>
                     <Button colorScheme='whatsapp' onClick={() => sendData()}>{data_state.isEdit ? 'Editar Registro' : 'Crear Registro'}</Button>
                 </div>
             </div>

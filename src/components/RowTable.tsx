@@ -10,7 +10,7 @@ export default function RowTable({id}: {id: string, fecha: string}){
 
     const viewThisRow = () => {
         console.log(`Viewing row with id: ${id}`);
-        navigate(`../row/${id}`, {replace: true, state: {id: id}});
+        navigate(`../row/${id}`, {state: {id: id}});
     }
 
     const editThisRow = (event: any) => {
@@ -25,7 +25,7 @@ export default function RowTable({id}: {id: string, fecha: string}){
             cancelButtonText: 'No'
         }).then((result) => {
             if(result.isConfirmed){
-                navigate(`../edit/${id}`, {replace: true, state: {id: id, isEdit: true}});
+                navigate(`../edit/${id}`, {state: {id: id, isEdit: true}});
             }
         });
     };

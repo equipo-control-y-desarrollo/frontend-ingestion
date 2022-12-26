@@ -61,7 +61,7 @@ export default function ViewModule(){
             {rows.length === 0 ? showNoData() : <TableModule rows={rows}/>}
             <div className="buttons">
                 <Button id="backButton" colorScheme={"#00171F"} onClick={() => navigate('../modules', {replace: true})}>Ir atras</Button>
-                <Button colorScheme='whatsapp' onClick={() => navigate(`../addRow/${module}`, {replace: true, state:{id: -1, isEdit: false}})}>Crear elemento</Button>
+                <Button colorScheme='whatsapp' onClick={() => navigate(`../addRow/${module}`, {state:{id: -1, isEdit: false}})}>Crear elemento</Button>
             </div>
         </div>
         )

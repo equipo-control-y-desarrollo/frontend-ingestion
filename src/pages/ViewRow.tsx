@@ -94,7 +94,7 @@ export default function ViewRow(){
                     {data_rows}
                 </div>
                 <div className="buttons">
-                    <Button colorScheme='gray' onClick={() => navigate('../modules', {replace: true})}>Ir atras</Button>
+                    <Button colorScheme='gray' onClick={() => navigate(-1)}>Ir atras</Button>
                     <Button colorScheme='whatsapp' onClick={() => editElement()}>Editar elemento</Button>
                 </div>
             </div>

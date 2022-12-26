@@ -16,7 +16,7 @@ export default function ModulesMenu({modules} : {modules: propsModules[] | []}){
             if(checkModule(module_name,company)){
                 let data = {query: module_value, name: module_name}
                 localStorage.setItem('module', JSON.stringify(data));   
-                navigate(`../${module_name}`, {replace: true});
+                navigate(`../${module_name}`);
             }else{
                 Swal.fire({
                     icon: 'error',

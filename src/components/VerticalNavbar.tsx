@@ -11,7 +11,7 @@ export default function VerticalNavbar({logoImage, companies, chooseCompany}: {l
     const Logout = () => { 
         const cookie = new Cookies()
         cookie.remove('token', {path: "/"});
-        navigate('/')
+        navigate('/', {replace: true})
     };
 
     return (
