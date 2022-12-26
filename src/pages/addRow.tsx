@@ -2,6 +2,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { useEffect, useState} from "react";
 import { Spinner, Input, Button} from "@chakra-ui/react";
 import Swal from 'sweetalert2';
+import { cuentaSchema } from "../schemas/schemas";
 import Axios from "axios";
 import { useCompany } from "../components/Layouts/LayoutVertical";
 import { backend_api } from "../Utils/util";
@@ -52,9 +53,11 @@ export default function AddRow(){
     const sendData = () => {
         const empresa = document.querySelector('[name="empresa_id"]');
         if(empresa) setData({...data,'empresa_id': enterprise,})
+        const data_parse = cuentaSchema.cast(data);
+        console.log(data_parse)
         if(!data_state.isEdit){
             backend_api.post(`${module.query}`, {
-                ...data
+                ...data_parse
             })
             .then((res) => {
                 Swal.fire({
@@ -115,6 +118,7 @@ export default function AddRow(){
             let curr : string = String(data[columns[i]]);
             let date : boolean = curr.includes('fecha') || curr.includes('date');
             let is_update : boolean = !updatable.includes(columns[i]);
+            console.log(data)
             fields.push(
                 <div className="add-view-field" key={columns[i]}>
                     <h2>{columns[i]}</h2>
@@ -123,7 +127,7 @@ export default function AddRow(){
                     className="input-field-add"
                     placeholder={`Escriba la ${columns[i]}`}
                     onChange={handleDataChange}
-                    value={columns[i].includes('empresa_id') ? enterprise : data_state.isEdit ? curr : ""}
+                    value={columns[i].includes('empresa_id') ? enterprise : curr}
                     size="md"
                     type={date === true ? 'date' : 'text'}
                     readOnly={columns[i].includes('empresa_id') ? true : data_state.isEdit ? is_update : false}

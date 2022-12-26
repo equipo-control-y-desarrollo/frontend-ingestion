@@ -30,9 +30,6 @@ function checkModule(module: string, enterprise: string) : boolean{
   return true;
 }
 
-function checkTypes() : boolean {
-  return true;
-}
 
 export {
     backend_api,
