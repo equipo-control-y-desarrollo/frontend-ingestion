@@ -2,10 +2,9 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { useEffect, useState} from "react";
 import { Spinner, Input, Button} from "@chakra-ui/react";
 import Swal from 'sweetalert2';
-import { cuentaSchema } from "../schemas/schemas";
-import Axios from "axios";
 import { useCompany } from "../components/Layouts/LayoutVertical";
-import { backend_api } from "../Utils/util";
+import { backend_api, checkSchema } from "../Utils/util";
+import { EventEmitter } from "stream";
 
 
 export default function AddRow(){
@@ -23,13 +22,18 @@ export default function AddRow(){
 
     useEffect(() => {
         backend_api.get(`${module.query}/schema`).then((res) => {
-                setColumns(res.data);
+            setColumns(res.data);
         })
         if (data_state.isEdit) {
             console.log(`We are editing a new row ${data_state.id}`);
-            backend_api.get(`${module.query}/1`).then((res) => {
-                setData(res.data.data);
+            backend_api.get(`${module.query}/${data_state.id}`).then((res) => {
                 setUpdatable(res.data.updatable)
+                let json_data : any = {};
+                for(let term of updatable){
+                    json_data[term] = res.data.data[term];
+                }
+                console.log(json_data)
+                setData(json_data);
                 setLoading(false)
             }).catch((err) => {
                 Swal.fire({
@@ -44,81 +48,61 @@ export default function AddRow(){
     }, [])
 
     const handleDataChange = (event: any) => {
+        if(event.target.name.includes('fecha')) event.target.value = event.target.value.substring(0,10)
         setData({
             ...data,
             [event.target.name]: event.target.value 
         })
     }
 
-    const sendData = () => {
+    const sendData = async () => {
+        let data_parse = {};
         const empresa = document.querySelector('[name="empresa_id"]');
-        if(empresa) setData({...data,'empresa_id': enterprise,})
-        const data_parse = cuentaSchema.cast(data);
-        console.log(data_parse)
-        if(!data_state.isEdit){
-            backend_api.post(`${module.query}`, {
-                ...data_parse
+        if(empresa) setData({...data,'empresa_id': enterprise})
+        try{
+            data_parse = checkSchema(module.name).cast(data);
+        }catch(e){
+            console.log(e)
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: '¡Algo ha salido mal! Hay un campo que no fue ingresado o tiene un valor erroneo',
             })
-            .then((res) => {
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Creación exitosa',
-                    text: `El registro fue creado en la tabla ${module.name} fue realizado de manera exitosa. ¿Desea crear uno nuevo o regresar al menu?`,
-                    showDenyButton: true,
-                    showCancelButton: true,
-                    showConfirmButton: true,
-                    confirmButtonText: 'Crear otro',
-                    denyButtonText: `Ir al menu de modulos`,
-                }).then((res) => {
-                    if(!res.isConfirmed){
-                        navigate('../modules', {replace: true});
-                    }
-                })
-            })
-            .catch((err) => {
-                console.log(err);
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Oops...',
-                    text: '¡Algo ha salido mal! por favor intenta más tarde',
-                })
-            })
-        }else{
-            backend_api.put(`${module.query}/${data_state.id}`)
-            .then((res) => {
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Creación exitosa',
-                    text: `El registro fue creado en la tabla ${module.name} fue realizado de manera exitosa. ¿Desea crear uno nuevo o regresar al menu?`,
-                    showDenyButton: true,
-                    showCancelButton: true,
-                    showConfirmButton: true,
-                    confirmButtonText: 'Crear otro',
-                    denyButtonText: `Ir al menu de modulos`,
-                }).then((res) => {
-                    if(!res.isConfirmed){
-                        navigate('../modules', {replace: true});
-                    }
-                })
-            })
-            .catch((err) => {
-                console.log(err);
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Oops...',
-                    text: '¡Algo ha salido mal! por favor intenta más tarde',
-                })
-            })
+            return;
         }
+        try{
+        !data_state.isEdit ? await backend_api.post(`${module.query}`, {...data_parse}) : await backend_api.put(`${module.query}/${data_state.id}`, {...data_parse})
+        }catch(e){
+            console.log(e);
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: '¡Algo ha salido mal! por favor intenta más tarde',
+            })
+            return;
+        }
+        Swal.fire({
+            icon: 'success',
+            title: 'Creación exitosa',
+            text: `El registro fue creado en la tabla ${module.name} fue realizado de manera exitosa. ¿Desea crear uno nuevo o regresar al menu?`,
+            showDenyButton: true,
+            showCancelButton: true,
+            showConfirmButton: true,
+            confirmButtonText: 'Crear otro',
+            denyButtonText: `Ir al menu de modulos`,
+        }).then((res) => {
+            if(!res.isConfirmed){
+                navigate('../modules', {replace: true});
+            }
+        })
     }
 
     const createField = (low: number ,upper: number ) => {
         let fields = []
         for(let i = low; i < upper; i++){
             let curr : string = String(data[columns[i]]);
-            let date : boolean = curr.includes('fecha') || curr.includes('date');
+            let date : boolean = columns[i].includes('fecha') || columns[i].includes('date');
             let is_update : boolean = !updatable.includes(columns[i]);
-            console.log(data)
             fields.push(
                 <div className="add-view-field" key={columns[i]}>
                     <h2>{columns[i]}</h2>
@@ -127,7 +111,7 @@ export default function AddRow(){
                     className="input-field-add"
                     placeholder={`Escriba la ${columns[i]}`}
                     onChange={handleDataChange}
-                    value={columns[i].includes('empresa_id') ? enterprise : curr}
+                    value={columns[i].includes('empresa_id') ? enterprise : date ? curr.substring(0,10): curr}
                     size="md"
                     type={date === true ? 'date' : 'text'}
                     readOnly={columns[i].includes('empresa_id') ? true : data_state.isEdit ? is_update : false}

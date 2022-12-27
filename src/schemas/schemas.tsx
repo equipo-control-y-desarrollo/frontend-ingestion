@@ -1,7 +1,6 @@
 import {object, string, number, date, boolean} from 'yup';
 
 let carteraSchema = object({
-    id: number().required().positive().integer(),
     valor: number().required().positive().integer(),
     valor_abonado: number().optional().positive().integer().default(0),
     valor_total: number().optional().positive().integer(),
@@ -16,15 +15,13 @@ let carteraSchema = object({
 })
 
 let cuentaSchema = object({
-    id: number().required().positive().integer(),
     banco: string().required().length(20),
     empresa_id: number().required().positive().integer(),
     numero: string().required().length(20),
     tipo: string().required(),
-})
+}).strict()
 
 let cuadroVentasSchemas = object({
-    id: number().required().integer().positive(),
     empresa_id: number().required().integer().positive(),
     ventas_ma_ana: number().optional().positive().default(0),
     ventas_tarde: number().optional().positive().default(0),
@@ -48,7 +45,6 @@ let cuadroVentasSchemas = object({
 })
 
 let cuentaPendienteSchema = object({
-    id: number().required().integer().positive(),
     proyecto: string().required().length(50),
     nit: string().optional().length(30),
     proveedor: string().optional().length(100),
@@ -58,20 +54,17 @@ let cuentaPendienteSchema = object({
     inmediato: number().optional().integer().positive().default(0),
     dias_30: number().optional().integer().positive().default(0),
     dias_60: number().optional().integer().positive().default(0),
-    total: number().optional().integer().positive().default(0),
     fecha_vencida : date().required(),
     empresa_id : number().required().integer().positive(),
 })
 
 let flujoCajaSchema = object({
-    id: number().required().integer().positive(),
     fecha: date().required(),
     empresa_id: number().required().integer().positive(),
     saldo_anterior: number().optional().positive().default(0),
 })
 
 let registroVentaSchema = object({
-    id: number().required().integer().positive(),
     fecha: date().required(),
     empresa_id : number().required().integer().positive(),
     cantidad: number().required().integer().positive().default(1),

@@ -16,7 +16,6 @@ export default function ViewRow(){
     const id = location.state.id;
 
     const module = JSON.parse(localStorage.getItem('module') || '{}');
-    console.log(module);
 
     useEffect(() => {
         console.log(`Fetching data for the row with id: ${id}`);
@@ -58,7 +57,8 @@ export default function ViewRow(){
         let rows = [];
         for(let i = 0; i < Object.keys(data).length; i++){
             let curr : string = Object.keys(data)[i].toString();
-            let res : string = data[curr].toString();
+            let date : boolean = curr.includes('fecha') || curr.includes('date');
+            let res : string = date ? data[curr].toString().substring(0,10) : data[curr].toString();
             rows.push(
                 <div className="fieldData">
                     <h2>{curr}</h2>

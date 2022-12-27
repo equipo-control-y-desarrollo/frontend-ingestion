@@ -39,6 +39,8 @@ export default function RowTable({id}: {id: string, fecha: string}){
                 icon: 'success',
                 title: 'Success',
                 text: 'Registro eliminado con éxito'
+            }).then((res) => {
+                navigate('../modules')
             })
         }).catch((err) => {
             Swal.fire({
