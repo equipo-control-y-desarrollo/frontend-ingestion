@@ -90,7 +90,11 @@ $breakpoint-tablet: 949px;
 }
 
 .add-view-field{
-    h2{        
+
+    display: flex;
+    flex-direction: column;
+
+    label{        
         padding-left: 20px;
         font-family: 'Raleway';
         font-style: normal;

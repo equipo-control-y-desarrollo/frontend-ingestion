@@ -1,10 +1,10 @@
 import { useNavigate, useLocation } from "react-router-dom";
 import { useEffect, useState} from "react";
-import { Spinner, Input, Button} from "@chakra-ui/react";
+import { Spinner, Input, Button, Center} from "@chakra-ui/react";
 import Swal from 'sweetalert2';
 import { useCompany } from "../components/Layouts/LayoutVertical";
 import { backend_api, checkSchema } from "../Utils/util";
-import { EventEmitter } from "stream";
+import CuentasForm from "../components/Forms/CuentasForm";
 
 
 export default function AddRow(){
@@ -21,19 +21,10 @@ export default function AddRow(){
     const module = JSON.parse(localStorage.getItem('module') || '{}')
 
     useEffect(() => {
-        backend_api.get(`${module.query}/schema`).then((res) => {
-            setColumns(res.data);
-        })
         if (data_state.isEdit) {
             console.log(`We are editing a new row ${data_state.id}`);
             backend_api.get(`${module.query}/${data_state.id}`).then((res) => {
-                setUpdatable(res.data.updatable)
-                let json_data : any = {};
-                for(let term of updatable){
-                    json_data[term] = res.data.data[term];
-                }
-                console.log(json_data)
-                setData(json_data);
+                setData(res.data.data);
                 setLoading(false)
             }).catch((err) => {
                 Swal.fire({
@@ -127,18 +118,7 @@ export default function AddRow(){
             <div className="addView-Cols">
                 <h2 className='titleShow'>Creación en {module.name}</h2>
                 <div className="addView-Rows">
-                    <div className="add-form">
-                        <hr className="blueLine"></hr>
-                        <div className="form">
-                            {createField(0,(columns.length / 2) >> 0)} 
-                        </div> 
-                    </div>
-                    <div className="add-form">
-                        <hr className="blueLine"></hr>
-                        <div className="form">
-                            {createField((columns.length / 2) >> 0, columns.length)} 
-                        </div> 
-                    </div>
+                    <CuentasForm is_update={data_state.isEdit} update_values={data_state.isEdit ? data : {}} row={data_state.id}/>
                 </div>
                 <div className="buttons">
                     <Button colorScheme='gray' onClick={() => navigate(-1)}>Ir atras</Button>
