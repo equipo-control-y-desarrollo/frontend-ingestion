@@ -18,6 +18,7 @@ export default function VerticalNavbar({
     const Logout = () => {
         const cookie = new Cookies();
         cookie.remove("token", { path: "/" });
+        localStorage.clear();
         navigate("/", { replace: true });
     };
 

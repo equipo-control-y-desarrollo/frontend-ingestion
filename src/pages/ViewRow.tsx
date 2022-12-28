@@ -3,7 +3,6 @@ import { backend_api } from "../Utils/util";
 import Swal from "sweetalert2";
 import { Spinner, Button } from "@chakra-ui/react";
 import { useNavigate, useLocation } from "react-router-dom";
-import axios from "axios";
 
 export default function ViewRow() {
     const [data, setData] = useState({} as any);
@@ -73,6 +72,37 @@ export default function ViewRow() {
         return rows;
     };
 
+    const checkIfHasSubmodules = () => {
+        if (module.submodules.length > 0) {
+            let module_name = module.submodules[0].name;
+            console.log(`Has submodules: ${module_name}`);
+            return (
+                <Button
+                    colorScheme={"teal"}
+                    onClick={() => {
+                        localStorage.setItem(
+                            "module",
+                            JSON.stringify({
+                                query: module.submodules[0].value,
+                                name: module.submodules[0].name,
+                                submodules: [],
+                            })
+                        );
+                        let data_query =
+                            module_name === "Categoria"
+                                ? `flujo/${id}`
+                                : `cuenta${id}`;
+                        navigate(`../${module_name}`, {
+                            state: { isSubmodule: true, query: data_query },
+                        });
+                    }}
+                >
+                    Ver {module_name}
+                </Button>
+            );
+        }
+    };
+
     const editElement = () => {
         console.log(`Editing element with id: ${id}`);
         Swal.fire({
@@ -108,6 +138,7 @@ export default function ViewRow() {
                     >
                         Editar elemento
                     </Button>
+                    {checkIfHasSubmodules()}
                 </div>
             </div>
         );

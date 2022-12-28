@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import * as Yup from "yup";
 
-const RegistroVentasForm = ({
+const CategoriasForm = ({
     is_update,
     update_values,
     row,
@@ -17,18 +17,25 @@ const RegistroVentasForm = ({
     const navigate = useNavigate();
 
     const clearDates = () => {
-        if (update_values.fecha)
-            update_values.fecha = update_values.fecha.substring(0, 10);
+        if (update_values.fecha_factura)
+            update_values.fecha_factura = update_values.fecha_factura.substring(
+                0,
+                10
+            );
+        if (update_values.fecha_vencimiento)
+            update_values.fecha_vencimiento =
+                update_values.fecha_vencimiento.substring(0, 10);
     };
 
     clearDates();
 
     const validationSchema = Yup.object({
-        fecha: Yup.string().required().max(10),
-        empresa_id: Yup.number().required().integer().min(1),
-        cantidad: Yup.number().required().integer().min(0).default(0),
-        producto: Yup.string().required().max(20),
-        valor_total: Yup.number().required().integer().min(0),
+        flujo_cada_id: Yup.number().required().integer().min(0),
+        descripcion: Yup.string().required().max(20),
+        efectivo: Yup.number().required().integer().min(0),
+        datafono: Yup.number().required().integer().min(0),
+        transferencia: Yup.number().required().integer().min(0),
+        gastos: Yup.number().required().integer().min(0),
     });
 
     const renderError = (message: string) => (
@@ -36,10 +43,12 @@ const RegistroVentasForm = ({
     );
 
     const initialValues = {
-        fecha: "",
-        empresa_id: "",
-        cantidad: "",
-        producto: "",
+        flujo_cada_id: "",
+        descripcion: "0",
+        efectivo: "",
+        datafono: "",
+        transferencia: "",
+        gastos: "",
     };
 
     const onSubmit = async (values: any) => {
@@ -86,56 +95,72 @@ const RegistroVentasForm = ({
             >
                 <Form>
                     <div className="add-view-field">
-                        <label htmlFor="fecha">Fecha de la venta</label>
-                        <Field
-                            name="fecha"
-                            type="date"
-                            className="input-field-add"
-                            placeholder="Ingrese la fecha"
-                        />
-                        <ErrorMessage name="fecha" render={renderError} />
-                    </div>
-                    <div className="add-view-field">
-                        <label htmlFor="empresa_id">ID de la empresa</label>
-                        <Field
-                            name="empresa_id"
-                            type="number"
-                            className="input-field-add"
-                            placeholder="Ingrese el ID de la empresa"
-                        />
-                        <ErrorMessage name="empresa_id" render={renderError} />
-                    </div>
-                    <div className="add-view-field">
-                        <label htmlFor="cantidad">Cantidad del producto</label>
-                        <Field
-                            name="cantidad"
-                            type="number"
-                            className="input-field-add"
-                            placeholder="Ingrese la cantidad de productos"
-                        />
-                        <ErrorMessage name="cantidad" render={renderError} />
-                    </div>
-                    <div className="add-view-field">
-                        <label htmlFor="producto">Nombre del producto</label>
-                        <Field
-                            name="producto"
-                            type="text"
-                            className="input-field-add"
-                            placeholder="Ingrese el nombre producto"
-                        ></Field>
-                        <ErrorMessage name="producto" render={renderError} />
-                    </div>
-                    <div className="add-view-field">
-                        <label htmlFor="valor_total">
-                            Valor total de la venta
+                        <label htmlFor="flujo_caja_id">
+                            ID del Flujo de caja
                         </label>
                         <Field
-                            name="valor_total"
+                            name="flujo_caja_id"
                             type="number"
                             className="input-field-add"
-                            placeholder="Ingrese el coste total"
-                        ></Field>
-                        <ErrorMessage name="valor_total" render={renderError} />
+                            placeholder="Ingrese el ID"
+                        />
+                        <ErrorMessage
+                            name="flujo_caja_id"
+                            render={renderError}
+                        />
+                    </div>
+                    <div className="add-view-field">
+                        <label htmlFor="descripcion">Descripción</label>
+                        <Field
+                            name="descripcion"
+                            type="text"
+                            className="input-field-add"
+                            placeholder="Ingrese la descripcion"
+                        />
+                        <ErrorMessage name="descripcion" render={renderError} />
+                    </div>
+                    <div className="add-view-field">
+                        <label htmlFor="efectivo">Efectivo</label>
+                        <Field
+                            name="efectivo"
+                            type="number"
+                            className="input-field-add"
+                            placeholder="Ingrese la cantidad de efectivo"
+                        />
+                        <ErrorMessage name="datafono" render={renderError} />
+                    </div>
+                    <div className="add-view-field">
+                        <label htmlFor="datafono">Datafono</label>
+                        <Field
+                            name="datafono"
+                            type="number"
+                            className="input-field-add"
+                            placeholder="Ingrese la cantidad por datafono"
+                        />
+                        <ErrorMessage name="datafono" render={renderError} />
+                    </div>
+                    <div className="add-view-field">
+                        <label htmlFor="transferencia">Transferencia</label>
+                        <Field
+                            name="transferencia"
+                            type="number"
+                            className="input-field-add"
+                            placeholder="Ingrese la cantidad por transferencia"
+                        />
+                        <ErrorMessage
+                            name="transferencia"
+                            render={renderError}
+                        />
+                    </div>
+                    <div className="add-view-field">
+                        <label htmlFor="gastos">Gastos</label>
+                        <Field
+                            name="gastos"
+                            type="number"
+                            className="input-field-add"
+                            placeholder="Ingrese la cantidad de gastos"
+                        />
+                        <ErrorMessage name="gastos" render={renderError} />
                     </div>
                     <button type="submit">Enviar</button>
                 </Form>
@@ -144,4 +169,4 @@ const RegistroVentasForm = ({
     );
 };
 
-export default RegistroVentasForm;
+export default CategoriasForm;

@@ -10,30 +10,37 @@ const CuadroVentasForm = ({
     row,
 }: {
     is_update: boolean;
-    update_values: {};
+    update_values: any;
     row: string;
 }) => {
     const module = JSON.parse(localStorage.getItem("module") || "{}");
     const navigate = useNavigate();
 
+    const clearDates = () => {
+        if (update_values.fecha)
+            update_values.fecha = update_values.fecha.substring(0, 10);
+    };
+
+    clearDates();
+
     const validationSchema = Yup.object({
         empresa_id: Yup.number().required().integer().positive(),
-        ventas_manana: Yup.number().optional().positive().default(0),
-        ventas_tarde: Yup.number().optional().positive().default(0),
-        efectivo: Yup.number().optional().positive().default(0),
-        datafono: Yup.number().optional().positive().default(0),
-        transferencia: Yup.number().optional().positive().default(0),
-        propinas: Yup.number().optional().positive().default(0),
-        iva: Yup.number().optional().positive().default(0),
-        hipoconsumo: Yup.number().optional().positive().default(0),
-        tks: Yup.number().required().integer().positive(),
-        epayco: Yup.number().optional().positive().default(0),
-        ventas_cafe: Yup.number().optional().positive().default(0),
-        ventas_bar: Yup.number().optional().positive().default(0),
-        ventas_mercado: Yup.number().optional().positive().default(0),
-        gastos_caja_menor: Yup.number().optional().positive().default(0),
+        ventas_mañana: Yup.number().optional().integer().min(0),
+        ventas_tarde: Yup.number().optional().integer().min(0),
+        efectivo: Yup.number().optional().integer().min(0),
+        datafono: Yup.number().optional().integer().min(0),
+        transferencia: Yup.number().optional().integer().min(0),
+        propinas: Yup.number().optional().integer().min(0),
+        iva: Yup.number().optional().integer().min(0),
+        hipoconsumo: Yup.number().optional().integer().min(0),
+        tks: Yup.number().required().integer().integer(),
+        epayco: Yup.number().optional().integer().min(0),
+        ventas_cafe: Yup.number().optional().integer().min(0),
+        ventas_bar: Yup.number().optional().integer().min(0),
+        ventas_mercado: Yup.number().optional().integer().min(0),
+        gastos_caja_menor: Yup.number().optional().integer().min(0),
         fecha: Yup.string().required().max(10),
-        horas_reserva: Yup.number().optional().integer().positive(),
+        horas_reserva: Yup.number().optional().integer().integer(),
     });
 
     const renderError = (message: string) => (
@@ -42,7 +49,7 @@ const CuadroVentasForm = ({
 
     const initialValues = {
         empresa_id: "",
-        ventas_manana: "",
+        ventas_mañana: "",
         ventas_tarde: "",
         efectivo: "",
         datafono: "",
@@ -114,17 +121,17 @@ const CuadroVentasForm = ({
                         <ErrorMessage name="empresa_id" render={renderError} />
                     </div>
                     <div className="add-view-field">
-                        <label htmlFor="ventas_manana">
+                        <label htmlFor="ventas_mañana">
                             Ventas de la mañana
                         </label>
                         <Field
-                            name="ventas_manana"
+                            name="ventas_mañana"
                             type="number"
                             className="input-field-add"
                             placeholder="Ingrese la cantidad de ventas"
                         ></Field>
                         <ErrorMessage
-                            name="ventas_manana"
+                            name="ventas_mañana"
                             render={renderError}
                         />
                     </div>
@@ -163,7 +170,7 @@ const CuadroVentasForm = ({
                     </div>
                     <div className="add-view-field">
                         <label htmlFor="transferencia">
-                            Cantidad por datafono
+                            Cantidad por transferencia
                         </label>
                         <Field
                             name="transferencia"
@@ -285,6 +292,19 @@ const CuadroVentasForm = ({
                             placeholder="Ingrese la fecha"
                         ></Field>
                         <ErrorMessage name="fecha" render={renderError} />
+                    </div>
+                    <div className="add-view-field">
+                        <label htmlFor="horas_reserva">Horas a reservar</label>
+                        <Field
+                            name="horas_reserva"
+                            type="number"
+                            className="input-field-add"
+                            placeholder="Ingrese el numero de horas a reservar"
+                        />
+                        <ErrorMessage
+                            name="horas_reserva"
+                            render={renderError}
+                        />
                     </div>
                     <button type="submit">Enviar</button>
                 </Form>

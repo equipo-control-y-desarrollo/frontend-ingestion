@@ -5,6 +5,8 @@ import {
     faCashRegister,
     faFileInvoice,
     faWallet,
+    faArrowsTurnToDots,
+    faBook,
     IconDefinition,
 } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
@@ -26,6 +28,10 @@ function match_module_icon(module: string): IconDefinition {
             return faBox;
         case "Cuadro de ventas":
             return faCashRegister;
+        case "Movimientos":
+            return faArrowsTurnToDots;
+        case "Categoria":
+            return faBook;
         default:
             return faBagShopping;
     }

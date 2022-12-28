@@ -9,6 +9,7 @@ import RegistroVentasForm from "../components/Forms/RegistroVentasForm";
 import FlujoCajaForm from "../components/Forms/FlujoCajaForm";
 import CuentaPendienteForm from "../components/Forms/CuentaPendienteForm";
 import CuadroVentasForm from "../components/Forms/CuadroVentasForm";
+import CategoriasForm from "../components/Forms/CategoriaForm";
 
 export default function AddRow() {
     const [loading, setLoading] = useState(true);
@@ -77,6 +78,14 @@ export default function AddRow() {
             case "Flujo de caja":
                 return (
                     <FlujoCajaForm
+                        is_update={data_state.isEdit}
+                        update_values={data_state.isEdit ? data : {}}
+                        row={data_state.id}
+                    />
+                );
+            case "Categoria":
+                return (
+                    <CategoriasForm
                         is_update={data_state.isEdit}
                         update_values={data_state.isEdit ? data : {}}
                         row={data_state.id}

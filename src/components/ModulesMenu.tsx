@@ -11,14 +11,26 @@ export default function ModulesMenu({
     modules: propsModules[] | [];
 }) {
     const navigate = useNavigate();
-    const { company } = useCompany();
+    const { company } =
+        useCompany() ||
+        JSON.parse(localStorage.getItem("companyData") || "{}").name;
 
-    const selectModule = (module_value: string, module_name: string) => {
+    const selectModule = (
+        module_value: string,
+        module_name: string,
+        module_submodel: unknown[]
+    ) => {
         console.log(`Module selected: ${module_name}`);
         if (company !== "") {
             if (checkModule(module_name, company)) {
-                let data = { query: module_value, name: module_name };
-                localStorage.setItem("module", JSON.stringify(data));
+                localStorage.setItem(
+                    "module",
+                    JSON.stringify({
+                        query: module_value,
+                        name: module_name,
+                        submodules: module_submodel,
+                    })
+                );
                 navigate(`../${module_name}`);
             } else {
                 Swal.fire({
@@ -42,7 +54,13 @@ export default function ModulesMenu({
                 <div
                     key={module.name}
                     className="module grow"
-                    onClick={() => selectModule(module.value, module.name)}
+                    onClick={() =>
+                        selectModule(
+                            module.value,
+                            module.name,
+                            module.submodules
+                        )
+                    }
                 >
                     <FontAwesomeIcon icon={module.icon} size="2x" />
                     <h3>{module.name}</h3>

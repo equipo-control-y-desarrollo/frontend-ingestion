@@ -10,16 +10,23 @@ const FlujoCajaForm = ({
     row,
 }: {
     is_update: boolean;
-    update_values: {};
+    update_values: any;
     row: string;
 }) => {
     const module = JSON.parse(localStorage.getItem("module") || "{}");
     const navigate = useNavigate();
 
+    const clearDates = () => {
+        if (update_values.fecha)
+            update_values.fecha = update_values.fecha.substring(0, 10);
+    };
+
+    clearDates();
+
     const validationSchema = Yup.object({
         fecha: Yup.string().required().max(10),
-        empresa_id: Yup.number().required().integer().positive(),
-        saldo_anterior: Yup.number().optional().positive().default(0),
+        empresa_id: Yup.number().required().integer().min(1),
+        saldo_anterior: Yup.number().optional().min(0).default(0),
     });
 
     const renderError = (message: string) => (

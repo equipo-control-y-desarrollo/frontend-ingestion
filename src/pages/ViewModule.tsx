@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { Button, Spinner } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
@@ -10,14 +10,24 @@ export default function ViewModule() {
     const [rows, setRows] = useState([{}]);
     const [loading, setLoading] = useState<boolean>(true);
     const navigate = useNavigate();
-    let enterprise = useCompany().company;
-    let id_enterprise = useCompany().idCompany;
+    let enterprise =
+        useCompany().company ||
+        JSON.parse(localStorage.getItem("companyData") || "{}").name;
+    let id_enterprise =
+        useCompany().idCompany ||
+        JSON.parse(localStorage.getItem("companyData") || "{}").id;
     let data: any = JSON.parse(localStorage.getItem("module") || "");
 
-    console.log(useCompany());
+    const location = useLocation();
+    const module = location.state;
+
     useEffect(() => {
+        let query = `${data.query}/empresa/${id_enterprise}`;
+        if (module) {
+            query = `${data.query}/${module.query}`;
+        }
         backend_api
-            .get(`${data.query}/empresa/${id_enterprise}`)
+            .get(query)
             .then((res) => {
                 console.log("Fetch Status for the rows: OK");
                 console.log(res.data);

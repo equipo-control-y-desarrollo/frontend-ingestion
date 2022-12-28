@@ -10,7 +10,7 @@ const CuentaPendienteForm = ({
     row,
 }: {
     is_update: boolean;
-    update_values: {};
+    update_values: any;
     row: string;
 }) => {
     const module = JSON.parse(localStorage.getItem("module") || "{}");
@@ -24,11 +24,24 @@ const CuentaPendienteForm = ({
         fecha_recibido: Yup.string().required().max(10),
         fecha_vencida: Yup.string().required().max(10),
         estado: Yup.string().optional().max(20),
-        inmediato: Yup.number().optional().integer().positive().default(0),
-        dias_30: Yup.number().optional().integer().positive().default(0),
-        dias_60: Yup.number().optional().integer().positive().default(0),
-        empresa_id: Yup.number().required().integer().positive(),
+        inmediato: Yup.number().optional().integer().min(0),
+        dias_30: Yup.number().optional().integer().min(0),
+        dias_60: Yup.number().optional().integer().min(0),
+        empresa_id: Yup.number().required().integer().min(1),
     });
+
+    const clearDates = () => {
+        if (update_values.fecha_recibido)
+            update_values.fecha_recibido =
+                update_values.fecha_recibido.substring(0, 10);
+        if (update_values.fecha_vencida)
+            update_values.fecha_vencida = update_values.fecha_vencida.substring(
+                0,
+                10
+            );
+    };
+
+    clearDates();
 
     const renderError = (message: string) => (
         <p className="help is-danger">{message}</p>
@@ -41,7 +54,7 @@ const CuentaPendienteForm = ({
         nfactura: "",
         fecha_recibido: "",
         fecha_vencida: "",
-        estado: true,
+        estado: "",
         inmediato: "",
         dias_30: "1",
         dias_60: "1",
@@ -163,10 +176,12 @@ const CuentaPendienteForm = ({
                     </div>
                     <div className="add-view-field">
                         <label htmlFor="estado">Estado</label>
-                        <label>
-                            <Field type="checkbox" name="estado" />
-                            Pagado
-                        </label>
+                        <Field
+                            name="estado"
+                            type="text"
+                            className="input-field-add"
+                            placeholder="Ingrese el estado de la cuenta"
+                        ></Field>
                         <ErrorMessage name="estado" render={renderError} />
                     </div>
                     <div className="add-view-field">

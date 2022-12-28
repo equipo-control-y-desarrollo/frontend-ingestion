@@ -25,11 +25,9 @@ const CuentasForm = ({
 
     const validationSchema = Yup.object({
         banco: Yup.string().required().max(20),
-        empresa_id: Yup.number().required().positive().integer(),
+        empresa_id: Yup.number().required().integer().min(1),
         numero: Yup.string().required().max(20),
-        tipo: Yup.string()
-            .required()
-            .oneOf(["corriente", "ahorros", "fiducuenta"]),
+        tipo: Yup.string().required().oneOf(tiposCuenta),
     });
 
     const renderError = (message: string) => (

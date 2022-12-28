@@ -10,21 +10,34 @@ const CarteraForm = ({
     row,
 }: {
     is_update: boolean;
-    update_values: {};
+    update_values: any;
     row: string;
 }) => {
     const module = JSON.parse(localStorage.getItem("module") || "{}");
     const navigate = useNavigate();
 
+    const clearDates = () => {
+        if (update_values.fecha_factura)
+            update_values.fecha_factura = update_values.fecha_factura.substring(
+                0,
+                10
+            );
+        if (update_values.fecha_vencimiento)
+            update_values.fecha_vencimiento =
+                update_values.fecha_vencimiento.substring(0, 10);
+    };
+
+    clearDates();
+
     const validationSchema = Yup.object({
-        valor: Yup.number().required().positive().integer(),
-        valor_abonado: Yup.number().optional().positive().integer().default(0),
+        valor: Yup.number().required().integer().min(0),
+        valor_abonado: Yup.number().optional().integer().min(0),
         fecha_factura: Yup.string().required().max(10),
         fecha_vencimiento: Yup.string().required().max(10),
         estado: Yup.boolean().optional().default(true),
-        nro_factura: Yup.string().required(),
+        nro_factura: Yup.string().required().min(5),
         proyecto: Yup.string().optional(),
-        empresa_id: Yup.number().required().positive().integer(),
+        empresa_id: Yup.number().required().integer().min(0),
     });
 
     const renderError = (message: string) => (

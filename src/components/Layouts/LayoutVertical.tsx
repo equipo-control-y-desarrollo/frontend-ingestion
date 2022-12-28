@@ -47,7 +47,13 @@ export default function Layout() {
             let elements: any = document.getElementsByClassName("company");
             setCompany(event.target.innerText);
             setIdCompany(event.target.dataset.value);
-            console.log(elements);
+            localStorage.setItem(
+                "companyData",
+                JSON.stringify({
+                    name: event.target.innerText,
+                    id: event.target.dataset.value,
+                })
+            );
             for (let i = 0; i < elements.length; i++) {
                 if (elements[i].innerText === event.target.innerText) {
                     elements[i].style.backgroundColor = "white";
