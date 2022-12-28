@@ -4,32 +4,23 @@ import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import * as Yup from "yup";
 
-const CuentasForm = ({is_update, update_values, row}: {is_update: boolean, update_values: {}, row: string}) => {
+const FlujoCajaForm = ({is_update, update_values, row}: {is_update: boolean, update_values: {}, row: string}) => {
 
-    let tiposCuenta = ['corriente','ahorros','fiducuenta'];
     const module = JSON.parse(localStorage.getItem('module') || '{}')
     const navigate = useNavigate();
 
-    const cuentasOptions = tiposCuenta.map((product, key) => (
-        <option value={product} key={key}>
-        {product}
-        </option>
-    ));
-
     const validationSchema = Yup.object({
-        banco: Yup.string().required().max(20),
-        empresa_id: Yup.number().required().positive().integer(),
-        numero: Yup.string().required().max(20),
-        tipo: Yup.string().required().oneOf(['corriente','ahorros','fiducuenta']),
+        fecha: Yup.string().required().max(10),
+        empresa_id: Yup.number().required().integer().positive(),
+        saldo_anterior: Yup.number().optional().positive().default(0),
     })
 
     const renderError = (message: string) => <p className="help is-danger">{message}</p>;
 
     const initialValues = {
-        banco: "",
+        fecha: "",
         empresa_id: "",
-        numero: "",
-        tipo: ""
+        saldo_anterior: "",
     }
 
     const onSubmit = async (values: any) => {
@@ -75,16 +66,16 @@ const CuentasForm = ({is_update, update_values, row}: {is_update: boolean, updat
             >
                 <Form>
                     <div className="add-view-field">
-                        <label htmlFor='banco'>
-                            Banco
+                        <label htmlFor='fecha'>
+                            Fecha de creación
                         </label>
                         <Field
-                            name="banco"
-                            type="text"
+                            name="fecha"
+                            type="date"
                             className="input-field-add"
-                            placeholder='Ingrese el nombre del banco'
+                            placeholder='Ingrese la fecha de creación'
                         />
-                        <ErrorMessage name="banco" render={renderError}/>
+                        <ErrorMessage name="fecha" render={renderError}/>
                     </div>
                     <div className="add-view-field">
                         <label htmlFor='empresa_id'>
@@ -99,32 +90,16 @@ const CuentasForm = ({is_update, update_values, row}: {is_update: boolean, updat
                         <ErrorMessage name="empresaID" render={renderError}/>
                     </div>
                     <div className="add-view-field">
-                        <label htmlFor='numero'>
-                            Numero de cuenta
+                        <label htmlFor='saldo_anterior'>
+                            Saldo anterior
                         </label>
                         <Field
-                            name="numero"
-                            type="text"
+                            name="saldo_anterior"
+                            type="number"
                             className="input-field-add"
-                            placeholder='Ingrese el numero de cuenta'
+                            placeholder='Ingrese el saldo anterior'
                         />
-                        <ErrorMessage name="numero" render={renderError}/>
-                    </div>
-                    <div className="add-view-field">
-                        <label htmlFor='tipoCuenta'>
-                            Ingrese el tipo de cuenta
-                        </label>
-                        <Field
-                            name="tipo"
-                            type="text"
-                            className="input-field-add"
-                            placeholder='Ingrese el tipo de cuenta'
-                            as='select'
-                        >
-                            <option value={""}>Seleccione un tipo de cuenta</option>
-                            {cuentasOptions}
-                        </Field>
-                        <ErrorMessage name="tipo" render={renderError}/>
+                        <ErrorMessage name="saldo_anterior" render={renderError}/>
                     </div>
                     <button type="submit">Enviar</button>
                 </Form>
@@ -133,4 +108,4 @@ const CuentasForm = ({is_update, update_values, row}: {is_update: boolean, updat
     )
 }
 
-export default CuentasForm;
+export default FlujoCajaForm;

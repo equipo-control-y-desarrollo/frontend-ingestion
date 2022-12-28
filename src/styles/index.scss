@@ -57,12 +57,43 @@ $breakpoint-tablet: 949px;
 }
 
 
-.addView-Cols{
+.addView-page{
     display: flex;
     flex-direction: column;
     width: 100%;
     gap: 40px;
     align-items: center;
+}
+
+.form-container{
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+
+    form{
+        display: flex;
+        flex-direction: column;
+        align-content: center;
+        height: 700px;
+        width: 100%;
+        flex-wrap: wrap;
+        gap: 20px;
+        align-items: center;
+
+        button{
+            border-radius: 10px;
+            background-color: rgb(4, 219, 4);
+            width: 100px;
+            height: 45px;
+    
+            &:hover{
+                transition: 0.5s;
+                background-color: rgb(2, 173, 2)
+            }
+        }
+    }
 }
 
 .addView-Rows{
@@ -93,6 +124,9 @@ $breakpoint-tablet: 949px;
 
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
 
     label{        
         padding-left: 20px;
@@ -100,6 +134,16 @@ $breakpoint-tablet: 949px;
         font-style: normal;
         font-weight: 600;
         font-size: 20px;
+    }
+
+    input[type='text'],input[type='number'],input[type='date']{
+        text-align: center;
+        width: 268px;
+        height: 40px;
+
+        &::placeholder{
+            text-align: center;
+        }
     }
 }
 

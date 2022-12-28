@@ -1,5 +1,4 @@
 import { faBagShopping, faBox, faBuildingColumns, faCashRegister, faFileInvoice, faWallet, IconDefinition } from '@fortawesome/free-solid-svg-icons';
-import {carteraSchema,cuadroVentasSchemas,cuentaPendienteSchema,cuentaSchema,flujoCajaSchema,registroVentaSchema} from '../schemas/schemas';
 import axios from 'axios';
 
 const backend_api = axios.create({
@@ -31,27 +30,9 @@ function checkModule(module: string, enterprise: string) : boolean{
   return true;
 }
 
-function checkSchema(module: string){
-  switch(module){
-    case 'Cuadro de ventas':
-      return cuadroVentasSchemas;
-    case 'Cartera':
-      return carteraSchema;
-    case 'Cuentas bancarias':
-      return cuentaSchema;
-    case 'Cuentas por pagar':
-      return cuentaPendienteSchema;
-    case 'Flujo de caja':
-      return flujoCajaSchema;
-    default:
-      return registroVentaSchema;
-  }
-}
-
 
 export {
     backend_api,
     match_module_icon,
     checkModule,
-    checkSchema,
 }

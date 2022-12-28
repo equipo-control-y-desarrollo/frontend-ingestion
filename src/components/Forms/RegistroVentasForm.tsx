@@ -4,32 +4,26 @@ import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import * as Yup from "yup";
 
-const CuentasForm = ({is_update, update_values, row}: {is_update: boolean, update_values: {}, row: string}) => {
+const RegistroVentasForm = ({is_update, update_values, row}: {is_update: boolean, update_values: {}, row: string}) => {
 
-    let tiposCuenta = ['corriente','ahorros','fiducuenta'];
     const module = JSON.parse(localStorage.getItem('module') || '{}')
     const navigate = useNavigate();
 
-    const cuentasOptions = tiposCuenta.map((product, key) => (
-        <option value={product} key={key}>
-        {product}
-        </option>
-    ));
-
     const validationSchema = Yup.object({
-        banco: Yup.string().required().max(20),
-        empresa_id: Yup.number().required().positive().integer(),
-        numero: Yup.string().required().max(20),
-        tipo: Yup.string().required().oneOf(['corriente','ahorros','fiducuenta']),
+        fecha: Yup.string().required().max(10),
+        empresa_id : Yup.number().required().integer().positive(),
+        cantidad: Yup.number().required().integer().positive().default(1),
+        producto: Yup.string().required().max(20),
+        valor_total: Yup.number().required().integer().positive(),
     })
 
     const renderError = (message: string) => <p className="help is-danger">{message}</p>;
 
     const initialValues = {
-        banco: "",
+        fecha: "",
         empresa_id: "",
-        numero: "",
-        tipo: ""
+        cantidad: "",
+        producto: "",
     }
 
     const onSubmit = async (values: any) => {
@@ -75,16 +69,16 @@ const CuentasForm = ({is_update, update_values, row}: {is_update: boolean, updat
             >
                 <Form>
                     <div className="add-view-field">
-                        <label htmlFor='banco'>
-                            Banco
+                        <label htmlFor='fecha'>
+                            Fecha de la venta
                         </label>
                         <Field
-                            name="banco"
-                            type="text"
+                            name="fecha"
+                            type="date"
                             className="input-field-add"
-                            placeholder='Ingrese el nombre del banco'
+                            placeholder='Ingrese la fecha'
                         />
-                        <ErrorMessage name="banco" render={renderError}/>
+                        <ErrorMessage name="fecha" render={renderError}/>
                     </div>
                     <div className="add-view-field">
                         <label htmlFor='empresa_id'>
@@ -94,37 +88,47 @@ const CuentasForm = ({is_update, update_values, row}: {is_update: boolean, updat
                             name="empresa_id"
                             type="number"
                             className="input-field-add"
-                            placeholder='Ingrese el id de la empresa'
+                            placeholder='Ingrese el ID de la empresa'
                         />
-                        <ErrorMessage name="empresaID" render={renderError}/>
+                        <ErrorMessage name="empresa_id" render={renderError}/>
                     </div>
                     <div className="add-view-field">
-                        <label htmlFor='numero'>
-                            Numero de cuenta
+                        <label htmlFor='cantidad'>
+                            Cantidad del producto
                         </label>
                         <Field
-                            name="numero"
-                            type="text"
+                            name="cantidad"
+                            type="number"
                             className="input-field-add"
-                            placeholder='Ingrese el numero de cuenta'
+                            placeholder='Ingrese la cantidad de productos'
                         />
-                        <ErrorMessage name="numero" render={renderError}/>
+                        <ErrorMessage name="cantidad" render={renderError}/>
                     </div>
                     <div className="add-view-field">
-                        <label htmlFor='tipoCuenta'>
-                            Ingrese el tipo de cuenta
+                        <label htmlFor='producto'>
+                            Nombre del producto
                         </label>
                         <Field
-                            name="tipo"
+                            name="producto"
                             type="text"
                             className="input-field-add"
-                            placeholder='Ingrese el tipo de cuenta'
-                            as='select'
+                            placeholder='Ingrese el nombre producto'
                         >
-                            <option value={""}>Seleccione un tipo de cuenta</option>
-                            {cuentasOptions}
                         </Field>
-                        <ErrorMessage name="tipo" render={renderError}/>
+                        <ErrorMessage name="producto" render={renderError}/>
+                    </div>
+                    <div className="add-view-field">
+                        <label htmlFor='valor_total'>
+                            Valor total de la venta
+                        </label>
+                        <Field
+                            name="valor_total"
+                            type="number"
+                            className="input-field-add"
+                            placeholder='Ingrese el coste total'
+                        >
+                        </Field>
+                        <ErrorMessage name="valor_total" render={renderError}/>
                     </div>
                     <button type="submit">Enviar</button>
                 </Form>
@@ -133,4 +137,4 @@ const CuentasForm = ({is_update, update_values, row}: {is_update: boolean, updat
     )
 }
 
-export default CuentasForm;
+export default RegistroVentasForm;
