@@ -5,30 +5,33 @@ import propsModules from "../interfaces";
 import Swal from "sweetalert2";
 import { checkModule } from "../Utils/util";
 
-export default function ModulesMenu({modules} : {modules: propsModules[] | []}){
-    
+export default function ModulesMenu({
+    modules,
+}: {
+    modules: propsModules[] | [];
+}) {
     const navigate = useNavigate();
-    const {company} = useCompany();
+    const { company } = useCompany();
 
     const selectModule = (module_value: string, module_name: string) => {
         console.log(`Module selected: ${module_name}`);
-        if(company !== ""){
-            if(checkModule(module_name,company)){
-                let data = {query: module_value, name: module_name}
-                localStorage.setItem('module', JSON.stringify(data));   
+        if (company !== "") {
+            if (checkModule(module_name, company)) {
+                let data = { query: module_value, name: module_name };
+                localStorage.setItem("module", JSON.stringify(data));
                 navigate(`../${module_name}`);
-            }else{
+            } else {
                 Swal.fire({
-                    icon: 'error',
-                    title: 'Oops...',
-                    text: 'No tiene el acceso habilitado a dicho modulo :(',
+                    icon: "error",
+                    title: "Oops...",
+                    text: "No tiene el acceso habilitado a dicho modulo :(",
                 });
             }
-        }else{
+        } else {
             Swal.fire({
-                icon: 'error',
-                title: 'Oops...',
-                text: 'Por favor, seleccione una empresa',
+                icon: "error",
+                title: "Oops...",
+                text: "Por favor, seleccione una empresa",
             });
         }
     };
@@ -36,20 +39,24 @@ export default function ModulesMenu({modules} : {modules: propsModules[] | []}){
     const showModules = () => {
         return modules.map((module) => {
             return (
-                <div key={module.name} className="module grow" onClick={() => selectModule(module.value, module.name)}>
-                    <FontAwesomeIcon icon={module.icon} size="2x"/>
+                <div
+                    key={module.name}
+                    className="module grow"
+                    onClick={() => selectModule(module.value, module.name)}
+                >
+                    <FontAwesomeIcon icon={module.icon} size="2x" />
                     <h3>{module.name}</h3>
                 </div>
-            )
-        })}
-
+            );
+        });
+    };
 
     return (
         <div className="modules-menu">
             <h2>Registros</h2>
             <div className="modules-container">
-                {company !== '' ? showModules() : ""}
+                {company !== "" ? showModules() : ""}
             </div>
         </div>
-    )
+    );
 }
