@@ -35,13 +35,13 @@ export default function VerticalNavbar({
                         companies.map((company) => {
                             return (
                                 <div
-                                    key={company.name}
+                                    key={company.nombre}
                                     data-value={company.id}
                                     className="company"
                                     onClick={(event) => chooseCompany(event)}
                                 >
                                     <h3 data-value={company.id}>
-                                        {company.name}
+                                        {company.nombre}
                                     </h3>
                                 </div>
                             );

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { backend_api } from "../Utils/util";
+import { backend_api, checkAuth } from "../Utils/util";
 import Swal from "sweetalert2";
 import { Spinner, Button } from "@chakra-ui/react";
 import { useNavigate, useLocation } from "react-router-dom";
@@ -7,7 +7,6 @@ import { useNavigate, useLocation } from "react-router-dom";
 export default function ViewRow() {
     const [data, setData] = useState({} as any);
     const [loading, setLoading] = useState(true);
-    const [isError, setIsError] = useState(false);
 
     const navigate = useNavigate();
     const location = useLocation();
@@ -16,25 +15,39 @@ export default function ViewRow() {
     const module = JSON.parse(localStorage.getItem("module") || "{}");
 
     useEffect(() => {
-        console.log(`Fetching data for the row with id: ${id}`);
-        backend_api
-            .get(`${module.query}/${id}`)
-            .then((res) => {
-                console.log(`Success : ${res.data}`);
-                setData(res.data.data);
-                setLoading(false);
-            })
-            .catch((err) => {
-                console.log(err);
-                Swal.fire({
-                    icon: "error",
-                    title: "Oops...",
-                    text: "Error fetching data",
-                    footer: "Please try again later",
+        if (checkAuth()) {
+            console.log(`Fetching data for the row with id: ${id}`);
+            backend_api
+                .get(`${module.query}/${id}`)
+                .then((res) => {
+                    console.log(`Success : ${res.data}`);
+                    setData(res.data.data);
+                    setLoading(false);
+                })
+                .catch((err) => {
+                    console.log(err);
+                    Swal.fire({
+                        icon: "error",
+                        title: "Oops...",
+                        text: "Error fetching data",
+                        footer: "Please try again later",
+                    }).then((res) => {
+                        navigate("../../error", {
+                            replace: true,
+                        });
+                    });
                 });
-                setLoading(false);
-                setIsError(true);
+        } else {
+            Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "Debes iniciar sesion para poder ingresar a esta ruta",
+            }).then((res) => {
+                navigate("../../", {
+                    replace: true,
+                });
             });
+        }
     }, []);
 
     const loadingDiv = () => {
@@ -42,14 +55,6 @@ export default function ViewRow() {
             <div className="loading">
                 <Spinner size="xl" color="blue.500" />
                 <h2>Cargando</h2>
-            </div>
-        );
-    };
-
-    const displayError = () => {
-        return (
-            <div className="error">
-                <h2>Error 500</h2>
             </div>
         );
     };
@@ -91,9 +96,10 @@ export default function ViewRow() {
                         let data_query =
                             module_name === "Categoria"
                                 ? `flujo/${id}`
-                                : `cuenta${id}`;
+                                : `cuenta/${id}`;
+                        localStorage.setItem("father_module_row_id", id);
                         navigate(`../${module_name}`, {
-                            state: { isSubmodule: true, query: data_query },
+                            state: { query: data_query },
                         });
                     }}
                 >
@@ -144,9 +150,5 @@ export default function ViewRow() {
         );
     };
 
-    return (
-        <div>
-            {loading ? loadingDiv() : isError ? displayError() : showData()}
-        </div>
-    );
+    return <div>{loading ? loadingDiv() : showData()}</div>;
 }

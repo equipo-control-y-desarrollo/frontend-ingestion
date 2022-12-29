@@ -10,12 +10,14 @@ const CuentasForm = ({
     row,
 }: {
     is_update: boolean;
-    update_values: {};
+    update_values: any;
     row: string;
 }) => {
     let tiposCuenta = ["corriente", "ahorros", "fiducuenta"];
     const module = JSON.parse(localStorage.getItem("module") || "{}");
     const navigate = useNavigate();
+
+    console.log(update_values);
 
     const cuentasOptions = tiposCuenta.map((product, key) => (
         <option value={product} key={key}>
@@ -33,13 +35,6 @@ const CuentasForm = ({
     const renderError = (message: string) => (
         <p className="help is-danger">{message}</p>
     );
-
-    const initialValues = {
-        banco: "",
-        empresa_id: "",
-        numero: "",
-        tipo: "",
-    };
 
     const onSubmit = async (values: any) => {
         values = validationSchema.cast(values, { stripUnknown: true });
@@ -77,7 +72,7 @@ const CuentasForm = ({
     return (
         <div className="form-container">
             <Formik
-                initialValues={!is_update ? initialValues : update_values}
+                initialValues={update_values}
                 validationSchema={validationSchema}
                 onSubmit={async (values) => {
                     await onSubmit(values);

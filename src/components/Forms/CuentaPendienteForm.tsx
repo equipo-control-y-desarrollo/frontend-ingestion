@@ -47,20 +47,6 @@ const CuentaPendienteForm = ({
         <p className="help is-danger">{message}</p>
     );
 
-    const initialValues = {
-        proyecto: "",
-        nit: "",
-        proveedor: "",
-        nfactura: "",
-        fecha_recibido: "",
-        fecha_vencida: "",
-        estado: "",
-        inmediato: "",
-        dias_30: "1",
-        dias_60: "1",
-        empresa_id: "",
-    };
-
     const onSubmit = async (values: any) => {
         values = validationSchema.cast(values, { stripUnknown: true });
         alert(JSON.stringify(values, null, 2));
@@ -97,7 +83,7 @@ const CuentaPendienteForm = ({
     return (
         <div className="form-container">
             <Formik
-                initialValues={!is_update ? initialValues : update_values}
+                initialValues={update_values}
                 validationSchema={validationSchema}
                 onSubmit={async (values) => {
                     await onSubmit(values);

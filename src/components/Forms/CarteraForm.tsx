@@ -44,17 +44,6 @@ const CarteraForm = ({
         <p className="help is-danger">{message}</p>
     );
 
-    const initialValues = {
-        valor: "",
-        valor_abonado: "0",
-        fecha_factura: "",
-        fecha_vencimiento: "",
-        estado: true,
-        nro_factura: "",
-        proyecto: "",
-        empresa_id: "",
-    };
-
     const onSubmit = async (values: any) => {
         values = validationSchema.cast(values, { stripUnknown: true });
         alert(JSON.stringify(values, null, 2));
@@ -91,7 +80,7 @@ const CarteraForm = ({
     return (
         <div className="form-container">
             <Formik
-                initialValues={!is_update ? initialValues : update_values}
+                initialValues={update_values}
                 validationSchema={validationSchema}
                 onSubmit={async (values) => {
                     await onSubmit(values);

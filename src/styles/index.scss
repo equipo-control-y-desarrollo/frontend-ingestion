@@ -481,6 +481,32 @@ main{
     gap: 20px;
 }
 
+.error-message-container{
+    display: flex;
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    h2{
+        font-family: 'Raleway', 'Roboto', sans-serif;
+        font-size: 38px;
+    }
+
+    p{
+        font-family: 'Raleway', 'Roboto', sans-serif;
+        font-size: 16px;
+    }
+
+    img{
+        display: flex;
+        height: 70%;
+        margin-bottom: -100px;
+    }
+}
+
 body{
     margin: 0;
     padding: 0;

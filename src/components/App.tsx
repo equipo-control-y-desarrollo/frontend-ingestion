@@ -6,6 +6,7 @@ import Layout from "./Layouts/LayoutVertical";
 import ViewModule from "../pages/ViewModule";
 import ViewRow from "../pages/ViewRow";
 import AddRow from "../pages/AddRow";
+import ErrorPage from "../pages/ErrorPage";
 
 export default function App() {
     return (
@@ -19,6 +20,7 @@ export default function App() {
                     <Route path="addRow/:module" element={<AddRow />}></Route>
                     <Route path="edit/:id" element={<AddRow />}></Route>
                 </Route>
+                <Route path="/error" element={<ErrorPage />}></Route>
             </Routes>
         </BrowserRouter>
     );

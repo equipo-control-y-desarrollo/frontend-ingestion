@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import * as Yup from "yup";
 
-const CategoriasForm = ({
+const MovimientosForm = ({
     is_update,
     update_values,
     row,
@@ -17,25 +17,20 @@ const CategoriasForm = ({
     const navigate = useNavigate();
 
     const clearDates = () => {
-        if (update_values.fecha_factura)
-            update_values.fecha_factura = update_values.fecha_factura.substring(
-                0,
-                10
-            );
-        if (update_values.fecha_vencimiento)
-            update_values.fecha_vencimiento =
-                update_values.fecha_vencimiento.substring(0, 10);
+        if (update_values.fecha)
+            update_values.fecha = update_values.fecha.substring(0, 10);
     };
 
     clearDates();
 
     const validationSchema = Yup.object({
-        flujo_cada_id: Yup.number().required().integer().min(0),
-        descripcion: Yup.string().required().max(20),
-        efectivo: Yup.number().required().integer().min(0),
-        datafono: Yup.number().required().integer().min(0),
-        transferencia: Yup.number().required().integer().min(0),
-        gastos: Yup.number().required().integer().min(0),
+        cuenta_id: Yup.number().required().integer().min(1),
+        fecha: Yup.string().required().max(10),
+        saldo_inicial: Yup.number().required().integer().min(0),
+        ingreso: Yup.number().optional().integer().min(0),
+        pago: Yup.number().optional().integer().min(0),
+        pago_impuesto: Yup.number().optional().integer().min(0),
+        gasto_bancario: Yup.number().optional().integer().min(0),
     });
 
     const renderError = (message: string) => (
@@ -86,72 +81,83 @@ const CategoriasForm = ({
             >
                 <Form>
                     <div className="add-view-field">
-                        <label htmlFor="flujo_caja_id">
-                            ID del Flujo de caja
-                        </label>
+                        <label htmlFor="cuenta_id">ID de la cuenta</label>
                         <Field
-                            name="flujo_caja_id"
+                            name="cuenta_id"
                             type="number"
                             className="input-field-add"
-                            placeholder="Ingrese el ID"
+                            placeholder="Ingrese el ID de la cuenta"
+                        />
+                        <ErrorMessage name="cuenta_id" render={renderError} />
+                    </div>
+                    <div className="add-view-field">
+                        <label htmlFor="fecha">Fecha</label>
+                        <Field
+                            name="fecha"
+                            type="date"
+                            className="input-field-add"
+                            placeholder="Ingrese la fecha"
+                        />
+                        <ErrorMessage name="fecha" render={renderError} />
+                    </div>
+                    <div className="add-view-field">
+                        <label htmlFor="saldo_inicial">Saldo inicial</label>
+                        <Field
+                            name="saldo_inicial"
+                            type="number"
+                            className="input-field-add"
+                            placeholder="Ingrese el saldo inicial"
                         />
                         <ErrorMessage
-                            name="flujo_caja_id"
+                            name="saldo_inicial"
                             render={renderError}
                         />
                     </div>
                     <div className="add-view-field">
-                        <label htmlFor="descripcion">Descripción</label>
+                        <label htmlFor="ingreso">Ingreso</label>
                         <Field
-                            name="descripcion"
-                            type="text"
-                            className="input-field-add"
-                            placeholder="Ingrese la descripcion"
-                        />
-                        <ErrorMessage name="descripcion" render={renderError} />
-                    </div>
-                    <div className="add-view-field">
-                        <label htmlFor="efectivo">Efectivo</label>
-                        <Field
-                            name="efectivo"
+                            name="ingreso"
                             type="number"
                             className="input-field-add"
-                            placeholder="Ingrese la cantidad de efectivo"
+                            placeholder="Escriba su ingreso"
                         />
-                        <ErrorMessage name="datafono" render={renderError} />
+                        <ErrorMessage name="ingreso" render={renderError} />
                     </div>
                     <div className="add-view-field">
-                        <label htmlFor="datafono">Datafono</label>
+                        <label htmlFor="pago">Pago</label>
                         <Field
-                            name="datafono"
+                            name="pago"
                             type="number"
                             className="input-field-add"
-                            placeholder="Ingrese la cantidad por datafono"
+                            placeholder="Ingrese su pago"
                         />
-                        <ErrorMessage name="datafono" render={renderError} />
+                        <ErrorMessage name="pago" render={renderError} />
                     </div>
                     <div className="add-view-field">
-                        <label htmlFor="transferencia">Transferencia</label>
+                        <label htmlFor="pago_impuesto">Pago impuesto</label>
                         <Field
-                            name="transferencia"
+                            name="pago_impuesto"
                             type="number"
                             className="input-field-add"
-                            placeholder="Ingrese la cantidad por transferencia"
+                            placeholder="Ingrese su pago en impuestos"
                         />
                         <ErrorMessage
-                            name="transferencia"
+                            name="pago_impuesto"
                             render={renderError}
                         />
                     </div>
                     <div className="add-view-field">
-                        <label htmlFor="gastos">Gastos</label>
+                        <label htmlFor="gasto_bancario">Gasto bancario</label>
                         <Field
-                            name="gastos"
+                            name="gasto_bancario"
                             type="number"
                             className="input-field-add"
-                            placeholder="Ingrese la cantidad de gastos"
+                            placeholder="Ingrese su gasto bancario"
                         />
-                        <ErrorMessage name="gastos" render={renderError} />
+                        <ErrorMessage
+                            name="gasto_bancario"
+                            render={renderError}
+                        />
                     </div>
                     <button type="submit">Enviar</button>
                 </Form>
@@ -160,4 +166,4 @@ const CategoriasForm = ({
     );
 };
 
-export default CategoriasForm;
+export default MovimientosForm;

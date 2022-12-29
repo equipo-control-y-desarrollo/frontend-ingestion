@@ -38,7 +38,7 @@ export default function RowTable({ id }: { id: string; fecha: string }) {
             .then((res) => {
                 Swal.fire({
                     icon: "success",
-                    title: "Success",
+                    title: "Completado",
                     text: "Registro eliminado con éxito",
                 }).then((res) => {
                     navigate("../modules");

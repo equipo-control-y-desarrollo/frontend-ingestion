@@ -3,7 +3,7 @@ import { Button, Spinner } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 import TableModule from "../components/TableModule";
-import { backend_api } from "../Utils/util";
+import { backend_api, checkAuth } from "../Utils/util";
 import { useCompany } from "../components/Layouts/LayoutVertical";
 
 export default function ViewModule() {
@@ -22,26 +22,42 @@ export default function ViewModule() {
     const module = location.state;
 
     useEffect(() => {
-        let query = `${data.query}/empresa/${id_enterprise}`;
-        if (module) {
-            query = `${data.query}/${module.query}`;
-        }
-        backend_api
-            .get(query)
-            .then((res) => {
-                console.log("Fetch Status for the rows: OK");
-                console.log(res.data);
-                setRows(res.data);
-                setLoading(false);
-            })
-            .catch(() => {
-                Swal.fire({
-                    icon: "error",
-                    title: "Oops...",
-                    text: "Ha ocurrido un error en el servidor, por favor, intente más tarde",
+        if (checkAuth()) {
+            let query = `${data.query}/empresa/${id_enterprise}`;
+            if (module) {
+                query = `${data.query}/${module.query}`;
+            }
+            backend_api
+                .get(query)
+                .then((res) => {
+                    console.log("Fetch Status for the rows: OK");
+                    console.log(res.data);
+                    setRows(res.data);
+                    setLoading(false);
+                })
+                .catch(() => {
+                    Swal.fire({
+                        icon: "error",
+                        title: "Oops...",
+                        text: "Ha ocurrido un error en el servidor, por favor, intente más tarde",
+                    }).then((res) => {
+                        navigate("../../error", {
+                            replace: true,
+                        });
+                    });
+                });
+            console.log("Re-render with new enterprise");
+        } else {
+            Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "Debes iniciar sesion para poder ingresar a esta ruta",
+            }).then((res) => {
+                navigate("../../", {
+                    replace: true,
                 });
             });
-        console.log("Re-render with new enterprise");
+        }
     }, [enterprise]);
 
     const loadingDiv = () => {

@@ -33,12 +33,6 @@ const FlujoCajaForm = ({
         <p className="help is-danger">{message}</p>
     );
 
-    const initialValues = {
-        fecha: "",
-        empresa_id: "",
-        saldo_anterior: "",
-    };
-
     const onSubmit = async (values: any) => {
         values = validationSchema.cast(values, { stripUnknown: true });
         alert(JSON.stringify(values, null, 2));
@@ -75,7 +69,7 @@ const FlujoCajaForm = ({
     return (
         <div className="form-container">
             <Formik
-                initialValues={!is_update ? initialValues : update_values}
+                initialValues={update_values}
                 validationSchema={validationSchema}
                 onSubmit={async (values) => {
                     await onSubmit(values);

@@ -47,26 +47,6 @@ const CuadroVentasForm = ({
         <p className="help is-danger">{message}</p>
     );
 
-    const initialValues = {
-        empresa_id: "",
-        ventas_mañana: "",
-        ventas_tarde: "",
-        efectivo: "",
-        datafono: "",
-        transferencia: "",
-        propinas: "",
-        iva: "",
-        hipoconsumo: "",
-        tks: "",
-        epayco: "",
-        ventas_cafe: "",
-        ventas_bar: "",
-        ventas_mercado: "",
-        gastos_caja_menor: "",
-        fecha: "",
-        horas_reserva: "",
-    };
-
     const onSubmit = async (values: any) => {
         values = validationSchema.cast(values, { stripUnknown: true });
         alert(JSON.stringify(values, null, 2));
@@ -103,7 +83,7 @@ const CuadroVentasForm = ({
     return (
         <div className="form-container">
             <Formik
-                initialValues={!is_update ? initialValues : update_values}
+                initialValues={update_values}
                 validationSchema={validationSchema}
                 onSubmit={async (values) => {
                     await onSubmit(values);

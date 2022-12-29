@@ -10,6 +10,9 @@ import {
     IconDefinition,
 } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
+import Cookies from "universal-cookie";
+
+const cookies = new Cookies();
 
 const backend_api = axios.create({
     withCredentials: true,
@@ -37,6 +40,10 @@ function match_module_icon(module: string): IconDefinition {
     }
 }
 
+function checkAuth(): boolean {
+    return cookies.get("token") ? true : false;
+}
+
 function checkModule(module: string, enterprise: string): boolean {
     if (
         (module === "Registro de ventas" && !enterprise.includes("Jaula")) ||
@@ -47,4 +54,4 @@ function checkModule(module: string, enterprise: string): boolean {
     return true;
 }
 
-export { backend_api, match_module_icon, checkModule };
+export { backend_api, match_module_icon, checkModule, checkAuth };
