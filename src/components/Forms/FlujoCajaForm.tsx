@@ -75,7 +75,7 @@ const FlujoCajaForm = ({
                     await onSubmit(values);
                 }}
             >
-                <Form>
+                <Form id="moduleForm">
                     <div className="add-view-field">
                         <label htmlFor="fecha">Fecha de creación</label>
                         <Field
@@ -109,7 +109,6 @@ const FlujoCajaForm = ({
                             render={renderError}
                         />
                     </div>
-                    <button type="submit">Enviar</button>
                 </Form>
             </Formik>
         </div>

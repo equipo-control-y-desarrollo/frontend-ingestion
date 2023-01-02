@@ -84,7 +84,7 @@ const CategoriasForm = ({
                     await onSubmit(values);
                 }}
             >
-                <Form>
+                <Form id="moduleForm">
                     <div className="add-view-field">
                         <label htmlFor="flujo_caja_id">
                             ID del Flujo de caja
@@ -153,7 +153,6 @@ const CategoriasForm = ({
                         />
                         <ErrorMessage name="gastos" render={renderError} />
                     </div>
-                    <button type="submit">Enviar</button>
                 </Form>
             </Formik>
         </div>

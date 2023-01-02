@@ -79,7 +79,7 @@ const MovimientosForm = ({
                     await onSubmit(values);
                 }}
             >
-                <Form>
+                <Form id="moduleForm">
                     <div className="add-view-field">
                         <label htmlFor="cuenta_id">ID de la cuenta</label>
                         <Field
@@ -159,7 +159,6 @@ const MovimientosForm = ({
                             render={renderError}
                         />
                     </div>
-                    <button type="submit">Enviar</button>
                 </Form>
             </Formik>
         </div>

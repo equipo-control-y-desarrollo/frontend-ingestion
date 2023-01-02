@@ -77,7 +77,7 @@ const RegistroVentasForm = ({
                     await onSubmit(values);
                 }}
             >
-                <Form>
+                <Form id="moduleForm">
                     <div className="add-view-field">
                         <label htmlFor="fecha">Fecha de la venta</label>
                         <Field
@@ -130,7 +130,6 @@ const RegistroVentasForm = ({
                         ></Field>
                         <ErrorMessage name="valor_total" render={renderError} />
                     </div>
-                    <button type="submit">Enviar</button>
                 </Form>
             </Formik>
         </div>

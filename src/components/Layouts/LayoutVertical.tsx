@@ -48,6 +48,14 @@ export default function Layout() {
         }
     }, []);
 
+    const companiesTest = [
+        { nombre: "Jaula", id: 2 },
+        { nombre: "Cafe", id: 2 },
+        { nombre: "Prueba", id: 2 },
+        { nombre: "La Jaula", id: 2 },
+        { nombre: "Cafe el Diario", id: 2 },
+    ];
+
     const selectEnterprise = (event: any) => {
         let current_page: string = window.location.pathname;
         if (regex.test(current_page)) {
@@ -76,7 +84,7 @@ export default function Layout() {
     return (
         <div className="Layout">
             <VerticalNavbar
-                companies={listCompanies}
+                companies={companiesTest}
                 chooseCompany={selectEnterprise}
                 logoImage="https://i.ibb.co/0nQqZ1F/Logo-1.png"
             ></VerticalNavbar>

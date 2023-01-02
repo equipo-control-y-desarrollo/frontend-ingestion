@@ -89,7 +89,7 @@ const CuentaPendienteForm = ({
                     await onSubmit(values);
                 }}
             >
-                <Form>
+                <Form id="moduleForm">
                     <div className="add-view-field">
                         <label htmlFor="proyecto">Nombre del proyecto</label>
                         <Field
@@ -210,7 +210,6 @@ const CuentaPendienteForm = ({
                         />
                         <ErrorMessage name="empresa_id" render={renderError} />
                     </div>
-                    <button type="submit">Enviar</button>
                 </Form>
             </Formik>
         </div>

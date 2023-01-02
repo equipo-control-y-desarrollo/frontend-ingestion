@@ -86,7 +86,7 @@ const CarteraForm = ({
                     await onSubmit(values);
                 }}
             >
-                <Form>
+                <Form id="moduleForm">
                     <div className="add-view-field">
                         <label htmlFor="valor">Valor de la cartera</label>
                         <Field
@@ -180,7 +180,6 @@ const CarteraForm = ({
                         />
                         <ErrorMessage name="empresa_id" render={renderError} />
                     </div>
-                    <button type="submit">Enviar</button>
                 </Form>
             </Formik>
         </div>

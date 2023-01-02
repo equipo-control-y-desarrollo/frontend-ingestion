@@ -89,7 +89,7 @@ const CuadroVentasForm = ({
                     await onSubmit(values);
                 }}
             >
-                <Form>
+                <Form id="moduleForm">
                     <div className="add-view-field">
                         <label htmlFor="empresa_id">ID de la empresa</label>
                         <Field
@@ -286,7 +286,6 @@ const CuadroVentasForm = ({
                             render={renderError}
                         />
                     </div>
-                    <button type="submit">Enviar</button>
                 </Form>
             </Formik>
         </div>

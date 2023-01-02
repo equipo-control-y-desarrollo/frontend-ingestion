@@ -17,8 +17,6 @@ const CuentasForm = ({
     const module = JSON.parse(localStorage.getItem("module") || "{}");
     const navigate = useNavigate();
 
-    console.log(update_values);
-
     const cuentasOptions = tiposCuenta.map((product, key) => (
         <option value={product} key={key}>
             {product}
@@ -26,10 +24,17 @@ const CuentasForm = ({
     ));
 
     const validationSchema = Yup.object({
-        banco: Yup.string().required().max(20),
-        empresa_id: Yup.number().required().integer().min(1),
-        numero: Yup.string().required().max(20),
-        tipo: Yup.string().required().oneOf(tiposCuenta),
+        banco: Yup.string()
+            .required("Este campo es necesario")
+            .max(20, "El nombre del banco es muy largo")
+            .min(4, "El nombre del banco es muy corto"),
+        empresa_id: Yup.number().required("Este campo es necesario").integer(),
+        numero: Yup.string()
+            .required("Este campo es necesario")
+            .max(20, "El numero de cuenta debe maximo 20 digitos"),
+        tipo: Yup.string()
+            .required("Este campo es necesario")
+            .oneOf(tiposCuenta),
     });
 
     const renderError = (message: string) => (
@@ -78,7 +83,7 @@ const CuentasForm = ({
                     await onSubmit(values);
                 }}
             >
-                <Form>
+                <Form id="moduleForm">
                     <div className="add-view-field">
                         <label htmlFor="banco">Banco</label>
                         <Field
@@ -127,7 +132,6 @@ const CuentasForm = ({
                         </Field>
                         <ErrorMessage name="tipo" render={renderError} />
                     </div>
-                    <button type="submit">Enviar</button>
                 </Form>
             </Formik>
         </div>

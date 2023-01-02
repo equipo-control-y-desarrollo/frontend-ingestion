@@ -4,14 +4,16 @@ import { Spinner, Button } from "@chakra-ui/react";
 import Swal from "sweetalert2";
 import { useCompany } from "../components/Layouts/LayoutVertical";
 import { backend_api, checkAuth } from "../Utils/util";
-import CuentasForm from "../components/Forms/CuentasForm";
-import CarteraForm from "../components/Forms/CarteraForm";
-import RegistroVentasForm from "../components/Forms/RegistroVentasForm";
-import FlujoCajaForm from "../components/Forms/FlujoCajaForm";
-import CuentaPendienteForm from "../components/Forms/CuentaPendienteForm";
-import CuadroVentasForm from "../components/Forms/CuadroVentasForm";
-import CategoriasForm from "../components/Forms/CategoriaForm";
-import MovimientosForm from "../components/Forms/MovimientosForm";
+import {
+    CarteraForm,
+    CategoriasForm,
+    CuadroVentasForm,
+    CuentaPendienteForm,
+    CuentasForm,
+    FlujoCajaForm,
+    MovimientosForm,
+    RegistroVentasForm,
+} from "../components/Forms";
 
 export default function AddRow() {
     const [loading, setLoading] = useState(true);
@@ -149,8 +151,20 @@ export default function AddRow() {
                 <h2 className="titleShow">Creación en {module.name}</h2>
                 {selectForm(module.name)}
                 <div className="buttons">
-                    <Button colorScheme="gray" onClick={() => navigate(-1)}>
+                    <Button
+                        colorScheme="blackAlpha"
+                        onClick={() => navigate(-1)}
+                    >
                         Ir atras
+                    </Button>
+                    <Button
+                        colorScheme="whatsapp"
+                        type="submit"
+                        form="moduleForm"
+                    >
+                        {data_state.isEdit
+                            ? "Editar Registro"
+                            : "Crear Registro"}
                     </Button>
                 </div>
             </div>
