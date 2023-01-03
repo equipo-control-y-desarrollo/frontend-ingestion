@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Spinner } from "@chakra-ui/react";
 import ModulesMenu from "../components/ModulesMenu";
-import { useCompany } from "../components/Layouts/LayoutVertical";
 import Swal from "sweetalert2";
 import { checkAuth, match_module_icon } from "../Utils/util";
 import propsModules from "../interfaces";
@@ -11,10 +10,6 @@ export default function Home() {
     const [loading, setLoading] = useState(true);
     const [modules, setModules] = useState<propsModules[] | []>([]);
     const navigate = useNavigate();
-
-    let enterprise =
-        useCompany().company ||
-        JSON.parse(localStorage.getItem("companyData") || "{}").name;
 
     const loadingDiv = () => {
         return (
@@ -99,6 +94,7 @@ export default function Home() {
                 });
             });
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     return <div>{loading ? loadingDiv() : homeDiv()}</div>;

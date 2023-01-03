@@ -5,8 +5,8 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Layout from "./Layouts/LayoutVertical";
 import ViewModule from "../pages/ViewModule";
 import ViewRow from "../pages/ViewRow";
-import AddRow from "../pages/AddRow";
 import ErrorPage from "../pages/ErrorPage";
+import AddRow from "../pages/AddRow";
 
 export default function App() {
     return (
