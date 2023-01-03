@@ -46,8 +46,10 @@ function checkAuth(): boolean {
 
 function checkModule(module: string, enterprise: string): boolean {
     if (
-        (module === "Registro de ventas" && !enterprise.includes("Jaula")) ||
-        (module === "Cuadro de ventas" && !enterprise.includes("Cafe"))
+        (module === "Registro de ventas" &&
+            (!enterprise.includes("JAULA") ||
+                !enterprise.includes("JAULAS"))) ||
+        (module === "Cuadro de ventas" && !enterprise.includes("CAFE"))
     ) {
         return false;
     }

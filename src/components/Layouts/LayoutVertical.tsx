@@ -46,15 +46,8 @@ export default function Layout() {
                 });
             });
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
-
-    const companiesTest = [
-        { nombre: "Jaula", id: 2 },
-        { nombre: "Cafe", id: 2 },
-        { nombre: "Prueba", id: 2 },
-        { nombre: "La Jaula", id: 2 },
-        { nombre: "Cafe el Diario", id: 2 },
-    ];
 
     const selectEnterprise = (event: any) => {
         let current_page: string = window.location.pathname;
@@ -84,7 +77,7 @@ export default function Layout() {
     return (
         <div className="Layout">
             <VerticalNavbar
-                companies={companiesTest}
+                companies={listCompanies}
                 chooseCompany={selectEnterprise}
                 logoImage="https://i.ibb.co/0nQqZ1F/Logo-1.png"
             ></VerticalNavbar>

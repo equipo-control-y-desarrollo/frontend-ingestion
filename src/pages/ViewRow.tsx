@@ -48,6 +48,7 @@ export default function ViewRow() {
                 });
             });
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     const loadingDiv = () => {

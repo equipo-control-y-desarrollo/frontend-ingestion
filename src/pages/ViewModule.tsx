@@ -58,6 +58,7 @@ export default function ViewModule() {
                 });
             });
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [enterprise]);
 
     const loadingDiv = () => {
