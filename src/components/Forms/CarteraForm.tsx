@@ -30,14 +30,24 @@ const CarteraForm = ({
     clearDates();
 
     const validationSchema = Yup.object({
-        valor: Yup.number().required().integer().min(0),
+        valor: Yup.number()
+            .required("Esto campo es obligatorio")
+            .integer()
+            .min(0),
         valor_abonado: Yup.number().optional().integer().min(0),
-        fecha_factura: Yup.string().required().max(10),
-        fecha_vencimiento: Yup.string().required().max(10),
+        fecha_factura: Yup.string()
+            .required("Esto campo es obligatorio")
+            .max(10),
+        fecha_vencimiento: Yup.string()
+            .required("Esto campo es obligatorio")
+            .max(10),
         estado: Yup.boolean().optional().default(true),
-        nro_factura: Yup.string().required().min(5),
+        nro_factura: Yup.string().required("Esto campo es obligatorio").min(5),
         proyecto: Yup.string().optional(),
-        empresa_id: Yup.number().required().integer().min(0),
+        empresa_id: Yup.number()
+            .required("Esto campo es obligatorio")
+            .integer()
+            .min(0),
     });
 
     const renderError = (message: string) => (

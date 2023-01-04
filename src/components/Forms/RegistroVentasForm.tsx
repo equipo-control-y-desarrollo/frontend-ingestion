@@ -24,11 +24,21 @@ const RegistroVentasForm = ({
     clearDates();
 
     const validationSchema = Yup.object({
-        fecha: Yup.string().required().max(10),
-        empresa_id: Yup.number().required().integer().min(1),
-        cantidad: Yup.number().required().integer().min(0).default(0),
-        producto: Yup.string().required().max(20),
-        valor_total: Yup.number().required().integer().min(0),
+        fecha: Yup.string().required("Esto campo es obligatorio").max(10),
+        empresa_id: Yup.number()
+            .required("Esto campo es obligatorio")
+            .integer()
+            .min(1),
+        cantidad: Yup.number()
+            .required("Esto campo es obligatorio")
+            .integer()
+            .min(0)
+            .default(0),
+        producto: Yup.string().required("Esto campo es obligatorio").max(20),
+        valor_total: Yup.number()
+            .required("Esto campo es obligatorio")
+            .integer()
+            .min(0),
     });
 
     const renderError = (message: string) => (

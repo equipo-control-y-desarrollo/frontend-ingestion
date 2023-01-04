@@ -24,9 +24,15 @@ const MovimientosForm = ({
     clearDates();
 
     const validationSchema = Yup.object({
-        cuenta_id: Yup.number().required().integer().min(1),
-        fecha: Yup.string().required().max(10),
-        saldo_inicial: Yup.number().required().integer().min(0),
+        cuenta_id: Yup.number()
+            .required("Esto campo es obligatorio")
+            .integer()
+            .min(1),
+        fecha: Yup.string().required("Esto campo es obligatorio").max(10),
+        saldo_inicial: Yup.number()
+            .required("Esto campo es obligatorio")
+            .integer()
+            .min(0),
         ingreso: Yup.number().optional().integer().min(0),
         pago: Yup.number().optional().integer().min(0),
         pago_impuesto: Yup.number().optional().integer().min(0),

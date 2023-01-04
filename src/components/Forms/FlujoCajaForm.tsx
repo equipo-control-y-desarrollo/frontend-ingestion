@@ -24,8 +24,11 @@ const FlujoCajaForm = ({
     clearDates();
 
     const validationSchema = Yup.object({
-        fecha: Yup.string().required().max(10),
-        empresa_id: Yup.number().required().integer().min(1),
+        fecha: Yup.string().required("Esto campo es obligatorio").max(10),
+        empresa_id: Yup.number()
+            .required("Esto campo es obligatorio")
+            .integer()
+            .min(1),
         saldo_anterior: Yup.number().optional().min(0).default(0),
     });
 

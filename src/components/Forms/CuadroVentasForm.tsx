@@ -24,7 +24,10 @@ const CuadroVentasForm = ({
     clearDates();
 
     const validationSchema = Yup.object({
-        empresa_id: Yup.number().required().integer().positive(),
+        empresa_id: Yup.number()
+            .required("Esto campo es obligatorio")
+            .integer()
+            .positive(),
         ventas_mañana: Yup.number().optional().integer().min(0),
         ventas_tarde: Yup.number().optional().integer().min(0),
         efectivo: Yup.number().optional().integer().min(0),
@@ -33,13 +36,16 @@ const CuadroVentasForm = ({
         propinas: Yup.number().optional().integer().min(0),
         iva: Yup.number().optional().integer().min(0),
         hipoconsumo: Yup.number().optional().integer().min(0),
-        tks: Yup.number().required().integer().integer(),
+        tks: Yup.number()
+            .required("Esto campo es obligatorio")
+            .integer()
+            .integer(),
         epayco: Yup.number().optional().integer().min(0),
         ventas_cafe: Yup.number().optional().integer().min(0),
         ventas_bar: Yup.number().optional().integer().min(0),
         ventas_mercado: Yup.number().optional().integer().min(0),
         gastos_caja_menor: Yup.number().optional().integer().min(0),
-        fecha: Yup.string().required().max(10),
+        fecha: Yup.string().required("Esto campo es obligatorio").max(10),
         horas_reserva: Yup.number().optional().integer().integer(),
     });
 
@@ -184,12 +190,12 @@ const CuadroVentasForm = ({
                         <ErrorMessage name="iva" render={renderError} />
                     </div>
                     <div className="add-view-field">
-                        <label htmlFor="hipoconsumo">Hipoconsumo</label>
+                        <label htmlFor="hipoconsumo">Impoconsumo</label>
                         <Field
                             name="hipoconsumo"
                             type="number"
                             className="input-field-add"
-                            placeholder="Ingrese el hipoconsumo"
+                            placeholder="Ingrese el Impoconsumo"
                         />
                         <ErrorMessage name="hipoconsumo" render={renderError} />
                     </div>

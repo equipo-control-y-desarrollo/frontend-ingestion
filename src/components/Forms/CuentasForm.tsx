@@ -25,15 +25,17 @@ const CuentasForm = ({
 
     const validationSchema = Yup.object({
         banco: Yup.string()
-            .required("Este campo es necesario")
+            .required("Este campo es obligatorio")
             .max(20, "El nombre del banco es muy largo")
             .min(4, "El nombre del banco es muy corto"),
-        empresa_id: Yup.number().required("Este campo es necesario").integer(),
+        empresa_id: Yup.number()
+            .required("Este campo es obligatorio")
+            .integer(),
         numero: Yup.string()
-            .required("Este campo es necesario")
-            .max(20, "El numero de cuenta debe maximo 20 digitos"),
+            .required("Este campo es obligatorio")
+            .max(20, "El numero de cuenta debe ser de maximo 20 digitos"),
         tipo: Yup.string()
-            .required("Este campo es necesario")
+            .required("Este campo es obligatorio")
             .oneOf(tiposCuenta),
     });
 

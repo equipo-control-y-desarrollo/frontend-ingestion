@@ -16,18 +16,35 @@ const CuentaPendienteForm = ({
     const module = JSON.parse(localStorage.getItem("module") || "{}");
     const navigate = useNavigate();
 
+    let estadoCuenta = ["CPX", "Pagada", "Anulada"];
+
+    const estadoOptions = estadoCuenta.map((product, key) => (
+        <option value={product} key={key}>
+            {product}
+        </option>
+    ));
+
     const validationSchema = Yup.object({
-        proyecto: Yup.string().required().max(50),
+        proyecto: Yup.string().required("Esto campo es obligatorio").max(50),
         nit: Yup.string().optional().max(30),
         proveedor: Yup.string().optional().max(100),
         nfactura: Yup.string().optional().max(20),
-        fecha_recibido: Yup.string().required().max(10),
-        fecha_vencida: Yup.string().required().max(10),
-        estado: Yup.string().optional().max(20),
+        fecha_recibido: Yup.string()
+            .required("Esto campo es obligatorio")
+            .max(10),
+        fecha_vencida: Yup.string()
+            .required("Esto campo es obligatorio")
+            .max(10),
+        estado: Yup.string()
+            .required("Esto campo es obligatorio")
+            .oneOf(estadoCuenta),
         inmediato: Yup.number().optional().integer().min(0),
         dias_30: Yup.number().optional().integer().min(0),
         dias_60: Yup.number().optional().integer().min(0),
-        empresa_id: Yup.number().required().integer().min(1),
+        empresa_id: Yup.number()
+            .required("Esto campo es obligatorio")
+            .integer()
+            .min(1),
     });
 
     const clearDates = () => {
@@ -167,7 +184,13 @@ const CuentaPendienteForm = ({
                             type="text"
                             className="input-field-add"
                             placeholder="Ingrese el estado de la cuenta"
-                        ></Field>
+                            as="select"
+                        >
+                            <option value={""}>
+                                Seleccione el estado de la cuenta
+                            </option>
+                            {estadoOptions}
+                        </Field>
                         <ErrorMessage name="estado" render={renderError} />
                     </div>
                     <div className="add-view-field">

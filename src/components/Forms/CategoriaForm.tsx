@@ -30,12 +30,27 @@ const CategoriasForm = ({
     clearDates();
 
     const validationSchema = Yup.object({
-        flujo_cada_id: Yup.number().required().integer().min(0),
-        descripcion: Yup.string().required().max(20),
-        efectivo: Yup.number().required().integer().min(0),
-        datafono: Yup.number().required().integer().min(0),
-        transferencia: Yup.number().required().integer().min(0),
-        gastos: Yup.number().required().integer().min(0),
+        flujo_cada_id: Yup.number()
+            .required("Esto campo es obligatorio")
+            .integer()
+            .min(0),
+        descripcion: Yup.string().required("Esto campo es obligatorio").max(20),
+        efectivo: Yup.number()
+            .required("Esto campo es obligatorio")
+            .integer()
+            .min(0),
+        datafono: Yup.number()
+            .required("Esto campo es obligatorio")
+            .integer()
+            .min(0),
+        transferencia: Yup.number()
+            .required("Esto campo es obligatorio")
+            .integer()
+            .min(0),
+        gastos: Yup.number()
+            .required("Esto campo es obligatorio")
+            .integer()
+            .min(0),
     });
 
     const renderError = (message: string) => (
