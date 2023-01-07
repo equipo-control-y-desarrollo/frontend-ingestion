@@ -82,4 +82,18 @@ function crucialData(data: any) {
     }
 }
 
-export { backend_api, match_module_icon, checkModule, checkAuth, crucialData };
+function checkModuleDownload(module: string): boolean {
+    if (module === "Flujo de caja" || module === "Cuentas bancarias") {
+        return false;
+    }
+    return true;
+}
+
+export {
+    checkModuleDownload,
+    backend_api,
+    match_module_icon,
+    checkModule,
+    checkAuth,
+    crucialData,
+};

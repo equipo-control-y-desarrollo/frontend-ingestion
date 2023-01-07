@@ -3,7 +3,7 @@ import { Button, Spinner } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 import TableModule from "../components/TableModule";
-import { backend_api, checkAuth } from "../Utils/util";
+import { backend_api, checkAuth, checkModuleDownload } from "../Utils/util";
 import { useCompany } from "../components/Layouts/LayoutVertical";
 
 export default function ViewModule() {
@@ -61,6 +61,59 @@ export default function ViewModule() {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [enterprise]);
 
+    const downloadExcel = () => {
+        console.log(`Descarga para ${data.query}/export/${id_enterprise}`);
+        backend_api
+            .get(`${data.query}/export/${id_enterprise}`, {
+                responseType: "arraybuffer",
+                headers: {
+                    "Content-Disposition": "attachment; filename=export.xlsx",
+                    "Content-Type":
+                        "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+                },
+            })
+            .then((res) => {
+                console.log("Fetch Status for the excel: OK");
+                const filename = `${data.name}_${enterprise}.xlsx`;
+                const url = window.URL.createObjectURL(new Blob([res.data]));
+                const link = document.createElement("a");
+                link.href = url;
+                link.setAttribute("download", filename);
+                document.body.appendChild(link);
+                Swal.fire({
+                    icon: "success",
+                    title: "Excel descargado",
+                    text: "El archivo se descargará en unos segundos",
+                }).then((res) => {
+                    link.click();
+                    document.body.removeChild(link);
+                    URL.revokeObjectURL(url);
+                });
+            })
+            .catch((err) => {
+                // The error data is send as arrabuffer, so we need to convert it to string
+                var enc = new TextDecoder("utf-8");
+                let message = JSON.parse(enc.decode(err.response.data)).message;
+                if (message === "Empresa without data") {
+                    Swal.fire({
+                        icon: "error",
+                        title: "Oops...",
+                        text: "La empresa no cuenta con información para este módulo",
+                    }).then((res) => {});
+                    return;
+                }
+                Swal.fire({
+                    icon: "error",
+                    title: "Oops...",
+                    text: "Ha ocurrido un error en el servidor, por favor, intente más tarde",
+                }).then((res) => {
+                    navigate("../../error", {
+                        replace: true,
+                    });
+                });
+            });
+    };
+
     const loadingDiv = () => {
         return (
             <div className="loading">
@@ -96,6 +149,15 @@ export default function ViewModule() {
                     >
                         Ir atras
                     </Button>
+                    {checkModuleDownload(data.name) && (
+                        <Button
+                            id="downloadButton"
+                            colorScheme="telegram"
+                            onClick={downloadExcel}
+                        >
+                            Descargar en formato Excel
+                        </Button>
+                    )}
                     <Button
                         colorScheme="whatsapp"
                         onClick={() =>
