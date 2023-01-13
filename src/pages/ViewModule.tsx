@@ -166,7 +166,10 @@ export default function ViewModule() {
                                 state: {
                                     id: -1,
                                     isEdit: false,
-                                    previous_data: rows[rows.length - 1],
+                                    previous_data:
+                                        rows.length !== 0
+                                            ? { saldo: 0 }
+                                            : rows[rows.length - 1],
                                 },
                             })
                         }
