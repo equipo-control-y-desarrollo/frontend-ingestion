@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { InputGroup, Input, InputLeftElement } from "@chakra-ui/react";
 import { Search2Icon } from "@chakra-ui/icons";
 import { Tooltip } from "@chakra-ui/react";
@@ -9,18 +9,6 @@ export default function SearchBar({
     handleEnter: (search: string) => void;
 }) {
     const [search, setSearch] = useState<string>("");
-    const module: { name: string; query: string } = JSON.parse(
-        localStorage.getItem("module") || "{}"
-    );
-
-    const getLabel = () => {
-        switch (module.name) {
-            case "Cuentas por pagar":
-                return "Buscar por numero de factura";
-            default:
-                return "Buscar";
-        }
-    };
 
     const handleInputChange = (event: any) => {
         setSearch(event.target.value);
@@ -29,7 +17,7 @@ export default function SearchBar({
 
     return (
         <div className="search-bar">
-            <Tooltip label={getLabel()}>
+            <Tooltip label="Busca por el nombre del registro">
                 <InputGroup>
                     <InputLeftElement
                         pointerEvents="none"

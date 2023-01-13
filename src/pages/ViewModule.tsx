@@ -163,7 +163,11 @@ export default function ViewModule() {
                         colorScheme="whatsapp"
                         onClick={() =>
                             navigate(`../addRow/${module}`, {
-                                state: { id: -1, isEdit: false },
+                                state: {
+                                    id: -1,
+                                    isEdit: false,
+                                    previous_data: rows[rows.length - 1],
+                                },
                             })
                         }
                     >

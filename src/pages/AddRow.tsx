@@ -123,15 +123,22 @@ export default function AddRow() {
                     />
                 );
             case "Movimientos":
+                console.log(data_state);
                 return (
                     <MovimientosForm
                         is_update={data_state.isEdit}
-                        update_values={{
-                            ...data,
-                            cuenta_id: localStorage.getItem(
-                                "father_module_row_id"
-                            ),
-                        }}
+                        update_values={
+                            data_state.isEdit
+                                ? data
+                                : {
+                                      ...data,
+                                      saldo_inicial:
+                                          data_state.previous_data["saldo"],
+                                      cuenta_id: localStorage.getItem(
+                                          "father_module_row_id"
+                                      ),
+                                  }
+                        }
                         row={data_state.id}
                     />
                 );

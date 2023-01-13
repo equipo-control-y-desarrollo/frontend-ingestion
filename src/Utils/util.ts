@@ -10,7 +10,6 @@ import {
     IconDefinition,
 } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
-import { ReactElement, ReactNode } from "react";
 import Cookies from "universal-cookie";
 
 const cookies = new Cookies();
@@ -64,9 +63,9 @@ function crucialData(data: any) {
     console.log(module);
     switch (module.name) {
         case "Cuentas por pagar":
-            return `${data.proveedor} - ${data.nfactura}`;
+            return `${data.proveedor || "N/A"} - ${data.nfactura || "N/A"}`;
         case "Cartera":
-            return `${data.proyecto} - ${data.nro_factura}`;
+            return `${data.proyecto || "N/A"} - ${data.nro_factura || "N/A"}`;
         case "Cuentas bancarias":
             return `Cuenta ${data.numero}`;
         case "Flujo de caja":
@@ -89,7 +88,17 @@ function checkModuleDownload(module: string): boolean {
     return true;
 }
 
+function getSaldoAnterior(data: any) {
+    let saldo_anterior: number = data["saldo_anterior"];
+    console.log(data);
+    for (let cat of data["categorias"]) {
+        saldo_anterior += cat["ingreso"];
+    }
+    return saldo_anterior;
+}
+
 export {
+    getSaldoAnterior,
     checkModuleDownload,
     backend_api,
     match_module_icon,
