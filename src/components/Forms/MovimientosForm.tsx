@@ -31,12 +31,11 @@ const MovimientosForm = ({
         fecha: Yup.string().required("Esto campo es obligatorio").max(10),
         saldo_inicial: Yup.number()
             .required("Esto campo es obligatorio")
-            .integer()
             .min(0),
-        ingreso: Yup.number().optional().integer().min(0),
-        pago: Yup.number().optional().integer().min(0),
-        pago_impuesto: Yup.number().optional().integer().min(0),
-        gasto_bancario: Yup.number().optional().integer().min(0),
+        ingreso: Yup.number().optional().min(0),
+        pago: Yup.number().optional().min(0),
+        pago_impuesto: Yup.number().optional().min(0),
+        gasto_bancario: Yup.number().optional().min(0),
     });
 
     const renderError = (message: string) => (

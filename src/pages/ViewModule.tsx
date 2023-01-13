@@ -1,7 +1,7 @@
+import Swal from "sweetalert2";
 import { useNavigate, useLocation } from "react-router-dom";
 import { Button, Spinner } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
-import Swal from "sweetalert2";
 import TableModule from "../components/TableModule";
 import { backend_api, checkAuth, checkModuleDownload } from "../Utils/util";
 import { useCompany } from "../components/Layouts/LayoutVertical";
@@ -10,6 +10,7 @@ export default function ViewModule() {
     const [rows, setRows] = useState([{}]);
     const [loading, setLoading] = useState<boolean>(true);
     const navigate = useNavigate();
+
     let enterprise =
         useCompany().company ||
         JSON.parse(localStorage.getItem("companyData") || "{}").name;

@@ -35,10 +35,7 @@ const RegistroVentasForm = ({
             .min(0)
             .default(0),
         producto: Yup.string().required("Esto campo es obligatorio").max(20),
-        valor_total: Yup.number()
-            .required("Esto campo es obligatorio")
-            .integer()
-            .min(0),
+        valor_total: Yup.number().required("Esto campo es obligatorio").min(0),
     });
 
     const renderError = (message: string) => (

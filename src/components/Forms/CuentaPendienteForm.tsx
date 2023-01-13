@@ -16,7 +16,7 @@ const CuentaPendienteForm = ({
     const module = JSON.parse(localStorage.getItem("module") || "{}");
     const navigate = useNavigate();
 
-    let estadoCuenta = ["CPX", "Pagada", "Anulada"];
+    let estadoCuenta = ["CXP", "Pagada", "Anulada"];
 
     const estadoOptions = estadoCuenta.map((product, key) => (
         <option value={product} key={key}>
@@ -38,9 +38,9 @@ const CuentaPendienteForm = ({
         estado: Yup.string()
             .required("Esto campo es obligatorio")
             .oneOf(estadoCuenta),
-        inmediato: Yup.number().optional().integer().min(0),
-        dias_30: Yup.number().optional().integer().min(0),
-        dias_60: Yup.number().optional().integer().min(0),
+        inmediato: Yup.number().optional().min(0),
+        dias_30: Yup.number().optional().min(0),
+        dias_60: Yup.number().optional().min(0),
         empresa_id: Yup.number()
             .required("Esto campo es obligatorio")
             .integer()

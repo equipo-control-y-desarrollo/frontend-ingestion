@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import Swal from "sweetalert2";
 import Cookies from "universal-cookie";
+import { Spinner } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 import { Input } from "@chakra-ui/react";
 import { backend_api } from "../Utils/util";
@@ -9,7 +10,7 @@ import "../styles/index.scss";
 
 export default function Login() {
     const [data, setData] = useState({ username: "", password: "" });
-
+    const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
 
     const changeData = (event: any) => {
@@ -21,6 +22,7 @@ export default function Login() {
 
     const sendForm = (event: any) => {
         event.preventDefault();
+        setLoading(true);
         if (!(data.username && data.password)) {
             Swal.fire({
                 icon: "error",
@@ -68,6 +70,9 @@ export default function Login() {
                         text: "Error al intentar ingresar, por favor intenté más tarde",
                     });
                 }
+            })
+            .finally(() => {
+                setLoading(false);
             });
     };
 
@@ -80,35 +85,50 @@ export default function Login() {
         });
     };
 
+    const loadingDiv = () => {
+        return (
+            <div className="loading">
+                <Spinner size="xl" color="blue.500" />
+                <h2>Cargando</h2>
+            </div>
+        );
+    };
+
     return (
         <div>
-            <div className="login-form-container">
-                <form onSubmit={sendForm} id="loginForm">
-                    <img alt="YOUR LOGO HERE"></img>
-                    <div className="inputs-form-login">
-                        <Input
-                            onChange={changeData}
-                            className="formButton"
-                            variant="flushed"
-                            name="username"
-                            placeholder="Username"
-                            type="text"
-                        ></Input>
-                        <Input
-                            onChange={changeData}
-                            className="formButton"
-                            variant="flushed"
-                            name="password"
-                            placeholder="Password"
-                            type="password"
-                        ></Input>
-                        <button className="formButton" type="submit">
-                            Iniciar Sesión
-                        </button>
-                        <h4 onClick={alertForget}>¿Olvidaste tu contraseña?</h4>
-                    </div>
-                </form>
-            </div>
+            {loading ? (
+                loadingDiv()
+            ) : (
+                <div className="login-form-container">
+                    <form onSubmit={sendForm} id="loginForm">
+                        <img alt="YOUR LOGO HERE"></img>
+                        <div className="inputs-form-login">
+                            <Input
+                                onChange={changeData}
+                                className="formButton"
+                                variant="flushed"
+                                name="username"
+                                placeholder="Username"
+                                type="text"
+                            ></Input>
+                            <Input
+                                onChange={changeData}
+                                className="formButton"
+                                variant="flushed"
+                                name="password"
+                                placeholder="Password"
+                                type="password"
+                            ></Input>
+                            <button className="formButton" type="submit">
+                                Iniciar Sesión
+                            </button>
+                            <h4 onClick={alertForget}>
+                                ¿Olvidaste tu contraseña?
+                            </h4>
+                        </div>
+                    </form>
+                </div>
+            )}
         </div>
     );
 }

@@ -28,25 +28,22 @@ const CuadroVentasForm = ({
             .required("Esto campo es obligatorio")
             .integer()
             .positive(),
-        ventas_mañana: Yup.number().optional().integer().min(0),
-        ventas_tarde: Yup.number().optional().integer().min(0),
-        efectivo: Yup.number().optional().integer().min(0),
-        datafono: Yup.number().optional().integer().min(0),
-        transferencia: Yup.number().optional().integer().min(0),
-        propinas: Yup.number().optional().integer().min(0),
-        iva: Yup.number().optional().integer().min(0),
-        hipoconsumo: Yup.number().optional().integer().min(0),
-        tks: Yup.number()
-            .required("Esto campo es obligatorio")
-            .integer()
-            .integer(),
-        epayco: Yup.number().optional().integer().min(0),
-        ventas_cafe: Yup.number().optional().integer().min(0),
-        ventas_bar: Yup.number().optional().integer().min(0),
-        ventas_mercado: Yup.number().optional().integer().min(0),
-        gastos_caja_menor: Yup.number().optional().integer().min(0),
+        ventas_mañana: Yup.number().optional().min(0),
+        ventas_tarde: Yup.number().optional().min(0),
+        efectivo: Yup.number().optional().min(0),
+        datafono: Yup.number().optional().min(0),
+        transferencia: Yup.number().optional().min(0),
+        propinas: Yup.number().optional().min(0),
+        iva: Yup.number().optional().min(0),
+        hipoconsumo: Yup.number().optional().min(0),
+        tks: Yup.number().required("Esto campo es obligatorio").min(0),
+        epayco: Yup.number().optional().min(0),
+        ventas_cafe: Yup.number().optional().min(0),
+        ventas_bar: Yup.number().optional().min(0),
+        ventas_mercado: Yup.number().optional().min(0),
+        gastos_caja_menor: Yup.number().optional().min(0),
         fecha: Yup.string().required("Esto campo es obligatorio").max(10),
-        horas_reserva: Yup.number().optional().integer().integer(),
+        horas_reserva: Yup.number().optional().integer(),
     });
 
     const renderError = (message: string) => (

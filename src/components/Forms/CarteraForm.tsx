@@ -34,7 +34,7 @@ const CarteraForm = ({
             .required("Esto campo es obligatorio")
             .integer()
             .min(0),
-        valor_abonado: Yup.number().optional().integer().min(0),
+        valor_abonado: Yup.number().optional().min(0),
         fecha_factura: Yup.string()
             .required("Esto campo es obligatorio")
             .max(10),

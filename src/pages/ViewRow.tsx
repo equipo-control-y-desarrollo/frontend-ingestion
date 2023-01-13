@@ -6,7 +6,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 
 export default function ViewRow() {
     const [data, setData] = useState({} as any);
-    const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(false);
 
     const navigate = useNavigate();
     const location = useLocation();
@@ -17,12 +17,11 @@ export default function ViewRow() {
     useEffect(() => {
         if (checkAuth()) {
             console.log(`Fetching data for the row with id: ${id}`);
+            setLoading(true);
             backend_api
                 .get(`${module.query}/${id}`)
                 .then((res) => {
-                    console.log(`Success : ${res.data}`);
                     setData(res.data.data);
-                    setLoading(false);
                 })
                 .catch((err) => {
                     console.log(err);
@@ -36,8 +35,12 @@ export default function ViewRow() {
                             replace: true,
                         });
                     });
+                })
+                .finally(() => {
+                    setLoading(false);
                 });
         } else {
+            setLoading(false);
             Swal.fire({
                 icon: "error",
                 title: "Oops...",
@@ -55,7 +58,7 @@ export default function ViewRow() {
         return (
             <div className="loading">
                 <Spinner size="xl" color="blue.500" />
-                <h2>Cargando</h2>
+                <h2>Cargando...</h2>
             </div>
         );
     };
@@ -64,16 +67,27 @@ export default function ViewRow() {
         let rows = [];
         for (let i = 0; i < Object.keys(data).length; i++) {
             let curr: string = Object.keys(data)[i].toString();
-            let date: boolean = curr.includes("fecha") || curr.includes("date");
-            let res: string = date
-                ? data[curr].toString().substring(0, 10)
-                : data[curr].toString();
-            rows.push(
-                <div className="fieldData">
-                    <h2>{curr}</h2>
-                    <input value={res} readOnly={true}></input>
-                </div>
-            );
+            if (data[curr]) {
+                let date: boolean =
+                    curr.includes("fecha") || curr.includes("date");
+                console.log(data[curr]);
+                let res: string = date
+                    ? data[curr].toString().substring(0, 10)
+                    : data[curr].toString();
+                rows.push(
+                    <div className="fieldData">
+                        <h2>{curr}</h2>
+                        <input value={res} readOnly={true}></input>
+                    </div>
+                );
+            } else {
+                rows.push(
+                    <div className="fieldData">
+                        <h2>{curr}</h2>
+                        <input value="N/A"></input>
+                    </div>
+                );
+            }
         }
         return rows;
     };
@@ -81,7 +95,6 @@ export default function ViewRow() {
     const checkIfHasSubmodules = () => {
         if (module.submodules.length > 0) {
             let module_name = module.submodules[0].name;
-            console.log(`Has submodules: ${module_name}`);
             return (
                 <Button
                     colorScheme={"teal"}
@@ -130,11 +143,10 @@ export default function ViewRow() {
     };
 
     const showData = () => {
-        let data_rows = generateRows();
         return (
             <div className="viewDataGrid">
                 <h2 className="titleShow">Registro {id}</h2>
-                <div className="displayDataGrid">{data_rows}</div>
+                <div className="displayDataGrid">{generateRows()}</div>
                 <div className="buttons">
                     <Button colorScheme="gray" onClick={() => navigate(-1)}>
                         Ir atras
