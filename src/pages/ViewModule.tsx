@@ -167,7 +167,7 @@ export default function ViewModule() {
                                     id: -1,
                                     isEdit: false,
                                     previous_data:
-                                        rows.length !== 0
+                                        rows.length === 0
                                             ? { saldo: 0 }
                                             : rows[rows.length - 1],
                                 },
