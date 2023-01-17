@@ -16,6 +16,15 @@ const RegistroVentasForm = ({
     const module = JSON.parse(localStorage.getItem("module") || "{}");
     const navigate = useNavigate();
 
+    const productos = ["ACADEMIA", "UNIFORMES", "CANCHAS6V6", "CANCHA9V9"
+     ,"CANCHAS11V11", "CUMPLEAÑOS", "TORNEOS", "CAFETERIA", "EVENTOS ESPECIALES"];
+
+     const productoOptions = productos.map((product, key) => (
+        <option value={product} key={key}>
+            {product}
+        </option>
+    ));
+
     const clearDates = () => {
         if (update_values.fecha)
             update_values.fecha = update_values.fecha.substring(0, 10);
@@ -122,7 +131,13 @@ const RegistroVentasForm = ({
                             type="text"
                             className="input-field-add"
                             placeholder="Ingrese el nombre producto"
-                        ></Field>
+                            as="select"
+                        >
+                            <option value={""}>
+                                Seleccione el producto
+                            </option>
+                            {productoOptions}
+                        </Field>
                         <ErrorMessage name="producto" render={renderError} />
                     </div>
                     <div className="add-view-field">
