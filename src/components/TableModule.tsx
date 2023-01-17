@@ -22,7 +22,7 @@ export default function TableModule({ rows }: { rows: {}[] }) {
         <div className="tableData">
             <SearchBar handleEnter={handleEnter} />
             <PaginatedItems
-                items={filterRows}
+                items={filterRows.reverse()}
                 itemsPerPage={5}
             ></PaginatedItems>
         </div>
