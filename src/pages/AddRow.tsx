@@ -11,6 +11,7 @@ import {
     CuentaPendienteForm,
     CuentasForm,
     FlujoCajaForm,
+    GastoForm,
     MovimientosForm,
     RegistroVentasForm,
 } from "../components/Forms";
@@ -139,6 +140,14 @@ export default function AddRow() {
                                       ),
                                   }
                         }
+                        row={data_state.id}
+                    />
+                );
+            case "Gastos":
+                return (
+                    <GastoForm
+                        is_update={data_state.isEdit}
+                        update_values={data}
                         row={data_state.id}
                     />
                 );

@@ -7,7 +7,7 @@ import {
     faWallet,
     faArrowsTurnToDots,
     faBook,
-    IconDefinition,
+    faMoneyBillTransfer,
 } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
 import Cookies from "universal-cookie";
@@ -19,26 +19,74 @@ const backend_api = axios.create({
     baseURL: "https://ingestion-powerapp.azurewebsites.net",
 });
 
-function match_module_icon(module: string): IconDefinition {
-    switch (module) {
-        case "Cuentas por pagar":
-            return faFileInvoice;
-        case "Cartera":
-            return faWallet;
-        case "Cuentas Bancarias":
-            return faBuildingColumns;
-        case "Flujo de caja":
-            return faBox;
-        case "Cuadro de ventas":
-            return faCashRegister;
-        case "Movimientos":
-            return faArrowsTurnToDots;
-        case "Categoria":
-            return faBook;
-        default:
-            return faBagShopping;
+const modules = [
+    {
+        name: "Cuentas por pagar",
+        value: "cuentas_pendientes",
+        submodules: [],
+        icon: faFileInvoice,
+    },
+    {
+        name: "Cartera",
+        value: "carteras",
+        submodules: [],
+        icon: faWallet,
+    },
+    {
+        name: "Cuentas bancarias",
+        value: "cuentas",
+        submodules: [
+            {
+                name: "Movimientos",
+                value: "cuentas/movimientos",
+                submodules: [],
+                icon: faArrowsTurnToDots,
+            },
+        ],
+        icon: faBuildingColumns,
+    },
+    {
+        name: "Flujo de caja",
+        value: "flujoscaja",
+        submodules: [
+            {
+                name: "Categoria",
+                value: "flujoscaja/categorias",
+                submodules: [],
+                icon: faBook,
+            },
+        ],
+        icon: faBox,
+    },
+    {
+        name: "Cuadro de ventas",
+        value: "ventas/cuadros",
+        submodules: [],
+        icon: faCashRegister,
+    },
+    {
+        name: "Registro de ventas",
+        value: "ventas",
+        submodules: [],
+        icon: faBagShopping,
+    },
+    {
+        name: "Gastos",
+        value: "gastos",
+        submodules: [],
+        icon: faMoneyBillTransfer,
+    },
+];
+
+const getModuleEnterprise = (enterprise: string) => {
+    if (enterprise.includes("CAFE")) {
+        return [modules[1], modules[4], modules[6]];
+    } else if (enterprise.includes("JAULA")) {
+        return [modules[1], modules[5], modules[6]];
+    } else {
+        return [modules[0], modules[1], modules[3]];
     }
-}
+};
 
 function checkAuth(): boolean {
     return cookies.get("token") ? true : false;
@@ -88,20 +136,10 @@ function checkModuleDownload(module: string): boolean {
     return true;
 }
 
-function getSaldoAnterior(data: any) {
-    let saldo_anterior: number = data["saldo_anterior"];
-    console.log(data);
-    for (let cat of data["categorias"]) {
-        saldo_anterior += cat["ingreso"];
-    }
-    return saldo_anterior;
-}
-
 export {
-    getSaldoAnterior,
+    getModuleEnterprise,
     checkModuleDownload,
     backend_api,
-    match_module_icon,
     checkModule,
     checkAuth,
     crucialData,

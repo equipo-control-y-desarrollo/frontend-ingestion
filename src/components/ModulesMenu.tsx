@@ -15,6 +15,8 @@ export default function ModulesMenu({
         useCompany() ||
         JSON.parse(localStorage.getItem("companyData") || "{}").name;
 
+    console.log(modules);
+
     const selectModule = (
         module_value: string,
         module_name: string,

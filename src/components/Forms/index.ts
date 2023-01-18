@@ -6,6 +6,7 @@ import CuentaPendienteForm from "./CuentaPendienteForm";
 import CuadroVentasForm from "./CuadroVentasForm";
 import CategoriasForm from "./CategoriaForm";
 import MovimientosForm from "./MovimientosForm";
+import GastoForm from "./GastoForm";
 
 export {
     CuentasForm,
@@ -16,4 +17,5 @@ export {
     CuadroVentasForm,
     CategoriasForm,
     MovimientosForm,
+    GastoForm,
 };
