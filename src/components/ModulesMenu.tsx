@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 import { useCompany } from "./Layouts/LayoutVertical";
 import propsModules from "../interfaces";
 import Swal from "sweetalert2";
-import { checkModule } from "../Utils/util";
 
 export default function ModulesMenu({
     modules,
@@ -24,23 +23,15 @@ export default function ModulesMenu({
     ) => {
         console.log(`Module selected: ${module_name}`);
         if (company !== "") {
-            if (checkModule(module_name, company)) {
-                localStorage.setItem(
-                    "module",
-                    JSON.stringify({
-                        query: module_value,
-                        name: module_name,
-                        submodules: module_submodel,
-                    })
-                );
-                navigate(`../${module_name}`);
-            } else {
-                Swal.fire({
-                    icon: "error",
-                    title: "Oops...",
-                    text: "No tiene el acceso habilitado a dicho modulo :(",
-                });
-            }
+            localStorage.setItem(
+                "module",
+                JSON.stringify({
+                    query: module_value,
+                    name: module_name,
+                    submodules: module_submodel,
+                })
+            );
+            navigate(`../${module_name}`);
         } else {
             Swal.fire({
                 icon: "error",

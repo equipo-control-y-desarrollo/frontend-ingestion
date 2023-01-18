@@ -35,7 +35,7 @@ export default function Home() {
 
     useEffect(() => {
         if (checkAuth()) {
-            setModules(getModuleEnterprise(enterprise));
+            setModules(getModuleEnterprise(enterprise || ""));
             setLoading(false);
             console.log("Re-render with new enterprise");
         } else {

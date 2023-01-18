@@ -84,26 +84,12 @@ const getModuleEnterprise = (enterprise: string) => {
     } else if (enterprise.includes("JAULA")) {
         return [modules[1], modules[5], modules[6]];
     } else {
-        return [modules[0], modules[1], modules[3]];
+        return [modules[0], modules[1], modules[2]];
     }
 };
 
 function checkAuth(): boolean {
     return cookies.get("token") ? true : false;
-}
-
-function checkModule(module: string, enterprise: string): boolean {
-    let is_cafe = enterprise.includes("CAFE");
-    let is_jaula =
-        enterprise.includes("JAULA") || enterprise.includes("JAULAS");
-    if (
-        (module === "Registro de ventas" && !is_jaula) ||
-        (module === "Cuadro de ventas" && !is_cafe) ||
-        (module === "Flujo de caja" && !is_cafe && !is_jaula)
-    ) {
-        return false;
-    }
-    return true;
 }
 
 function crucialData(data: any) {
@@ -140,7 +126,6 @@ export {
     getModuleEnterprise,
     checkModuleDownload,
     backend_api,
-    checkModule,
     checkAuth,
     crucialData,
 };
