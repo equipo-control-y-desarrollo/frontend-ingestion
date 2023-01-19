@@ -43,6 +43,7 @@ const CarteraForm = ({
             .max(10),
         estado: Yup.boolean().optional().default(true),
         nro_factura: Yup.string().required("Esto campo es obligatorio").min(5),
+        cliente: Yup.string().optional().min(3),
         proyecto: Yup.string().optional(),
         empresa_id: Yup.number()
             .required("Esto campo es obligatorio")
@@ -171,14 +172,24 @@ const CarteraForm = ({
                         <ErrorMessage name="nro_factura" render={renderError} />
                     </div>
                     <div className="add-view-field">
-                        <label htmlFor="proyecto">Nombre del proyecto</label>
+                        <label htmlFor="proyecto">Proyecto</label>
                         <Field
                             name="proyecto"
                             type="text"
                             className="input-field-add"
-                            placeholder="Ingrese el proyecto"
+                            placeholder="Ingrese el nombre del proyecto"
                         />
                         <ErrorMessage name="proyecto" render={renderError} />
+                    </div>
+                    <div className="add-view-field">
+                        <label htmlFor="cliente">Cliente</label>
+                        <Field
+                            name="cliente"
+                            type="text"
+                            className="input-field-add"
+                            placeholder="Ingrese el nombre del cliente"
+                        />
+                        <ErrorMessage name="cliente" render={renderError} />
                     </div>
                     <div className="add-view-field">
                         <label htmlFor="empresa_id">ID de la empresa</label>

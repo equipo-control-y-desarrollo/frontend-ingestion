@@ -94,7 +94,6 @@ function checkAuth(): boolean {
 
 function crucialData(data: any) {
     const module = JSON.parse(localStorage.getItem("module") || "{}");
-    console.log(module);
     switch (module.name) {
         case "Cuentas por pagar":
             return `${data.proveedor || "N/A"} - ${data.nfactura || "N/A"}`;
