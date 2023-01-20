@@ -98,9 +98,7 @@ function crucialData(data: any) {
         case "Cuentas por pagar":
             return `${data.proveedor || "N/A"} - ${data.nfactura || "N/A"}`;
         case "Cartera":
-            return `${data.proyecto || "N/A"} ${data.cliente || "N/A"} - ${
-                data.nro_factura || "N/A"
-            }`;
+            return `${data.cliente} - ${data.nro_factura || "N/A"}`;
         case "Cuentas bancarias":
             return `Cuenta ${data.numero}`;
         case "Flujo de caja":

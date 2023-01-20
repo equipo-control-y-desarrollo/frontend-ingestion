@@ -41,9 +41,9 @@ const CarteraForm = ({
         fecha_vencimiento: Yup.string()
             .required("Esto campo es obligatorio")
             .max(10),
-        estado: Yup.boolean().optional().default(true),
+        estado: Yup.boolean().optional().default(false),
         nro_factura: Yup.string().required("Esto campo es obligatorio").min(5),
-        cliente: Yup.string().optional().min(3),
+        cliente: Yup.string().required("Este campo es obligatorio").min(0),
         proyecto: Yup.string().optional(),
         empresa_id: Yup.number()
             .required("Esto campo es obligatorio")
