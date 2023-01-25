@@ -49,36 +49,10 @@ export default function Layout() {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
-    const selectEnterprise = (event: any) => {
-        let current_page: string = window.location.pathname;
-        if (regex.test(current_page)) {
-            let elements: any = document.getElementsByClassName("company");
-            setCompany(event.target.innerText);
-            setIdCompany(event.target.dataset.value);
-            localStorage.setItem(
-                "companyData",
-                JSON.stringify({
-                    name: event.target.innerText,
-                    id: event.target.dataset.value,
-                })
-            );
-            for (let i = 0; i < elements.length; i++) {
-                if (elements[i].innerText === event.target.innerText) {
-                    elements[i].style.backgroundColor = "white";
-                    elements[i].style.color = "black";
-                } else {
-                    elements[i].style.backgroundColor = "#00171F";
-                    elements[i].style.color = "white";
-                }
-            }
-        }
-    };
-
     return (
         <div className="Layout">
             <VerticalNavbar
                 companies={listCompanies}
-                chooseCompany={selectEnterprise}
                 logoImage="https://i.ibb.co/0nQqZ1F/Logo-1.png"
             ></VerticalNavbar>
             <main>

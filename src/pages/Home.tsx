@@ -6,12 +6,14 @@ import Swal from "sweetalert2";
 import { checkAuth, getModuleEnterprise } from "../Utils/util";
 import propsModules from "../interfaces";
 import { useCompany } from "../components/Layouts/LayoutVertical";
+import { useGlobalContext } from "../components/Context";
 
 export default function Home() {
     const [loading, setLoading] = useState(true);
     const [modules, setModules] = useState<propsModules[] | []>([]);
+    const {currentID, setID, currentName, setName} = useGlobalContext();
     let enterprise =
-        useCompany().company ||
+        currentName ||
         JSON.parse(localStorage.getItem("companyData") || "{}").name;
 
     const navigate = useNavigate();

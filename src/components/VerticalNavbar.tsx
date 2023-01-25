@@ -3,15 +3,14 @@ import { faRightFromBracket } from "@fortawesome/free-solid-svg-icons";
 import { Tooltip } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 import Cookies from "universal-cookie";
+import MenuTab from "./MenuTab";
 
 export default function VerticalNavbar({
     logoImage,
     companies,
-    chooseCompany,
 }: {
     logoImage: string;
     companies: any[];
-    chooseCompany: any;
 }) {
     const navigate = useNavigate();
 
@@ -34,16 +33,7 @@ export default function VerticalNavbar({
                     ) : (
                         companies.map((company) => {
                             return (
-                                <div
-                                    key={company.nombre}
-                                    data-value={company.id}
-                                    className="company"
-                                    onClick={(event) => chooseCompany(event)}
-                                >
-                                    <h3 data-value={company.id}>
-                                        {company.nombre}
-                                    </h3>
-                                </div>
+                                <MenuTab key={company.id} id={company.id} name={company.nombre}/>
                             );
                         })
                     )}

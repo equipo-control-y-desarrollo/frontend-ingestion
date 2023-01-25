@@ -1,6 +1,7 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useNavigate } from "react-router-dom";
 import { useCompany } from "./Layouts/LayoutVertical";
+import { useGlobalContext } from "./Context";
 import propsModules from "../interfaces";
 import Swal from "sweetalert2";
 
@@ -10,9 +11,7 @@ export default function ModulesMenu({
     modules: propsModules[] | [];
 }) {
     const navigate = useNavigate();
-    const { company } =
-        useCompany() ||
-        JSON.parse(localStorage.getItem("companyData") || "{}").name;
+    const {currentID, setID, currentName, setName} = useGlobalContext() || {};
 
     console.log(modules);
 
@@ -22,7 +21,7 @@ export default function ModulesMenu({
         module_submodel: unknown[]
     ) => {
         console.log(`Module selected: ${module_name}`);
-        if (company !== "") {
+        if (currentName !== "") {
             localStorage.setItem(
                 "module",
                 JSON.stringify({
@@ -66,7 +65,7 @@ export default function ModulesMenu({
         <div className="modules-menu">
             <h2>Registros</h2>
             <div className="modules-container">
-                {company !== "" ? showModules() : ""}
+                {currentName !== "" ? showModules() : ""}
             </div>
         </div>
     );

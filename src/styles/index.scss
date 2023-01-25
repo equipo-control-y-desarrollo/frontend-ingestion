@@ -13,6 +13,10 @@ $input-placeholder-text: rgba(0, 52, 89, 0.5);
 $breakpoint-medium: 1283px;
 $breakpoint-tablet: 949px;
 
+*{
+    font-family: 'Raleway', 'Roboto', sans-serif;
+}
+
 #pencil{
 
     &:hover{
