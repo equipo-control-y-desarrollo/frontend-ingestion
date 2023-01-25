@@ -79,12 +79,13 @@ const modules = [
 ];
 
 const getModuleEnterprise = (enterprise: string) => {
+    let basic_modules = [modules[0], modules[1], modules[2]];
     if (enterprise.includes("CAFE")) {
-        return [modules[1], modules[4], modules[6]];
+        return basic_modules.concat(modules[4]);
     } else if (enterprise.includes("JAULA")) {
-        return [modules[1], modules[5], modules[6]];
+        return basic_modules.concat(modules[5]);
     } else {
-        return [modules[0], modules[1], modules[2]];
+        return basic_modules;
     }
 };
 
