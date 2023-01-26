@@ -20,8 +20,21 @@ export default function Login() {
         });
     };
 
+    const validForm = () => {
+        if (data.username === "" || data.password === "") {
+            Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "Por favor, ingrese un usuario y contraseña",
+            });
+            return false;
+        }
+        return true;
+    };
+
     const sendForm = (event: any) => {
         event.preventDefault();
+        if (!validForm()) return;
         setLoading(true);
         if (!(data.username && data.password)) {
             Swal.fire({
@@ -50,7 +63,6 @@ export default function Login() {
                     title: `Bienvenido ${data.username}`,
                     text: "Ingreso exitoso",
                 }).then((res) => {
-                    alert("Sirve");
                     navigate("/home/modules", {
                         state: { enterprises: empresas },
                     });
