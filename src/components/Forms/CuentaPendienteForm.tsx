@@ -16,13 +16,21 @@ const CuentaPendienteForm = ({
     const module = JSON.parse(localStorage.getItem("module") || "{}");
     const navigate = useNavigate();
 
-    let estadoCuenta = ["CXP", "Pagada", "Anulada"];
+    const estadoCuenta = ["CXP", "Pagada", "Anulada"];
+
+    const clasificacionesCuentas = ["Projecto", "Cancha", "Academia", "Cafetería", "Otros"]
 
     const estadoOptions = estadoCuenta.map((product, key) => (
         <option value={product} key={key}>
             {product}
         </option>
     ));
+
+    const clasificacionOptions = clasificacionesCuentas.map((product, key) => (
+        <option value={product} key={key}>
+            {product}
+        </option>
+    ))
 
     const validationSchema = Yup.object({
         proyecto: Yup.string().required("Esto campo es obligatorio").max(50),
@@ -38,6 +46,7 @@ const CuentaPendienteForm = ({
         estado: Yup.string()
             .required("Esto campo es obligatorio")
             .oneOf(estadoCuenta),
+        clasificacion: Yup.string().required("Este campo es obligatorio").oneOf(clasificacionesCuentas),
         inmediato: Yup.number().optional().min(0),
         dias_30: Yup.number().optional().min(0),
         dias_60: Yup.number().optional().min(0),
@@ -192,6 +201,22 @@ const CuentaPendienteForm = ({
                             {estadoOptions}
                         </Field>
                         <ErrorMessage name="estado" render={renderError} />
+                    </div>
+                    <div className="add-view-field">
+                        <label htmlFor="clasificacion">Clasificación</label>
+                        <Field
+                            name="clasificacion"
+                            type="text"
+                            className="input-field-add"
+                            placeholder="Ingrese la clasificacion de pago"
+                            as="select"
+                        >
+                            <option value={""}>
+                                Seleccione la clasificación de pago
+                            </option>
+                            {clasificacionOptions}
+                        </Field>
+                        <ErrorMessage name="clasificacion" render={renderError} />
                     </div>
                     <div className="add-view-field">
                         <label htmlFor="inmediato">Inmediato</label>
