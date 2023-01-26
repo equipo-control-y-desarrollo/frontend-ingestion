@@ -50,6 +50,7 @@ export default function Login() {
                     title: `Bienvenido ${data.username}`,
                     text: "Ingreso exitoso",
                 }).then((res) => {
+                    alert("Sirve");
                     navigate("/home/modules", {
                         state: { enterprises: empresas },
                     });

@@ -1,6 +1,5 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useNavigate } from "react-router-dom";
-import { useCompany } from "./Layouts/LayoutVertical";
 import { useGlobalContext } from "./Context";
 import propsModules from "../interfaces";
 import Swal from "sweetalert2";
@@ -11,7 +10,7 @@ export default function ModulesMenu({
     modules: propsModules[] | [];
 }) {
     const navigate = useNavigate();
-    const {currentID, setID, currentName, setName} = useGlobalContext() || {};
+    const { currentName } = useGlobalContext() || {};
 
     const selectModule = (
         module_value: string,

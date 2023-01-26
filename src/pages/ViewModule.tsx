@@ -4,19 +4,19 @@ import { Button, Spinner } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import TableModule from "../components/TableModule";
 import { backend_api, checkAuth, checkModuleDownload } from "../Utils/util";
-import { useCompany } from "../components/Layouts/LayoutVertical";
+import { useGlobalContext } from "../components/Context";
 
 export default function ViewModule() {
     const [rows, setRows] = useState([{}]);
     const [loading, setLoading] = useState<boolean>(true);
     const navigate = useNavigate();
+    const { currentID, currentName } = useGlobalContext();
 
     let enterprise =
-        useCompany().company ||
+        currentName ||
         JSON.parse(localStorage.getItem("companyData") || "{}").name;
     let id_enterprise =
-        useCompany().idCompany ||
-        JSON.parse(localStorage.getItem("companyData") || "{}").id;
+        currentID || JSON.parse(localStorage.getItem("companyData") || "{}").id;
     let data: any = JSON.parse(localStorage.getItem("module") || "");
 
     const location = useLocation();

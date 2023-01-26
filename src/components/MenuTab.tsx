@@ -1,32 +1,31 @@
-import {useState, useEffect, useRef, useContext} from "react";
-import {Box, Text} from "@chakra-ui/react";
+import { useState, useEffect } from "react";
+import { Box, Text } from "@chakra-ui/react";
 import { useGlobalContext } from "./Context";
 
-export default function MenuTab({name, id} : {name: string, id: string}){
+export default function MenuTab({ name, id }: { name: string; id: string }) {
     const [selected, setSelected] = useState<boolean>(false);
     const [textColor, setTextColor] = useState<string>("white");
     const [backgroundColor, setBackgroundColor] = useState<string>("#00171F");
-    const didMount = useRef(true)
-    const {currentID, setID, currentName, setName} = useGlobalContext();
+    const { setID, currentName, setName } = useGlobalContext();
 
     useEffect(() => {
-        if(name != currentName){
+        if (name !== currentName) {
             setSelected(false);
             setTextColor("white");
             setBackgroundColor("#00171F");
         }
-    }, [currentName])
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [currentName]);
 
-    return(
-        <Box 
-        bg={backgroundColor}
-        color={textColor}
-        onClick={
-            () => {
+    return (
+        <Box
+            bg={backgroundColor}
+            color={textColor}
+            onClick={() => {
                 const regex = /\/home\/modules/gm;
-                if(!regex.test(window.location.pathname)) return;
+                if (!regex.test(window.location.pathname)) return;
                 setSelected(!selected);
-                if(!selected){
+                if (!selected) {
                     setTextColor("black");
                     setBackgroundColor("white");
                     setID(id);
@@ -38,22 +37,28 @@ export default function MenuTab({name, id} : {name: string, id: string}){
                             id: id,
                         })
                     );
+                } else {
+                    setTextColor("white");
+                    setBackgroundColor("#00171F");
+                    setID("");
+                    setName("");
+                    localStorage.removeItem("companyData");
                 }
-            }
-        } onMouseLeave={() => {
-            if(!selected){
-                console.log("mouse down", selected)
-                setTextColor("white");
-                setBackgroundColor("#00171F");
-            }
-        }} 
-        onMouseOver={() => {
-            if(!selected){
-                setTextColor("white");
-                setBackgroundColor("#00171F");
-            }
-        }}>
+            }}
+            onMouseLeave={() => {
+                if (!selected) {
+                    setTextColor("white");
+                    setBackgroundColor("#00171F");
+                }
+            }}
+            onMouseOver={() => {
+                if (!selected) {
+                    setTextColor("white");
+                    setBackgroundColor("#00171F");
+                }
+            }}
+        >
             <Text>{name}</Text>
         </Box>
-    )
+    );
 }

@@ -1,19 +1,13 @@
 import React, { useEffect, useState } from "react";
+import { Outlet } from "react-router-dom";
 import VerticalNavbar from "../VerticalNavbar";
-import { Outlet, useOutletContext } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { backend_api, checkAuth } from "../../Utils/util";
 import Swal from "sweetalert2";
 
-type ContextType = { company: string; idCompany: string };
-
 export default function Layout() {
-    const [company, setCompany] = useState<string>("");
     const [listCompanies, setListCompanies] = useState<{}[]>([]);
-    const [idCompany, setIdCompany] = useState<string>("2");
     const navigate = useNavigate();
-
-    const regex = /\/home\/modules/gm;
 
     useEffect(() => {
         if (checkAuth()) {
@@ -56,12 +50,8 @@ export default function Layout() {
                 logoImage="https://i.ibb.co/0nQqZ1F/Logo-1.png"
             ></VerticalNavbar>
             <main>
-                <Outlet context={{ company, idCompany }} />
+                <Outlet></Outlet>
             </main>
         </div>
     );
-}
-
-export function useCompany() {
-    return useOutletContext<ContextType>();
 }

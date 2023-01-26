@@ -1,9 +1,9 @@
 import { useNavigate, useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { Spinner, Button } from "@chakra-ui/react";
-import Swal from "sweetalert2";
-import { useCompany } from "../components/Layouts/LayoutVertical";
+import { useGlobalContext } from "../components/Context";
 import { backend_api, checkAuth } from "../Utils/util";
+import Swal from "sweetalert2";
 import {
     CarteraForm,
     CategoriasForm,
@@ -22,9 +22,10 @@ export default function AddRow() {
     const navigate = useNavigate();
     const location = useLocation();
 
+    const { currentID } = useGlobalContext();
+
     let id_enterprise =
-        useCompany().idCompany ||
-        JSON.parse(localStorage.getItem("companyData") || "{}").id;
+        currentID || JSON.parse(localStorage.getItem("companyData") || "{}").id;
 
     const data_state = location.state;
     const module = JSON.parse(localStorage.getItem("module") || "{}");
