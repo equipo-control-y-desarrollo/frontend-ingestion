@@ -13,8 +13,6 @@ export default function ModulesMenu({
     const navigate = useNavigate();
     const {currentID, setID, currentName, setName} = useGlobalContext() || {};
 
-    console.log(modules);
-
     const selectModule = (
         module_value: string,
         module_name: string,

@@ -23,6 +23,8 @@ export default function MenuTab({name, id} : {name: string, id: string}){
         color={textColor}
         onClick={
             () => {
+                const regex = /\/home\/modules/gm;
+                if(!regex.test(window.location.pathname)) return;
                 setSelected(!selected);
                 if(!selected){
                     setTextColor("black");
