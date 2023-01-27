@@ -1,5 +1,5 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useNavigate } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useGlobalContext } from "./Context";
 import propsModules from "../interfaces";
 import Swal from "sweetalert2";
@@ -17,7 +17,6 @@ export default function ModulesMenu({
         module_name: string,
         module_submodel: unknown[]
     ) => {
-        console.log(`Module selected: ${module_name}`);
         if (currentName !== "") {
             localStorage.setItem(
                 "module",

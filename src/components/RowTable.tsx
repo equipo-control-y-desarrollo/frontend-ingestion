@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 import { backend_api } from "../Utils/util";
-
+import { Tooltip } from "@chakra-ui/react";
 export default function RowTable({
     id,
     header,
@@ -77,18 +77,22 @@ export default function RowTable({
                 <div>{header}</div>
             </div>
             <div className="crucialData optionsRow ">
-                <FontAwesomeIcon
-                    onClick={editThisRow}
-                    icon={faPencil}
-                    className="icon"
-                    id="pencil"
-                ></FontAwesomeIcon>
-                <FontAwesomeIcon
-                    onClick={deleteThisRow}
-                    icon={faTrashCan}
-                    className="icon"
-                    id="can"
-                ></FontAwesomeIcon>
+                <Tooltip label="Editar">
+                    <FontAwesomeIcon
+                        onClick={editThisRow}
+                        icon={faPencil}
+                        className="icon"
+                        id="pencil"
+                        ></FontAwesomeIcon>
+                </Tooltip>
+                <Tooltip label="Eliminar">
+                    <FontAwesomeIcon
+                        onClick={deleteThisRow}
+                        icon={faTrashCan}
+                        className="icon"
+                        id="can"
+                    ></FontAwesomeIcon>
+                </Tooltip>
             </div>
         </div>
     );
