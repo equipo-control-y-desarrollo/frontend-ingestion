@@ -1,13 +1,15 @@
 import { useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { myGlobalContext } from "./Context";
-import Login from "../pages/Login";
-import Home from "../pages/Home";
-import Layout from "./Layouts/LayoutVertical";
-import ViewModule from "../pages/ViewModule";
-import ViewRow from "../pages/ViewRow";
-import ErrorPage from "../pages/ErrorPage";
-import AddRow from "../pages/AddRow";
+import {
+    Login,
+    Layout,
+    Home,
+    ViewModule,
+    ViewRow,
+    AddRow,
+    ErrorPage,
+} from "../pages";
 
 export default function App() {
     const [currentID, setID] = useState<string>("");

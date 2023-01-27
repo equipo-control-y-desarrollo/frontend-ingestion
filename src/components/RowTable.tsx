@@ -13,12 +13,12 @@ export default function RowTable({
 }) {
     const navigate = useNavigate();
 
-    const viewThisRow = () => {
+    const viewThisRow = (): void => {
         console.log(`Viewing row with id: ${id}`);
         navigate(`../row/${id}`, { state: { id: id } });
     };
 
-    const editThisRow = (event: any) => {
+    const editThisRow = (event: any): void => {
         event.stopPropagation();
         console.log("Editing row with id: " + id);
         Swal.fire({
@@ -35,7 +35,7 @@ export default function RowTable({
         });
     };
 
-    const deleteThisRow = (event: any) => {
+    const deleteThisRow = (event: any): void => {
         event.stopPropagation();
         let query = JSON.parse(localStorage.getItem("module") || "{}").query;
         console.log("Deleting row of with id: " + id);
@@ -83,7 +83,7 @@ export default function RowTable({
                         icon={faPencil}
                         className="icon"
                         id="pencil"
-                        ></FontAwesomeIcon>
+                    ></FontAwesomeIcon>
                 </Tooltip>
                 <Tooltip label="Eliminar">
                     <FontAwesomeIcon

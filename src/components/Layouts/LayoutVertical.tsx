@@ -1,12 +1,13 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Outlet } from "react-router-dom";
 import VerticalNavbar from "../VerticalNavbar";
 import { useNavigate } from "react-router-dom";
 import { backend_api, checkAuth } from "../../Utils/util";
 import Swal from "sweetalert2";
+import { Company } from "../../interfaces";
 
 export default function Layout() {
-    const [listCompanies, setListCompanies] = useState<{}[]>([]);
+    const [listCompanies, setListCompanies] = useState<Company[]>([]);
     const navigate = useNavigate();
 
     useEffect(() => {

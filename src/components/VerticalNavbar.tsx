@@ -4,17 +4,18 @@ import { Tooltip } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 import Cookies from "universal-cookie";
 import MenuTab from "./MenuTab";
+import { Company } from "../interfaces";
 
 export default function VerticalNavbar({
     logoImage,
     companies,
 }: {
     logoImage: string;
-    companies: any[];
+    companies: Company[];
 }) {
     const navigate = useNavigate();
 
-    const Logout = () => {
+    const Logout = (): void => {
         const cookie = new Cookies();
         cookie.remove("token", { path: "/" });
         localStorage.clear();
@@ -33,7 +34,11 @@ export default function VerticalNavbar({
                     ) : (
                         companies.map((company) => {
                             return (
-                                <MenuTab key={company.id} id={company.id} name={company.nombre}/>
+                                <MenuTab
+                                    key={company.id}
+                                    id={company.id}
+                                    name={company.nombre}
+                                />
                             );
                         })
                     )}

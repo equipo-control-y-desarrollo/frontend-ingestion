@@ -1,22 +1,18 @@
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useGlobalContext } from "./Context";
-import propsModules from "../interfaces";
+import { Module } from "../interfaces";
 import Swal from "sweetalert2";
 
-export default function ModulesMenu({
-    modules,
-}: {
-    modules: propsModules[] | [];
-}) {
+export default function ModulesMenu({ modules }: { modules: Module[] | [] }) {
     const navigate = useNavigate();
     const { currentName } = useGlobalContext() || {};
 
     const selectModule = (
         module_value: string,
         module_name: string,
-        module_submodel: unknown[]
-    ) => {
+        module_submodel: Module[]
+    ): void => {
         if (currentName !== "") {
             localStorage.setItem(
                 "module",

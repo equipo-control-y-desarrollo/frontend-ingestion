@@ -4,12 +4,12 @@ import { Spinner } from "@chakra-ui/react";
 import ModulesMenu from "../components/ModulesMenu";
 import Swal from "sweetalert2";
 import { checkAuth, getModuleEnterprise } from "../Utils/util";
-import propsModules from "../interfaces";
+import { Module } from "../interfaces";
 import { useGlobalContext } from "../components/Context";
 
 export default function Home() {
     const [loading, setLoading] = useState(true);
-    const [modules, setModules] = useState<propsModules[] | []>([]);
+    const [modules, setModules] = useState<Module[] | []>([]);
     const { currentName } = useGlobalContext();
     let enterprise =
         currentName ||
