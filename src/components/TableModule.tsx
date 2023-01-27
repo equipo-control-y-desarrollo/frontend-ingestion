@@ -6,7 +6,7 @@ import { crucialData } from "../Utils/util";
 export default function TableModule({ rows }: { rows: {}[] }) {
     const [filterRows, setFilterRows] = useState<{}[]>(rows);
 
-    const handleEnter = (search: string) => {
+    const handleEnter = (search: string): void => {
         console.log("Entre con " + search);
         if (search === "") {
             setFilterRows(rows);

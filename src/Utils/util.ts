@@ -10,6 +10,7 @@ import {
     faMoneyBillTransfer,
 } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
+import { Module } from "../interfaces";
 import Cookies from "universal-cookie";
 
 const cookies = new Cookies();
@@ -19,7 +20,7 @@ const backend_api = axios.create({
     baseURL: "https://ingestion-powerapp.azurewebsites.net",
 });
 
-const modules = [
+const modules: Module[] = [
     {
         name: "Cuentas por pagar",
         value: "cuentas_pendientes",
@@ -78,7 +79,7 @@ const modules = [
     },
 ];
 
-const getModuleEnterprise = (enterprise: string) => {
+const getModuleEnterprise = (enterprise: string): Module[] => {
     let basic_modules = [modules[0], modules[1], modules[2]];
     if (enterprise.includes("CAFE")) {
         return basic_modules.concat(modules[4]);
@@ -93,7 +94,7 @@ function checkAuth(): boolean {
     return cookies.get("token") ? true : false;
 }
 
-function crucialData(data: any) {
+function crucialData(data: any): string {
     const module = JSON.parse(localStorage.getItem("module") || "{}");
     switch (module.name) {
         case "Cuentas por pagar":

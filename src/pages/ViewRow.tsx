@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { ReactElement, useEffect, useState } from "react";
 import { backend_api, checkAuth } from "../Utils/util";
 import Swal from "sweetalert2";
 import { Spinner, Button } from "@chakra-ui/react";
@@ -6,7 +6,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 
 export default function ViewRow() {
     const [data, setData] = useState({} as any);
-    const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState<boolean>(false);
 
     const navigate = useNavigate();
     const location = useLocation();
@@ -54,7 +54,7 @@ export default function ViewRow() {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
-    const loadingDiv = () => {
+    const loadingDiv = (): ReactElement => {
         return (
             <div className="loading">
                 <Spinner size="xl" color="blue.500" />
@@ -63,7 +63,7 @@ export default function ViewRow() {
         );
     };
 
-    const generateRows = () => {
+    const generateRows = (): ReactElement[] => {
         let rows = [];
         for (let i = 0; i < Object.keys(data).length; i++) {
             let curr: string = Object.keys(data)[i].toString();
@@ -92,7 +92,7 @@ export default function ViewRow() {
         return rows;
     };
 
-    const checkIfHasSubmodules = () => {
+    const checkIfHasSubmodules = (): ReactElement => {
         if (module.submodules.length > 0) {
             let module_name = module.submodules[0].name;
             return (
@@ -121,9 +121,10 @@ export default function ViewRow() {
                 </Button>
             );
         }
+        return <></>;
     };
 
-    const editElement = () => {
+    const editElement = (): void => {
         console.log(`Editing element with id: ${id}`);
         Swal.fire({
             icon: "info",
@@ -142,7 +143,7 @@ export default function ViewRow() {
         });
     };
 
-    const showData = () => {
+    const showData = (): ReactElement => {
         return (
             <div className="viewDataGrid">
                 <h2 className="titleShow">Registro {id}</h2>

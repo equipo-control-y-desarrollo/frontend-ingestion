@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { ReactElement, useState } from "react";
 import Swal from "sweetalert2";
 import Cookies from "universal-cookie";
 import { Spinner } from "@chakra-ui/react";
@@ -9,18 +9,21 @@ import { backend_api } from "../Utils/util";
 import "../styles/index.scss";
 
 export default function Login() {
-    const [data, setData] = useState({ username: "", password: "" });
-    const [loading, setLoading] = useState(false);
+    const [data, setData] = useState<{ username: string; password: string }>({
+        username: "",
+        password: "",
+    });
+    const [loading, setLoading] = useState<boolean>(false);
     const navigate = useNavigate();
 
-    const changeData = (event: any) => {
+    const changeData = (event: any): void => {
         setData({
             ...data,
             [event.target.name]: event.target.value,
         });
     };
 
-    const validForm = () => {
+    const validForm = (): boolean => {
         if (data.username === "" || data.password === "") {
             Swal.fire({
                 icon: "error",
@@ -32,18 +35,10 @@ export default function Login() {
         return true;
     };
 
-    const sendForm = (event: any) => {
+    const sendForm = (event: any): void => {
         event.preventDefault();
         if (!validForm()) return;
         setLoading(true);
-        if (!(data.username && data.password)) {
-            Swal.fire({
-                icon: "error",
-                title: "Oops...",
-                text: "Por favor, ingrese un usuario y contraseña",
-            });
-            return;
-        }
         console.log(
             `Sending data to server...(${data.username},${data.password})`
         );
@@ -89,7 +84,7 @@ export default function Login() {
             });
     };
 
-    const alertForget = () => {
+    const alertForget = (): void => {
         Swal.fire({
             title: "¿Olvidaste tu contraseña?",
             text: "Por favor ponte en contacto con el administrador",
@@ -98,7 +93,7 @@ export default function Login() {
         });
     };
 
-    const loadingDiv = () => {
+    const loadingDiv = (): ReactElement => {
         return (
             <div className="loading">
                 <Spinner size="xl" color="blue.500" />

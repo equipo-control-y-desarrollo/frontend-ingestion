@@ -1,5 +1,5 @@
 import { useNavigate, useLocation } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { ReactElement, useEffect, useState } from "react";
 import { Spinner, Button } from "@chakra-ui/react";
 import { useGlobalContext } from "../components/Context";
 import { backend_api, checkAuth } from "../Utils/util";
@@ -18,13 +18,13 @@ import {
 
 export default function AddRow() {
     const [loading, setLoading] = useState(true);
-    const [data, setData] = useState<any>({});
+    const [data, setData] = useState<object>({});
     const navigate = useNavigate();
     const location = useLocation();
 
     const { currentID } = useGlobalContext();
 
-    let id_enterprise =
+    let id_enterprise: string =
         currentID || JSON.parse(localStorage.getItem("companyData") || "{}").id;
 
     const data_state = location.state;
@@ -69,7 +69,7 @@ export default function AddRow() {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
-    const selectForm = (module: string) => {
+    const selectForm = (module: string): ReactElement => {
         switch (module) {
             case "Cuadro de ventas":
                 return (
@@ -163,7 +163,7 @@ export default function AddRow() {
         }
     };
 
-    const addDiv = () => {
+    const addDiv = (): ReactElement => {
         return (
             <div className="addView-page">
                 <h2 className="titleShow">Creación en {module.name}</h2>
@@ -189,7 +189,7 @@ export default function AddRow() {
         );
     };
 
-    const loadingDiv = () => {
+    const loadingDiv = (): ReactElement => {
         return (
             <div className="loading">
                 <Spinner size="xl" color="blue.500" />

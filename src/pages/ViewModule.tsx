@@ -1,7 +1,7 @@
 import Swal from "sweetalert2";
 import { useNavigate, useLocation } from "react-router-dom";
 import { Button, Spinner } from "@chakra-ui/react";
-import { useEffect, useState } from "react";
+import { ReactElement, useEffect, useState } from "react";
 import TableModule from "../components/TableModule";
 import { backend_api, checkAuth, checkModuleDownload } from "../Utils/util";
 import { useGlobalContext } from "../components/Context";
@@ -9,8 +9,8 @@ import { useGlobalContext } from "../components/Context";
 export default function ViewModule() {
     const [rows, setRows] = useState([{}]);
     const [loading, setLoading] = useState<boolean>(true);
-    const navigate = useNavigate();
     const { currentID, currentName } = useGlobalContext();
+    const navigate = useNavigate();
 
     let enterprise =
         currentName ||
@@ -62,7 +62,7 @@ export default function ViewModule() {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [enterprise]);
 
-    const downloadExcel = () => {
+    const downloadExcel = (): void => {
         console.log(`Descarga para ${data.query}/export/${id_enterprise}`);
         backend_api
             .get(`${data.query}/export/${id_enterprise}`, {
@@ -115,7 +115,7 @@ export default function ViewModule() {
             });
     };
 
-    const loadingDiv = () => {
+    const loadingDiv = (): ReactElement => {
         return (
             <div className="loading">
                 <Spinner size="xl" color="blue.500" />
@@ -124,7 +124,7 @@ export default function ViewModule() {
         );
     };
 
-    const showNoData = () => {
+    const showNoData = (): ReactElement => {
         return (
             <div className="NoData">
                 La tabla {data.name} para la empresa {enterprise} no cuenta con
@@ -133,7 +133,7 @@ export default function ViewModule() {
         );
     };
 
-    const showData = () => {
+    const showData = (): ReactElement => {
         return (
             <div className="viewModule">
                 <h3>

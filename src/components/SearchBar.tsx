@@ -10,7 +10,7 @@ export default function SearchBar({
 }) {
     const [search, setSearch] = useState<string>("");
 
-    const handleInputChange = (event: any) => {
+    const handleInputChange = (event: any): void => {
         setSearch(event.target.value);
         handleEnter(event.target.value);
     };

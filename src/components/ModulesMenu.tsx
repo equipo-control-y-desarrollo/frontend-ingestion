@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useGlobalContext } from "./Context";
 import { Module } from "../interfaces";
 import Swal from "sweetalert2";
+import { ReactElement } from "react";
 
 export default function ModulesMenu({ modules }: { modules: Module[] | [] }) {
     const navigate = useNavigate();
@@ -32,7 +33,7 @@ export default function ModulesMenu({ modules }: { modules: Module[] | [] }) {
         }
     };
 
-    const showModules = () => {
+    const showModules = (): ReactElement[] => {
         return modules.map((module) => {
             return (
                 <div

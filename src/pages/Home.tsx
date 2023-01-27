@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, ReactElement } from "react";
 import { useNavigate } from "react-router-dom";
 import { Spinner } from "@chakra-ui/react";
 import ModulesMenu from "../components/ModulesMenu";
@@ -8,15 +8,15 @@ import { Module } from "../interfaces";
 import { useGlobalContext } from "../components/Context";
 
 export default function Home() {
-    const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState<boolean>(true);
     const [modules, setModules] = useState<Module[] | []>([]);
     const { currentName } = useGlobalContext();
-    let enterprise =
+    let enterprise: string =
         currentName ||
         JSON.parse(localStorage.getItem("companyData") || "{}").name;
     const navigate = useNavigate();
 
-    const loadingDiv = () => {
+    const loadingDiv = (): ReactElement => {
         return (
             <div className="loading">
                 <Spinner size="xl" color="blue.500" />
@@ -25,7 +25,7 @@ export default function Home() {
         );
     };
 
-    const homeDiv = () => {
+    const homeDiv = (): ReactElement => {
         return (
             <div className="main-menu">
                 <ModulesMenu modules={modules}></ModulesMenu>

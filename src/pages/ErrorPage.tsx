@@ -4,9 +4,9 @@ import Cookies from "universal-cookie";
 
 const ErrorPage = () => {
     const navigate = useNavigate();
-    const fire = require("../assets/this-is-fine.jpg");
+    const fire: string = require("../assets/this-is-fine.jpg");
 
-    const Logout = () => {
+    const Logout = (): void => {
         const cookie = new Cookies();
         cookie.remove("token", { path: "/" });
         localStorage.clear();
