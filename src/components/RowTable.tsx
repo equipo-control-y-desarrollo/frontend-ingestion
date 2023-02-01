@@ -73,28 +73,30 @@ export default function RowTable({
     };
 
     return (
-        <div className="row grow" onClick={viewThisRow}>
-            <div className="crucialData">
-                <div>{header}</div>
+        <Tooltip label="Ver registro" aria-label="Ver el registro" placement="left">
+            <div className="row grow" onClick={viewThisRow}>
+                <div className="crucialData">
+                    <div>{header}</div>
+                </div>
+                <div className="crucialData optionsRow ">
+                    <Tooltip label="Editar">
+                        <FontAwesomeIcon
+                            onClick={editThisRow}
+                            icon={faPencil}
+                            className="icon"
+                            id="pencil"
+                            ></FontAwesomeIcon>
+                    </Tooltip>
+                    <Tooltip label="Eliminar">
+                        <FontAwesomeIcon
+                            onClick={deleteThisRow}
+                            icon={faTrashCan}
+                            className="icon"
+                            id="can"
+                        ></FontAwesomeIcon>
+                    </Tooltip>
+                </div>
             </div>
-            <div className="crucialData optionsRow ">
-                <Tooltip label="Editar">
-                    <FontAwesomeIcon
-                        onClick={editThisRow}
-                        icon={faPencil}
-                        className="icon"
-                        id="pencil"
-                    ></FontAwesomeIcon>
-                </Tooltip>
-                <Tooltip label="Eliminar">
-                    <FontAwesomeIcon
-                        onClick={deleteThisRow}
-                        icon={faTrashCan}
-                        className="icon"
-                        id="can"
-                    ></FontAwesomeIcon>
-                </Tooltip>
-            </div>
-        </div>
+        </Tooltip>
     );
 }
