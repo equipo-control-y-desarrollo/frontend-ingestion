@@ -16,8 +16,7 @@ const RegistroVentasForm = ({
     const module = JSON.parse(localStorage.getItem("module") || "{}");
     const navigate = useNavigate();
 
-    const productos = ["ACADEMIA", "UNIFORMES", "CANCHAS6V6", "CANCHA9V9"
-     ,"CANCHAS11V11", "CUMPLEAÑOS", "TORNEOS", "CAFETERIA", "EVENTOS ESPECIALES"];
+    const productos = ["ACADEMIA", "UNIFORMES", "CANCHAS", "CUMPLEAÑOS", "TORNEOS", "CAFETERIA", "EVENTOS ESPECIALES"];
 
      const productoOptions = productos.map((product, key) => (
         <option value={product} key={key}>

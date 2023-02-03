@@ -28,7 +28,8 @@ export default function MenuTab({ name, id }: { name: string; id: string }) {
                 setName(name);
             }
         };
-    })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    },[])
 
     return (
         <Box

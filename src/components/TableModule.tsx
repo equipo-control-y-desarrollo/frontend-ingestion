@@ -3,7 +3,10 @@ import SearchBar from "./SearchBar";
 import { useState } from "react";
 import { crucialData } from "../Utils/util";
 
-export default function TableModule({ rows }: { rows: {}[] }) {
+/**
+ * Component that renders a table with a search bar
+ */
+export default function TableModule({rows}: { rows: {}[] }) {
     const [filterRows, setFilterRows] = useState<{}[]>(rows);
 
     const handleEnter = (search: string): void => {
