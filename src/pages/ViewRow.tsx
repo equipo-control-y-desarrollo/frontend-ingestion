@@ -1,12 +1,13 @@
 import { ReactElement, useEffect, useState } from "react";
 import { backend_api } from "../Utils/util";
 import Swal from "sweetalert2";
-import { Spinner, Button } from "@chakra-ui/react";
+import { Button } from "@chakra-ui/react";
 import { useNavigate, useLocation } from "react-router-dom";
+import useLoader from "../hooks/useLoader";
 
 export default function ViewRow() {
     const [data, setData] = useState({} as any);
-    const [loading, setLoading] = useState<boolean>(false);
+    const {loading , setLoading, loadingDiv} = useLoader(false);
 
     const navigate = useNavigate();
     const location = useLocation();
@@ -40,15 +41,6 @@ export default function ViewRow() {
             });
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
-
-    const loadingDiv = (): ReactElement => {
-        return (
-            <div className="loading">
-                <Spinner size="xl" color="blue.500" />
-                <h2>Cargando...</h2>
-            </div>
-        );
-    };
 
     const generateRows = (): ReactElement[] => {
         let rows = [];

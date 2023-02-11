@@ -1,14 +1,15 @@
 import Swal from "sweetalert2";
 import { useNavigate, useLocation } from "react-router-dom";
-import { Button, Spinner } from "@chakra-ui/react";
+import { Button } from "@chakra-ui/react";
 import { ReactElement, useEffect, useState } from "react";
 import TableModule from "../components/TableModule";
 import { backend_api, checkModuleDownload } from "../Utils/util";
 import { useGlobalContext } from "../components/Context";
+import useLoader from "../hooks/useLoader";
 
 export default function ViewModule() {
     const [rows, setRows] = useState([{}]);
-    const [loading, setLoading] = useState<boolean>(true);
+    const { loading, setLoading, loadingDiv } = useLoader(true);
     const { currentID, currentName } = useGlobalContext();
     const navigate = useNavigate();
 
@@ -85,7 +86,7 @@ export default function ViewModule() {
                         icon: "error",
                         title: "Oops...",
                         text: "La empresa no cuenta con información para este módulo",
-                    }).then((res) => {});
+                    }).then((res) => { });
                     return;
                 }
                 Swal.fire({
@@ -100,31 +101,17 @@ export default function ViewModule() {
             });
     };
 
-    const loadingDiv = (): ReactElement => {
-        return (
-            <div className="loading">
-                <Spinner size="xl" color="blue.500" />
-                <h2>Cargando</h2>
-            </div>
-        );
-    };
-
-    const showNoData = (): ReactElement => {
-        return (
-            <div className="NoData">
-                La tabla {data.name} para la empresa {enterprise} no cuenta con
-                información por el momento :(
-            </div>
-        );
-    };
-
     const showData = (): ReactElement => {
         return (
             <div className="viewModule">
                 <h3>
                     {data.name} para {enterprise}
                 </h3>
-                {rows.length === 0 ? showNoData() : <TableModule rows={rows} />}
+                {rows.length === 0 ?
+                    (<div className="NoData">
+                        La tabla {data.name} para la empresa {enterprise} no cuenta con
+                        información por el momento :(
+                    </div>) : <TableModule rows={rows} />}
                 <div className="buttons">
                     <Button
                         id="backButton"

@@ -1,9 +1,10 @@
 import { useNavigate, useLocation } from "react-router-dom";
 import { ReactElement, useEffect, useState } from "react";
-import { Spinner, Button } from "@chakra-ui/react";
+import { Button } from "@chakra-ui/react";
 import { useGlobalContext } from "../components/Context";
 import { backend_api } from "../Utils/util";
 import Swal from "sweetalert2";
+import useLoader from "../hooks/useLoader";
 import {
     CarteraForm,
     CategoriasForm,
@@ -17,7 +18,7 @@ import {
 } from "../components/Forms";
 
 export default function AddRow() {
-    const [loading, setLoading] = useState(true);
+    const { loading, setLoading, loadingDiv } = useLoader(false);
     const [data, setData] = useState<object>({});
     const navigate = useNavigate();
     const location = useLocation();
@@ -173,15 +174,6 @@ export default function AddRow() {
                             : "Crear Registro"}
                     </Button>
                 </div>
-            </div>
-        );
-    };
-
-    const loadingDiv = (): ReactElement => {
-        return (
-            <div className="loading">
-                <Spinner size="xl" color="blue.500" />
-                <h2>Cargando</h2>
             </div>
         );
     };

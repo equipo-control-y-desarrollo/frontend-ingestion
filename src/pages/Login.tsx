@@ -5,15 +5,16 @@ import { Spinner } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 import { Input } from "@chakra-ui/react";
 import { backend_api } from "../Utils/util";
+import useLoader from "../hooks/useLoader";
 
 import "../styles/index.scss";
 
 export default function Login() {
+    const {loading, setLoading, loadingDiv } = useLoader(false);
     const [data, setData] = useState<{ username: string; password: string }>({
         username: "",
         password: "",
     });
-    const [loading, setLoading] = useState<boolean>(false);
     const navigate = useNavigate();
 
     const changeData = (event: any): void => {
@@ -91,15 +92,6 @@ export default function Login() {
             icon: "question",
             confirmButtonText: "OK",
         });
-    };
-
-    const loadingDiv = (): ReactElement => {
-        return (
-            <div className="loading">
-                <Spinner size="xl" color="blue.500" />
-                <h2>Cargando</h2>
-            </div>
-        );
     };
 
     return (
