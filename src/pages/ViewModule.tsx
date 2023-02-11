@@ -9,7 +9,7 @@ import useLoader from "../hooks/useLoader";
 
 export default function ViewModule() {
     const [rows, setRows] = useState([{}]);
-    const { loading, setLoading, loadingDiv } = useLoader(true);
+    const { loading, setLoading, loadingDiv } = useLoader({});
     const { currentID, currentName } = useGlobalContext();
     const navigate = useNavigate();
 
@@ -22,9 +22,11 @@ export default function ViewModule() {
 
     const location = useLocation();
     const module = location.state;
-
+    console.log(loading)
+    
     useEffect(() => {
         let query = module ? `${data.query}/${module.query}` : `${data.query}/empresa/${id_enterprise}`;
+        setLoading(true);
         backend_api
             .get(query)
             .then((res) => {
@@ -44,9 +46,8 @@ export default function ViewModule() {
                     });
                 });
             });
-        console.log("Re-render with new enterprise");
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [enterprise]);
+    }, []);
 
     const downloadExcel = (): void => {
         console.log(`Descarga para ${data.query}/export/${id_enterprise}`);
@@ -108,10 +109,15 @@ export default function ViewModule() {
                     {data.name} para {enterprise}
                 </h3>
                 {rows.length === 0 ?
-                    (<div className="NoData">
-                        La tabla {data.name} para la empresa {enterprise} no cuenta con
-                        información por el momento :(
-                    </div>) : <TableModule rows={rows} />}
+                    (
+                        <div className="NoData">
+                            La tabla {data.name} para la empresa {enterprise} no cuenta con
+                            información por el momento :(
+                        </div>
+                    ) 
+                    : 
+                    <TableModule rows={rows} />
+                }
                 <div className="buttons">
                     <Button
                         id="backButton"

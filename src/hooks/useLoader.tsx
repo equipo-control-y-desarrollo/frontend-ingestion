@@ -2,7 +2,7 @@ import {ReactElement, useState} from 'react';
 import { Spinner } from "@chakra-ui/react";
 
 const useLoader = ({}) => {
-    const [loading, setLoading] = useState<boolean>(false);
+    const [loading, setLoading] = useState<boolean>(true);
 
     const loadingDiv = () : ReactElement => {
         if(!loading) return <></>;
