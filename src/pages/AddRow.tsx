@@ -2,7 +2,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { ReactElement, useEffect, useState } from "react";
 import { Spinner, Button } from "@chakra-ui/react";
 import { useGlobalContext } from "../components/Context";
-import { backend_api, checkAuth } from "../Utils/util";
+import { backend_api } from "../Utils/util";
 import Swal from "sweetalert2";
 import {
     CarteraForm,
@@ -31,40 +31,28 @@ export default function AddRow() {
     const module = JSON.parse(localStorage.getItem("module") || "{}");
 
     useEffect(() => {
-        if (checkAuth()) {
-            if (data_state.isEdit) {
-                console.log(`We are editing a new row ${data_state.id}`);
-                backend_api
-                    .get(`${module.query}/${data_state.id}`)
-                    .then((res) => {
-                        setData(res.data.data);
-                        setLoading(false);
-                    })
-                    .catch((err) => {
-                        Swal.fire({
-                            icon: "error",
-                            title: "Oops...",
-                            text: "¡Algo ha salido mal! por favor intenta más tarde",
-                        }).then((res) => {
-                            navigate("../error", {
-                                replace: true,
-                            });
+        if (data_state.isEdit) {
+            console.log(`We are editing a new row ${data_state.id}`);
+            backend_api
+                .get(`${module.query}/${data_state.id}`)
+                .then((res) => {
+                    setData(res.data.data);
+                    setLoading(false);
+                })
+                .catch((err) => {
+                    Swal.fire({
+                        icon: "error",
+                        title: "Oops...",
+                        text: "¡Algo ha salido mal! por favor intenta más tarde",
+                    }).then((res) => {
+                        navigate("../error", {
+                            replace: true,
                         });
                     });
-            } else {
-                setData({ ...data, empresa_id: id_enterprise });
-                setLoading(false);
-            }
-        } else {
-            Swal.fire({
-                icon: "error",
-                title: "Oops...",
-                text: "Debes iniciar sesion para poder ingresar a esta ruta",
-            }).then((res) => {
-                navigate("../../", {
-                    replace: true,
                 });
-            });
+        } else {
+            setData({ ...data, empresa_id: id_enterprise });
+            setLoading(false);
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);

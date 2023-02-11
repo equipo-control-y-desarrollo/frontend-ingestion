@@ -3,7 +3,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { Button, Spinner } from "@chakra-ui/react";
 import { ReactElement, useEffect, useState } from "react";
 import TableModule from "../components/TableModule";
-import { backend_api, checkAuth, checkModuleDownload } from "../Utils/util";
+import { backend_api, checkModuleDownload } from "../Utils/util";
 import { useGlobalContext } from "../components/Context";
 
 export default function ViewModule() {
@@ -23,42 +23,27 @@ export default function ViewModule() {
     const module = location.state;
 
     useEffect(() => {
-        if (checkAuth()) {
-            let query = `${data.query}/empresa/${id_enterprise}`;
-            if (module) {
-                query = `${data.query}/${module.query}`;
-            }
-            backend_api
-                .get(query)
-                .then((res) => {
-                    console.log("Fetch Status for the rows: OK");
-                    console.log(res.data);
-                    setRows(res.data);
-                    setLoading(false);
-                })
-                .catch(() => {
-                    Swal.fire({
-                        icon: "error",
-                        title: "Oops...",
-                        text: "Ha ocurrido un error en el servidor, por favor, intente más tarde",
-                    }).then((res) => {
-                        navigate("../../error", {
-                            replace: true,
-                        });
+        let query = module ? `${data.query}/${module.query}` : `${data.query}/empresa/${id_enterprise}`;
+        backend_api
+            .get(query)
+            .then((res) => {
+                console.log("Fetch Status for the rows: OK");
+                console.log(res.data);
+                setRows(res.data);
+                setLoading(false);
+            })
+            .catch(() => {
+                Swal.fire({
+                    icon: "error",
+                    title: "Oops...",
+                    text: "Ha ocurrido un error en el servidor, por favor, intente más tarde",
+                }).then((res) => {
+                    navigate("../../error", {
+                        replace: true,
                     });
                 });
-            console.log("Re-render with new enterprise");
-        } else {
-            Swal.fire({
-                icon: "error",
-                title: "Oops...",
-                text: "Debes iniciar sesion para poder ingresar a esta ruta",
-            }).then((res) => {
-                navigate("../../", {
-                    replace: true,
-                });
             });
-        }
+        console.log("Re-render with new enterprise");
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [enterprise]);
 

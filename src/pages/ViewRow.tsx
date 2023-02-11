@@ -1,5 +1,5 @@
 import { ReactElement, useEffect, useState } from "react";
-import { backend_api, checkAuth } from "../Utils/util";
+import { backend_api } from "../Utils/util";
 import Swal from "sweetalert2";
 import { Spinner, Button } from "@chakra-ui/react";
 import { useNavigate, useLocation } from "react-router-dom";
@@ -15,42 +15,29 @@ export default function ViewRow() {
     const module = JSON.parse(localStorage.getItem("module") || "{}");
 
     useEffect(() => {
-        if (checkAuth()) {
-            console.log(`Fetching data for the row with id: ${id}`);
-            setLoading(true);
-            backend_api
-                .get(`${module.query}/${id}`)
-                .then((res) => {
-                    setData(res.data.data);
-                })
-                .catch((err) => {
-                    console.log(err);
-                    Swal.fire({
-                        icon: "error",
-                        title: "Oops...",
-                        text: "Error fetching data",
-                        footer: "Please try again later",
-                    }).then((res) => {
-                        navigate("../../error", {
-                            replace: true,
-                        });
+        console.log(`Fetching data for the row with id: ${id}`);
+        setLoading(true);
+        backend_api
+            .get(`${module.query}/${id}`)
+            .then((res) => {
+                setData(res.data.data);
+            })
+            .catch((err) => {
+                console.log(err);
+                Swal.fire({
+                    icon: "error",
+                    title: "Oops...",
+                    text: "Error fetching data",
+                    footer: "Please try again later",
+                }).then((res) => {
+                    navigate("../../error", {
+                        replace: true,
                     });
-                })
-                .finally(() => {
-                    setLoading(false);
                 });
-        } else {
-            setLoading(false);
-            Swal.fire({
-                icon: "error",
-                title: "Oops...",
-                text: "Debes iniciar sesion para poder ingresar a esta ruta",
-            }).then((res) => {
-                navigate("../../", {
-                    replace: true,
-                });
+            })
+            .finally(() => {
+                setLoading(false);
             });
-        }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 

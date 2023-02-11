@@ -10,6 +10,7 @@ import {
     AddRow,
     ErrorPage,
 } from "../pages";
+import PrivateRoute from "../Utils/PrivateRoute";
 
 export default function App() {
     const [currentID, setID] = useState<string>("");
@@ -21,12 +22,14 @@ export default function App() {
             <BrowserRouter>
                 <Routes>
                     <Route path="/" element={<Login />} />
-                    <Route path="/home" element={<Layout />}>
-                        <Route path="modules" element={<Home />} />
-                        <Route path=":module" element={<ViewModule />} />
-                        <Route path="row/:row" element={<ViewRow />} />
-                        <Route path="addRow/:module" element={<AddRow />} />
-                        <Route path="edit/:id" element={<AddRow />} />
+                    <Route element={<PrivateRoute/>}> 
+                        <Route path="/home" element={<Layout />}>
+                            <Route path="modules" element={<Home />} />
+                            <Route path=":module" element={<ViewModule />} />
+                            <Route path="row/:row" element={<ViewRow />} />
+                            <Route path="addRow/:module" element={<AddRow />} />
+                            <Route path="edit/:id" element={<AddRow />} />
+                        </Route>
                     </Route>
                     <Route path="/error" element={<ErrorPage />} />
                 </Routes>
