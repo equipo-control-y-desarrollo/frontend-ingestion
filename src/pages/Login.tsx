@@ -1,16 +1,13 @@
-import { ReactElement, useState } from "react";
+import { useState } from "react";
 import Swal from "sweetalert2";
 import Cookies from "universal-cookie";
-import { Spinner } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 import { Input } from "@chakra-ui/react";
 import { backend_api } from "../Utils/util";
-import useLoader from "../hooks/useLoader";
-
 import "../styles/index.scss";
 
 export default function Login() {
-    const {loading, setLoading, loadingDiv } = useLoader(false);
+
     const [data, setData] = useState<{ username: string; password: string }>({
         username: "",
         password: "",
@@ -39,7 +36,7 @@ export default function Login() {
     const sendForm = (event: any): void => {
         event.preventDefault();
         if (!validForm()) return;
-        setLoading(true);
+        document.body.style.cursor = "wait";
         console.log(
             `Sending data to server...(${data.username},${data.password})`
         );
@@ -50,6 +47,7 @@ export default function Login() {
             })
             .then((res) => {
                 console.log(res.data);
+                document.body.style.cursor = "pointer";
                 let empresas = res.data.usuario.empresas;
                 const cookies = new Cookies();
                 console.log("Cookies has been set");
@@ -80,9 +78,6 @@ export default function Login() {
                     });
                 }
             })
-            .finally(() => {
-                setLoading(false);
-            });
     };
 
     const alertForget = (): void => {
@@ -96,39 +91,35 @@ export default function Login() {
 
     return (
         <div>
-            {loading ? (
-                loadingDiv()
-            ) : (
-                <div className="login-form-container">
-                    <form onSubmit={sendForm} id="loginForm">
-                        <img alt="YOUR LOGO HERE"></img>
-                        <div className="inputs-form-login">
-                            <Input
-                                onChange={changeData}
-                                className="formButton"
-                                variant="flushed"
-                                name="username"
-                                placeholder="Username"
-                                type="text"
-                            ></Input>
-                            <Input
-                                onChange={changeData}
-                                className="formButton"
-                                variant="flushed"
-                                name="password"
-                                placeholder="Password"
-                                type="password"
-                            ></Input>
-                            <button className="formButton" type="submit">
-                                Iniciar Sesión
-                            </button>
-                            <h4 onClick={alertForget}>
-                                ¿Olvidaste tu contraseña?
-                            </h4>
-                        </div>
-                    </form>
-                </div>
-            )}
+            <div className="login-form-container">
+                <form onSubmit={sendForm} id="loginForm">
+                    <img alt="YOUR LOGO HERE"></img>
+                    <div className="inputs-form-login">
+                        <Input
+                            onChange={changeData}
+                            className="formButton"
+                            variant="flushed"
+                            name="username"
+                            placeholder="Username"
+                            type="text"
+                        ></Input>
+                        <Input
+                            onChange={changeData}
+                            className="formButton"
+                            variant="flushed"
+                            name="password"
+                            placeholder="Password"
+                            type="password"
+                        ></Input>
+                        <button className="formButton" type="submit">
+                            Iniciar Sesión
+                        </button>
+                        <h4 onClick={alertForget}>
+                            ¿Olvidaste tu contraseña?
+                        </h4>
+                    </div>
+                </form>
+            </div>
         </div>
     );
 }
