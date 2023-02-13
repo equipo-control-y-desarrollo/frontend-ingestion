@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { Input } from "@chakra-ui/react";
 import { backend_api } from "../Utils/util";
 import "../styles/index.scss";
+import { login } from "../services/login";
 
 export default function Login() {
 
@@ -36,48 +37,47 @@ export default function Login() {
     const sendForm = (event: any): void => {
         event.preventDefault();
         if (!validForm()) return;
-        document.body.style.cursor = "wait";
         console.log(
             `Sending data to server...(${data.username},${data.password})`
         );
         backend_api
-            .post("/auth/login", {
-                username: data.username,
-                password: data.password,
-            })
-            .then((res) => {
-                console.log(res.data);
-                document.body.style.cursor = "pointer";
-                let empresas = res.data.usuario.empresas;
-                const cookies = new Cookies();
-                console.log("Cookies has been set");
-                cookies.set("token", res.data.token, { path: "/" });
-                Swal.fire({
-                    icon: "success",
-                    title: `Bienvenido ${data.username}`,
-                    text: "Ingreso exitoso",
-                }).then((res) => {
-                    navigate("/home/modules", {
-                        state: { enterprises: empresas },
-                    });
+        .post("/auth/login", {
+            username: data.username,
+            password: data.password,
+        })
+        .then((res) => {
+            console.log(res.data);
+            document.body.style.cursor = "pointer";
+            let empresas = res.data.usuario.empresas;
+            const cookies = new Cookies();
+            console.log("Cookies has been set");
+            cookies.set("token", res.data.token, { path: "/" });
+            Swal.fire({
+                icon: "success",
+                title: `Bienvenido ${data.username}`,
+                text: "Ingreso exitoso",
+            }).then((res) => {
+                navigate("/home/modules", {
+                    state: { enterprises: empresas },
                 });
-            })
-            .catch((err) => {
-                console.log(err);
-                if (err.response?.message === "Usuario not found") {
-                    Swal.fire({
-                        icon: "error",
-                        title: "Oops...",
-                        text: "Usuario o contraseña incorrectos",
-                    });
-                } else {
-                    Swal.fire({
-                        icon: "error",
-                        title: "Oops :(",
-                        text: "Error al intentar ingresar, por favor intenté más tarde",
-                    });
-                }
-            })
+            });
+        })
+        .catch((err) => {
+            console.log(err);
+            if (err.response?.message === "Usuario not found") {
+                Swal.fire({
+                    icon: "error",
+                    title: "Oops...",
+                    text: "Usuario o contraseña incorrectos",
+                });
+            } else {
+                Swal.fire({
+                    icon: "error",
+                    title: "Oops :(",
+                    text: "Error al intentar ingresar, por favor intenté más tarde",
+                });
+            }
+        })
     };
 
     const alertForget = (): void => {

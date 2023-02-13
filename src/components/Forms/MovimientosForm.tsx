@@ -30,7 +30,7 @@ const MovimientosForm = ({
             .min(1),
         fecha: Yup.string().required("Esto campo es obligatorio").max(10),
         saldo_inicial: Yup.number()
-            .required("Esto campo es obligatorio")
+            .required("Esto campo es obligatorio"),
         ingreso: Yup.number().optional().min(0),
         pago: Yup.number().optional().min(0),
         pago_impuesto: Yup.number().optional().min(0),
