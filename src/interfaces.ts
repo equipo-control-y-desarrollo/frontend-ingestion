@@ -7,10 +7,7 @@ export interface Company {
 export type User = {
     token: string;
     usuario: {
-        empresas: {
-            id: string;
-            nombre: string;
-        },
+        empresas: Company[];
         id: string;
         isAdmin: boolean;
         password: string;
