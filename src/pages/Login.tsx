@@ -3,7 +3,6 @@ import Swal from "sweetalert2";
 import Cookies from "universal-cookie";
 import { useNavigate } from "react-router-dom";
 import { Input } from "@chakra-ui/react";
-import { backend_api } from "../Utils/util";
 import "../styles/index.scss";
 import { login } from "../services/login";
 
@@ -13,7 +12,9 @@ export default function Login() {
         username: "",
         password: "",
     });
+
     const navigate = useNavigate();
+    const cookies = new Cookies();
 
     const changeData = (event: any): void => {
         setData({
@@ -40,31 +41,21 @@ export default function Login() {
         console.log(
             `Sending data to server...(${data.username},${data.password})`
         );
-        backend_api
-        .post("/auth/login", {
-            username: data.username,
-            password: data.password,
-        })
-        .then((res) => {
-            console.log(res.data);
-            document.body.style.cursor = "pointer";
+        login(data.username, data.password).then((res) => {
             let empresas = res.data.usuario.empresas;
-            const cookies = new Cookies();
-            console.log("Cookies has been set");
             cookies.set("token", res.data.token, { path: "/" });
+            console.log("Cookies has been set");
             Swal.fire({
                 icon: "success",
                 title: `Bienvenido ${data.username}`,
                 text: "Ingreso exitoso",
-            }).then((res) => {
+            }).then(() => {
                 navigate("/home/modules", {
                     state: { enterprises: empresas },
                 });
             });
-        })
-        .catch((err) => {
-            console.log(err);
-            if (err.response?.message === "Usuario not found") {
+        }).catch((err) => {
+            if (err.response.data?.message === "Usuario not found") {
                 Swal.fire({
                     icon: "error",
                     title: "Oops...",
@@ -77,7 +68,7 @@ export default function Login() {
                     text: "Error al intentar ingresar, por favor intenté más tarde",
                 });
             }
-        })
+        });
     };
 
     const alertForget = (): void => {
