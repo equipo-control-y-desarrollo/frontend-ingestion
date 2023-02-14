@@ -1,9 +1,9 @@
 import { ReactElement, useEffect, useState } from "react";
-import { backend_api } from "../Utils/util";
 import Swal from "sweetalert2";
 import { Button } from "@chakra-ui/react";
 import { useNavigate, useLocation } from "react-router-dom";
 import useLoader from "../hooks/useLoader";
+import { getRow } from "../services/viewRow";
 
 export default function ViewRow() {
     const [data, setData] = useState({} as any);
@@ -17,9 +17,9 @@ export default function ViewRow() {
 
     useEffect(() => {
         console.log(`Fetching data for the row with id: ${id}`);
+        const query = `${module.query}/${id}`;
         setLoading(true);
-        backend_api
-            .get(`${module.query}/${id}`)
+        getRow(query)
             .then((res) => {
                 setData(res.data.data);
             })

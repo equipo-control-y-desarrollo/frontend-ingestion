@@ -6,6 +6,7 @@ import TableModule from "../components/TableModule";
 import { backend_api, checkModuleDownload } from "../Utils/util";
 import { useGlobalContext } from "../components/Context";
 import useLoader from "../hooks/useLoader";
+import { downloadModule, getModule } from "../services/modules";
 
 export default function ViewModule() {
     const [rows, setRows] = useState([{}]);
@@ -22,44 +23,33 @@ export default function ViewModule() {
 
     const location = useLocation();
     const module = location.state;
-    console.log(loading)
     
     useEffect(() => {
         let query = module ? `${data.query}/${module.query}` : `${data.query}/empresa/${id_enterprise}`;
         setLoading(true);
-        backend_api
-            .get(query)
-            .then((res) => {
-                console.log("Fetch Status for the rows: OK");
-                console.log(res.data);
-                setRows(res.data);
-                setLoading(false);
-            })
-            .catch(() => {
-                Swal.fire({
-                    icon: "error",
-                    title: "Oops...",
-                    text: "Ha ocurrido un error en el servidor, por favor, intente más tarde",
-                }).then((res) => {
-                    navigate("../../error", {
-                        replace: true,
-                    });
+        getModule(query).then((res) => {
+            console.log("Fetch Status for the rows: OK");
+            console.log(res.data);
+            setRows(res.data);
+            setLoading(false);
+        }).catch((err) => {
+            Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "Ha ocurrido un error en el servidor, por favor, intente más tarde",
+            }).then(() => {
+                navigate("../../error", {
+                    replace: true,
                 });
             });
+        });
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     const downloadExcel = (): void => {
         console.log(`Descarga para ${data.query}/export/${id_enterprise}`);
-        backend_api
-            .get(`${data.query}/export/${id_enterprise}`, {
-                responseType: "arraybuffer",
-                headers: {
-                    "Content-Disposition": "attachment; filename=export.xlsx",
-                    "Content-Type":
-                        "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-                },
-            })
+        const query = `${data.query}/export/${id_enterprise}`;
+        downloadModule(query)
             .then((res) => {
                 console.log("Fetch Status for the excel: OK");
                 const filename = `${data.name}_${enterprise}.xlsx`;
