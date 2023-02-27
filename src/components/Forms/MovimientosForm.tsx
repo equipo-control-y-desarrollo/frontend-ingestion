@@ -79,7 +79,6 @@ const MovimientosForm = ({
                 initialValues={update_values}
                 validationSchema={validationSchema}
                 onSubmit={async (values) => {
-                    alert(JSON.stringify(values, null, 2));
                     await onSubmit(values);
                 }}
             >

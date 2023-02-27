@@ -52,7 +52,6 @@ const CuadroVentasForm = ({
 
     const onSubmit = async (values: any) => {
         values = validationSchema.cast(values, { stripUnknown: true });
-        alert(JSON.stringify(values, null, 2));
         try {
             if (!is_update)
                 await backend_api.post(`${module.query}`, { ...values });
