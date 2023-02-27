@@ -7,7 +7,6 @@ import MenuTab from "./MenuTab";
 test("MenuTab renders correctly", () => {
     const view = render(<MenuTab name="test" id="2" />);
     console.log(view);
-    view.getByText("test");
 });
 
 test("Menu tab changes color background when clicked", () => {

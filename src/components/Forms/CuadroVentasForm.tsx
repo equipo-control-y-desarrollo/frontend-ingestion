@@ -37,7 +37,7 @@ const CuadroVentasForm = ({
         iva: Yup.number().optional().min(0),
         hipoconsumo: Yup.number().optional().min(0),
         tks: Yup.number().required("Esto campo es obligatorio").min(0),
-        epayco: Yup.number().optional().min(0),
+        rappi: Yup.number().optional().min(0),
         ventas_cafe: Yup.number().optional().min(0),
         ventas_bar: Yup.number().optional().min(0),
         ventas_mercado: Yup.number().optional().min(0),
@@ -52,7 +52,6 @@ const CuadroVentasForm = ({
 
     const onSubmit = async (values: any) => {
         values = validationSchema.cast(values, { stripUnknown: true });
-        alert(JSON.stringify(values, null, 2));
         try {
             if (!is_update)
                 await backend_api.post(`${module.query}`, { ...values });
@@ -207,14 +206,14 @@ const CuadroVentasForm = ({
                         <ErrorMessage name="tks" render={renderError} />
                     </div>
                     <div className="add-view-field">
-                        <label htmlFor="epayco">EPayCo</label>
+                        <label htmlFor="Rappi">Rappi</label>
                         <Field
-                            name="epayco"
+                            name="rappi"
                             type="number"
                             className="input-field-add"
-                            placeholder="Ingrese por EPayCo"
+                            placeholder="Ingrese por Rappi"
                         />
-                        <ErrorMessage name="epayco" render={renderError} />
+                        <ErrorMessage name="rappi" render={renderError} />
                     </div>
                     <div className="add-view-field">
                         <label htmlFor="ventas_cafe">Ventas del cafe</label>

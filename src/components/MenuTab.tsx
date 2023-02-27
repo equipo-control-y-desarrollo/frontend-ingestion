@@ -17,6 +17,20 @@ export default function MenuTab({ name, id }: { name: string; id: string }) {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [currentName]);
 
+    useEffect(() => {
+        if(localStorage.getItem("companyData")){
+            const data = JSON.parse(localStorage.getItem("companyData") || "{}");
+            if (data.id === id) {
+                setSelected(true);
+                setTextColor("black");
+                setBackgroundColor("white");
+                setID(id);
+                setName(name);
+            }
+        };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    },[])
+
     return (
         <Box
             bg={backgroundColor}

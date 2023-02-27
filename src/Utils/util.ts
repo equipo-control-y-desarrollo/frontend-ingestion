@@ -11,9 +11,6 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
 import { Module } from "../interfaces";
-import Cookies from "universal-cookie";
-
-const cookies = new Cookies();
 
 const backend_api = axios.create({
     withCredentials: true,
@@ -90,10 +87,6 @@ const getModuleEnterprise = (enterprise: string): Module[] => {
     }
 };
 
-function checkAuth(): boolean {
-    return cookies.get("token") ? true : false;
-}
-
 function crucialData(data: any): string {
     const module = JSON.parse(localStorage.getItem("module") || "{}");
     switch (module.name) {
@@ -124,9 +117,8 @@ function checkModuleDownload(module: string): boolean {
 }
 
 export {
+    backend_api,
     getModuleEnterprise,
     checkModuleDownload,
-    backend_api,
-    checkAuth,
     crucialData,
 };

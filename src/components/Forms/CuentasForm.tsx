@@ -24,6 +24,9 @@ const CuentasForm = ({
     ));
 
     const validationSchema = Yup.object({
+        nombre: Yup.string()
+            .optional()
+            .max(20, "El campo debe tener maximo 20 caracteres"),
         banco: Yup.string()
             .required("Este campo es obligatorio")
             .max(20, "El nombre del banco es muy largo")
@@ -45,7 +48,6 @@ const CuentasForm = ({
 
     const onSubmit = async (values: any) => {
         values = validationSchema.cast(values, { stripUnknown: true });
-        alert(JSON.stringify(values, null, 2));
         try {
             if (!is_update)
                 await backend_api.post(`${module.query}`, { ...values });
@@ -86,6 +88,16 @@ const CuentasForm = ({
                 }}
             >
                 <Form id="moduleForm">
+                    <div className="add-view-field">
+                        <label htmlFor="nombre">Nombre de la cuenta</label>
+                        <Field
+                            name="nombre"
+                            type="text"
+                            className="input-field-add"
+                            placeholder="Ingrese el nombre de la cuenta"
+                        />
+                        <ErrorMessage name="nombre" render={renderError} />
+                    </div>
                     <div className="add-view-field">
                         <label htmlFor="banco">Banco</label>
                         <Field

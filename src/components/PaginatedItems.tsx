@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import ReactPaginate from "react-paginate";
 import { crucialData } from "../Utils/util";
 import RowTable from "./RowTable";
@@ -9,10 +9,7 @@ function Items({ currentItems }: { currentItems: {}[] }) {
             {currentItems &&
                 currentItems.map((row: any, index: number) => (
                     <div key={index} className="row-container">
-                        <RowTable
-                            id={row.id}
-                            header={crucialData(row)}
-                        ></RowTable>
+                        <RowTable id={row.id} header={crucialData(row)}/>
                     </div>
                 ))}
         </>

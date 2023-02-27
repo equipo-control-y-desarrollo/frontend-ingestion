@@ -34,7 +34,7 @@ const CarteraForm = ({
             .required("Esto campo es obligatorio")
             .integer()
             .min(0),
-        valor_abonado: Yup.number().optional().min(0),
+        valor_abonado: Yup.number().required("Este campo es obligatorio").min(0),
         fecha_factura: Yup.string()
             .required("Esto campo es obligatorio")
             .max(10),
@@ -57,7 +57,6 @@ const CarteraForm = ({
 
     const onSubmit = async (values: any) => {
         values = validationSchema.cast(values, { stripUnknown: true });
-        alert(JSON.stringify(values, null, 2));
         try {
             if (!is_update)
                 await backend_api.post(`${module.query}`, { ...values });

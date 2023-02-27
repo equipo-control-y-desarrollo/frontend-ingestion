@@ -30,8 +30,7 @@ const MovimientosForm = ({
             .min(1),
         fecha: Yup.string().required("Esto campo es obligatorio").max(10),
         saldo_inicial: Yup.number()
-            .required("Esto campo es obligatorio")
-            .min(0),
+            .required("Esto campo es obligatorio"),
         ingreso: Yup.number().optional().min(0),
         pago: Yup.number().optional().min(0),
         pago_impuesto: Yup.number().optional().min(0),
@@ -80,7 +79,6 @@ const MovimientosForm = ({
                 initialValues={update_values}
                 validationSchema={validationSchema}
                 onSubmit={async (values) => {
-                    alert(JSON.stringify(values, null, 2));
                     await onSubmit(values);
                 }}
             >

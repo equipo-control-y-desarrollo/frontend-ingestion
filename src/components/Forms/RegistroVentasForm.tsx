@@ -16,8 +16,7 @@ const RegistroVentasForm = ({
     const module = JSON.parse(localStorage.getItem("module") || "{}");
     const navigate = useNavigate();
 
-    const productos = ["ACADEMIA", "UNIFORMES", "CANCHAS6V6", "CANCHA9V9"
-     ,"CANCHAS11V11", "CUMPLEAÑOS", "TORNEOS", "CAFETERIA", "EVENTOS ESPECIALES"];
+    const productos = ["ACADEMIA", "UNIFORMES", "CANCHAS", "CUMPLEAÑOS", "TORNEOS", "CAFETERIA", "EVENTOS ESPECIALES"];
 
      const productoOptions = productos.map((product, key) => (
         <option value={product} key={key}>
@@ -53,7 +52,6 @@ const RegistroVentasForm = ({
 
     const onSubmit = async (values: any) => {
         values = validationSchema.cast(values, { stripUnknown: true });
-        alert(JSON.stringify(values, null, 2));
         try {
             if (!is_update)
                 await backend_api.post(`${module.query}`, { ...values });

@@ -4,6 +4,17 @@ export interface Company {
     nombre: string;
 }
 
+export type User = {
+    token: string;
+    usuario: {
+        empresas: Company[];
+        id: string;
+        isAdmin: boolean;
+        password: string;
+        username: string;
+    }
+}
+
 export type GlobalContext = {
     currentID: string;
     currentName: string;

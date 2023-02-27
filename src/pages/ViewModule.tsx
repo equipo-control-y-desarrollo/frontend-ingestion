@@ -1,14 +1,16 @@
 import Swal from "sweetalert2";
 import { useNavigate, useLocation } from "react-router-dom";
-import { Button, Spinner } from "@chakra-ui/react";
+import { Button } from "@chakra-ui/react";
 import { ReactElement, useEffect, useState } from "react";
 import TableModule from "../components/TableModule";
-import { backend_api, checkAuth, checkModuleDownload } from "../Utils/util";
+import { backend_api, checkModuleDownload } from "../Utils/util";
 import { useGlobalContext } from "../components/Context";
+import useLoader from "../hooks/useLoader";
+import { downloadModule, getModule } from "../services/modules";
 
 export default function ViewModule() {
     const [rows, setRows] = useState([{}]);
-    const [loading, setLoading] = useState<boolean>(true);
+    const { loading, setLoading, loadingDiv } = useLoader({});
     const { currentID, currentName } = useGlobalContext();
     const navigate = useNavigate();
 
@@ -21,58 +23,33 @@ export default function ViewModule() {
 
     const location = useLocation();
     const module = location.state;
-
+    
     useEffect(() => {
-        if (checkAuth()) {
-            let query = `${data.query}/empresa/${id_enterprise}`;
-            if (module) {
-                query = `${data.query}/${module.query}`;
-            }
-            backend_api
-                .get(query)
-                .then((res) => {
-                    console.log("Fetch Status for the rows: OK");
-                    console.log(res.data);
-                    setRows(res.data);
-                    setLoading(false);
-                })
-                .catch(() => {
-                    Swal.fire({
-                        icon: "error",
-                        title: "Oops...",
-                        text: "Ha ocurrido un error en el servidor, por favor, intente más tarde",
-                    }).then((res) => {
-                        navigate("../../error", {
-                            replace: true,
-                        });
-                    });
-                });
-            console.log("Re-render with new enterprise");
-        } else {
+        let query = module ? `${data.query}/${module.query}` : `${data.query}/empresa/${id_enterprise}`;
+        setLoading(true);
+        getModule(query).then((res) => {
+            console.log("Fetch Status for the rows: OK");
+            console.log(res.data);
+            setRows(res.data);
+            setLoading(false);
+        }).catch((err) => {
             Swal.fire({
                 icon: "error",
                 title: "Oops...",
-                text: "Debes iniciar sesion para poder ingresar a esta ruta",
-            }).then((res) => {
-                navigate("../../", {
+                text: "Ha ocurrido un error en el servidor, por favor, intente más tarde",
+            }).then(() => {
+                navigate("../../error", {
                     replace: true,
                 });
             });
-        }
+        });
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [enterprise]);
+    }, []);
 
     const downloadExcel = (): void => {
         console.log(`Descarga para ${data.query}/export/${id_enterprise}`);
-        backend_api
-            .get(`${data.query}/export/${id_enterprise}`, {
-                responseType: "arraybuffer",
-                headers: {
-                    "Content-Disposition": "attachment; filename=export.xlsx",
-                    "Content-Type":
-                        "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-                },
-            })
+        const query = `${data.query}/export/${id_enterprise}`;
+        downloadModule(query)
             .then((res) => {
                 console.log("Fetch Status for the excel: OK");
                 const filename = `${data.name}_${enterprise}.xlsx`;
@@ -100,7 +77,7 @@ export default function ViewModule() {
                         icon: "error",
                         title: "Oops...",
                         text: "La empresa no cuenta con información para este módulo",
-                    }).then((res) => {});
+                    }).then((res) => { });
                     return;
                 }
                 Swal.fire({
@@ -115,31 +92,22 @@ export default function ViewModule() {
             });
     };
 
-    const loadingDiv = (): ReactElement => {
-        return (
-            <div className="loading">
-                <Spinner size="xl" color="blue.500" />
-                <h2>Cargando</h2>
-            </div>
-        );
-    };
-
-    const showNoData = (): ReactElement => {
-        return (
-            <div className="NoData">
-                La tabla {data.name} para la empresa {enterprise} no cuenta con
-                información por el momento :(
-            </div>
-        );
-    };
-
     const showData = (): ReactElement => {
         return (
             <div className="viewModule">
                 <h3>
                     {data.name} para {enterprise}
                 </h3>
-                {rows.length === 0 ? showNoData() : <TableModule rows={rows} />}
+                {rows.length === 0 ?
+                    (
+                        <div className="NoData">
+                            La tabla {data.name} para la empresa {enterprise} no cuenta con
+                            información por el momento :(
+                        </div>
+                    ) 
+                    : 
+                    <TableModule rows={rows} />
+                }
                 <div className="buttons">
                     <Button
                         id="backButton"
