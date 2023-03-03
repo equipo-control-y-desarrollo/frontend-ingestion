@@ -35,7 +35,8 @@ export default function AddRow() {
         if (data_state.isEdit) {
             console.log(`We are editing a new row ${data_state.id}`);
             const query = `${module.query}/${data_state.id}`;
-            addRow(query).then((res) => {
+            addRow(query)
+                .then((res) => {
                     setData(res.data.data);
                     setLoading(false);
                 })

@@ -9,10 +9,6 @@ $row-color: #D9D9D9;
 $main-blue-lines: #00A8E8;
 $input-placeholder-text: rgba(0, 52, 89, 0.5);
 
-// Media query variables
-$breakpoint-medium: 1283px;
-$breakpoint-tablet: 949px;
-
 *{
     font-family: 'Raleway', 'Roboto', sans-serif;
 }
@@ -35,81 +31,75 @@ $breakpoint-tablet: 949px;
     background-color: $main-blue-green;
 }
 
-#loginForm{
-
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    width: 695px;
-    height: 675px;
-    gap: 100px;
-
-    border-radius: 25px;
-
-    font-family: "Roboto", sans-serif;
-    background-color: $main-blue-green;
-    color: white;
-
-    input{
-        width: 60%;
-        border-bottom: 1px solid white;
-    }
-
-    input::placeholder {
-        color: white;
-    }
-}
-
-
 .addView-page{
     display: flex;
     flex-direction: column;
     width: 100%;
-    gap: 40px;
+    height: 100vh;
     align-items: center;
-}
+    justify-content: space-around;
 
-.form-container{
-    width: 100%;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-
-    form{
-        display: flex;
-        flex-direction: column;
-        align-content: center;
-        height: 700px;
+    .form-container{
         width: 100%;
+        display: flex;
         flex-wrap: wrap;
-        gap: 20px;
         align-items: center;
 
-        button{
-            border-radius: 10px;
-            background-color: rgb(4, 219, 4);
-            width: 100px;
-            height: 45px;
-    
-            &:hover{
-                transition: 0.5s;
-                background-color: rgb(2, 173, 2)
+        form{
+            display: flex;
+            flex-direction: column;
+            align-content: center;
+            height: 650px;
+            overflow: hidden;
+            width: 100%;
+            flex-wrap: wrap;
+            align-items: center;
+
+            .add-view-field{
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                padding: 20px;
+                
+                label{        
+                    padding-left: 20px;
+                    font-family: 'Raleway';
+                    font-style: normal;
+                    font-weight: 600;
+                    font-size: 20px;
+                }
+
+                .input-field-add{
+                    width: 200px;
+                    height: 35px;
+                    border-radius: 19px ;
+                    background-color: $row-color ;
+                    font-family: 'Raleway', 'Roboto', sans-serif;
+                    font-weight: 600;
+                    text-align: center;
+
+                    &::placeholder{
+                        font-size: 15px;
+                        color: $input-placeholder-text;
+                        font-family: 'Raleway', 'Roboto', sans-serif;
+                        text-align: center;
+                    }
+                }
+            }
+
+            button{
+                border-radius: 10px;
+                background-color: rgb(4, 219, 4);
+                width: 100px;
+                height: 45px;
+        
+                &:hover{
+                    transition: 0.5s;
+                    background-color: rgb(2, 173, 2)
+                }
             }
         }
-    }
-}
-
-.addView-Rows{
-    display: flex;
-    width: 100%;
-    flex-direction: row;
-    justify-content: space-around;
-    padding-left: 20px;
-    hr{
-        height: 100%;
-        border-left: 12px solid $main-blue-lines;
     }
 }
 
@@ -125,59 +115,43 @@ $breakpoint-tablet: 949px;
     }
 }
 
-.add-view-field{
-
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 20px;
-
-    label{        
-        padding-left: 20px;
-        font-family: 'Raleway';
-        font-style: normal;
-        font-weight: 600;
-        font-size: 20px;
-    }
-
-    input[type='text'],input[type='number'],input[type='date']{
-        text-align: center;
-        width: 268px;
-        height: 40px;
-
-        &::placeholder{
-            text-align: center;
-        }
-    }
-}
-
-.input-field-add{
-    width: 268px !important;
-    border-radius: 19px !important;
-    background-color: $row-color !important;
-    font-family: 'Raleway', 'Roboto', sans-serif;
-    font-weight: 600;
-
-    &::placeholder{
-        color: $input-placeholder-text;
-        font-family: 'Raleway', 'Roboto', sans-serif;
-    }
-
-}
-
 .viewModule{
 
     display: flex;
     flex-direction: column;
     justify-content: space-around;
-
     height: 100vh;
+
     h3{
         text-align: center;
         font-weight: 400;
         font-size: 40px;
     }
+
+    .tableData{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 15px;
+        justify-content: center;
+
+        .row-container{
+            display: flex;
+            justify-content: center;
+            width: 100%;
+        }
+
+        .pagination {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            li{
+                display: inline;
+            }
+        }
+    }
+
 }
 
 .icon {
@@ -188,46 +162,119 @@ $breakpoint-tablet: 949px;
 .Layout{
     display: flex;
     flex-direction: row;
-}
 
-.tableData{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 15px;
-    justify-content: center;
-}
+    .vertical-navbar{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 50px;
+        height: 100vh;
+        width: 30%;
+        background-color: $main-blue-green;
 
-.row-container{
-    display: flex;
-    justify-content: center;
-    width: 100%;
-}
+        hr{
+            width: 100%;
+            border-top: 1px solid white;
+        }
 
-.pagination {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-    li{
-        display: inline;
+        .companies-container{
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            height: 100vh;
+
+            overflow-y: scroll;
+
+            // Remove scrollbar
+            -ms-overflow-style: none;  /* IE and Edge */
+            scrollbar-width: none;  /* Firefox */
+            &::-webkit-scrollbar {
+                display: none;
+            }
+        }
+
+        .companies-list{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+            width: 100%;
+            height: 100%;
+            font-family: "Raleway", "Robot", sans-serif;
+            font-weight: 600;
+            font-size: 18px;
+            color: white;
+
+
+            div{
+                display:flex;
+                flex-direction: row;
+                align-items: center;
+                justify-content: center;
+                width: 100%;
+                height: 70px;
+            }
+
+            div:hover{
+                background-color: white;
+                color: $main-blue-green;
+            }
+        }
+        
+        .vertical-navbar-footer{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-evenly;
+            width: 100%;
+            height: 20%;
+
+            svg{
+                width: 30px;
+                height: 30px;
+                color: white;
+            }
+        }
     }
 }
 
 .viewDataGrid{
     display: flex;
     flex-direction: column;
-    flex-wrap: nowrap;
-    gap: 55px;
+    flex-wrap: wrap;
+    gap: 25px;
     align-items: center;
-}
+    justify-content: space-around;
+    height: 100vh;
 
-.displayDataGrid{
-    display: grid;
-    width: 90%;
-    grid-template-columns: 1fr 1fr 1fr;
-    grid-template-rows: 1fr 1fr 1fr 1fr;
-    row-gap: 30px;
+    .displayDataGrid{
+        display: grid;
+        width: 100%;
+        grid-template-columns: 1fr 1fr 1fr;
+        grid-template-rows: 1fr 1fr 1fr 1fr;
+        row-gap: 30px;
+
+        .fieldData {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            
+            h2{
+                font-family: "Raleway", "Roboto", sans-serif;
+                font-weight: 600;
+                font-size: 18px;
+            }
+
+            input{
+                background-color: $row-color;
+                border-radius: 15px;
+                width: 75%;
+                height: 48px;
+                text-align: center;
+                color: rgb(88, 88, 88);
+            }
+        }
+    }
 }
 
 .titleShow{
@@ -241,26 +288,6 @@ $breakpoint-tablet: 949px;
     text-align: center;
     font-family: 'Raleway', 'Roboto', sans-serif;
     font-size: 30px;
-}
-
-.fieldData {
-    display: flex;
-    flex-direction: column;
-    
-    h2{
-        font-family: "Raleway", "Roboto", sans-serif;
-        font-weight: 600;
-        font-size: 18px;
-    }
-
-    input{
-        background-color: $row-color;
-        border-radius: 15px;
-        width: 75%;
-        height: 48px;
-        text-align: center;
-        color: rgb(88, 88, 88);
-    }
 }
 
 .row{
@@ -301,29 +328,51 @@ $breakpoint-tablet: 949px;
     display: flex;
     flex-direction: row;
     width: 100%;
-}
 
-.modules-menu{
-    display: flex;
-    width: 100%;
-    height: 100vh;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 60px;
+    .modules-menu{
+        display: flex;
+        width: 100%;
+        height: 100vh;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 60px;
 
-    h2{
-        font-family: "Raleway", "Roboto", sans-serif;
-        font-weight: 600;
-        font-size: 57px;
+        h2{
+            font-family: "Raleway", "Roboto", sans-serif;
+            font-weight: 600;
+            font-size: 57px;
+        }
+
+        .modules-container{
+            display: grid;
+            grid-auto-flow: column;
+            grid-template-rows: 1fr 1fr;
+            gap: 60px 30px;
+
+            .module{
+                display: flex;
+                flex-direction: column;
+                width: 250px;
+                height: 250px;
+                font-family: "Raleway", "Roboto", sans-serif;
+                font-weight: 600;
+                font-size: 20px;
+                background-color: $module-color;
+                color: white;
+                justify-content: center;
+                border-radius: 20px;
+                align-items: center;
+                gap: 10px;
+
+                svg{
+                    width: 150px;
+                    height: 150px;
+                }
+
+            }
+        }
     }
-}
-
-.modules-container{
-    display: grid;
-    grid-auto-flow: column;
-    grid-template-rows: 1fr 1fr;
-    gap: 60px 30px;
 }
 
 main{
@@ -331,139 +380,6 @@ main{
     width: 100%;
 }
 
-.module{
-    display: flex;
-    flex-direction: column;
-    width: 300px;
-    height: 300px;
-    font-family: "Raleway", "Roboto", sans-serif;
-    font-weight: 600;
-    font-size: 20px;
-    background-color: $module-color;
-    color: white;
-    justify-content: center;
-    border-radius: 20px;
-    align-items: center;
-    gap: 10px;
-
-    svg{
-        width: 150px;
-        height: 150px;
-    }
-
-}
-
-@media screen and (max-width: $breakpoint-medium) {
-    .module{
-        height: 220px;
-        width: 220px;
-        
-        svg{
-            width: 100px;
-            height: 100px;
-        }
-    }
-}
-
-@media screen and (max-width: $breakpoint-tablet) {
-    .module{
-        height: 180px;
-        width: 180px;
-        
-        svg{
-            width: 100px;
-            height: 100px;
-        }
-    }
-}
-
-
-
-.vertical-navbar{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 50px;
-    height: 100vh;
-    width: 30%;
-    background-color: $main-blue-green;
-
-    hr{
-        width: 100%;
-        border-top: 1px solid white;
-    }
-}
-
-.companies-container{
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    height: 100vh;
-
-    overflow-y: scroll;
-
-    // Remove scrollbar
-    -ms-overflow-style: none;  /* IE and Edge */
-    scrollbar-width: none;  /* Firefox */
-    &::-webkit-scrollbar {
-        display: none;
-    }
-
-}
-
-.companies-list{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 20px;
-    width: 100%;
-    height: 100%;
-    font-family: "Raleway", "Robot", sans-serif;
-    font-weight: 600;
-    font-size: 20px;
-    color: white;
-
-
-    div{
-        display:flex;
-        flex-direction: row;
-        align-items: center;
-        justify-content: center;
-        width: 100%;
-        height: 70px;
-    }
-
-    div:hover{
-        background-color: white;
-        color: $main-blue-green;
-    }
-}
-
-.vertical-navbar-footer{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-evenly;
-    width: 100%;
-    height: 20%;
-
-    svg{
-        width: 30px;
-        height: 30px;
-        color: white;
-    }
-}
-
-
-
-.inputs-form-login{
-    display: flex;
-    gap: 20px;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-}
 
 .login-form-container{
     display: flex;
@@ -471,6 +387,40 @@ main{
     height: 100vh;
     justify-content: center;
     align-items: center;
+
+    #loginForm{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 695px;
+        height: 675px;
+        gap: 100px;
+
+        border-radius: 25px;
+
+        font-family: "Roboto", sans-serif;
+        background-color: $main-blue-green;
+        color: white;
+
+        input{
+            width: 60%;
+            border-bottom: 1px solid white;
+        }
+
+        input::placeholder {
+            color: white;
+        }
+
+        .inputs-form-login{
+            display: flex;
+            gap: 20px;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+        }
+    }
 }
 
 .formButton{
@@ -516,5 +466,49 @@ main{
 body{
     margin: 0;
     padding: 0;
+}
+
+@media screen and(min-width: 1250px){
+    .Layout{
+        .vertical-navbar{
+            .companies-container{
+                .companies-list{
+                    div{
+                        font-size: 20px;
+                    }
+                }
+            }
+        }
+    }
+
+    .main-menu{
+        .modules-menu{
+            .modules-container{
+                .module{
+                    width: 300px;
+                    height: 300px;
+                    font-size: 30px;
+                    svg{
+                        width: 150px;
+                        height: 150px;
+                    }
+                }
+            }
+        }
+    }
+
+    .addView-page{
+        .form-container {
+            form{
+                height: 650px;
+                .add-view-field{
+                    .input-field-add{
+                        height: 50px;
+                        width: 200px ;
+                    }
+                }
+            }
+        }
+    }
 }
 
