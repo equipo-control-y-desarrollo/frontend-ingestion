@@ -11,6 +11,7 @@ import {
     ErrorPage,
 } from "../pages";
 import PrivateRoute from "../Utils/PrivateRoute";
+import "../styles/reset.scss";
 
 export default function App() {
     const [currentID, setID] = useState<string>("");
