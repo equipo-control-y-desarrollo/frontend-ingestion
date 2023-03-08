@@ -28,7 +28,7 @@ const CuadroVentasForm = ({
             .required("Esto campo es obligatorio")
             .integer()
             .positive(),
-        ventas_mañana: Yup.number().optional().min(0),
+        ventas_ma_ana: Yup.number().optional().min(0),
         ventas_tarde: Yup.number().optional().min(0),
         efectivo: Yup.number().optional().min(0),
         datafono: Yup.number().optional().min(0),
@@ -52,6 +52,11 @@ const CuadroVentasForm = ({
 
     const onSubmit = async (values: any) => {
         values = validationSchema.cast(values, { stripUnknown: true });
+        values = {
+            ...values,
+            ventas_mañana: values.ventas_ma_ana || 0,
+        }
+        delete values.ventas_ma_ana;
         try {
             if (!is_update)
                 await backend_api.post(`${module.query}`, { ...values });
@@ -103,17 +108,17 @@ const CuadroVentasForm = ({
                         <ErrorMessage name="empresa_id" render={renderError} />
                     </div>
                     <div className="add-view-field">
-                        <label htmlFor="ventas_mañana">
+                        <label htmlFor="ventas_ma_ana">
                             Ventas de la mañana
                         </label>
                         <Field
-                            name="ventas_mañana"
+                            name="ventas_ma_ana"
                             type="number"
                             className="input-field-add"
                             placeholder="Ingrese la cantidad de ventas"
                         ></Field>
                         <ErrorMessage
-                            name="ventas_mañana"
+                            name="ventas_ma_ana"
                             render={renderError}
                         />
                     </div>
