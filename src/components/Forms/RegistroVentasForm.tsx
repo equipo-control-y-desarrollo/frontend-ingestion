@@ -16,9 +16,19 @@ const RegistroVentasForm = ({
     const module = JSON.parse(localStorage.getItem("module") || "{}");
     const navigate = useNavigate();
 
-    const productos = ["ACADEMIA", "UNIFORMES", "CANCHA6V6", "CANCHA9V9", "CANCHA11V11", "CUMPLEAÑOS", "TORNEOS", "CAFETERIA", "EVENTOS ESPECIALES"];
+    const productos = [
+        "ACADEMIA",
+        "UNIFORMES",
+        "CANCHA6V6",
+        "CANCHA9V9",
+        "CANCHA11V11",
+        "CUMPLEAÑOS",
+        "TORNEOS",
+        "CAFETERIA",
+        "EVENTOS ESPECIALES",
+    ];
 
-     const productoOptions = productos.map((product, key) => (
+    const productoOptions = productos.map((product, key) => (
         <option value={product} key={key}>
             {product}
         </option>
@@ -131,9 +141,7 @@ const RegistroVentasForm = ({
                             placeholder="Ingrese el nombre producto"
                             as="select"
                         >
-                            <option value={""}>
-                                Seleccione el producto
-                            </option>
+                            <option value={""}>Seleccione el producto</option>
                             {productoOptions}
                         </Field>
                         <ErrorMessage name="producto" render={renderError} />

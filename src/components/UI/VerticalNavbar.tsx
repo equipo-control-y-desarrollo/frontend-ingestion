@@ -4,7 +4,7 @@ import { Tooltip } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 import Cookies from "universal-cookie";
 import MenuTab from "./MenuTab";
-import { Company } from "../interfaces";
+import { Company } from "../../interfaces";
 
 export default function VerticalNavbar({
     logoImage,

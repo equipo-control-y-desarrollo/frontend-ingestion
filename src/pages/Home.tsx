@@ -1,12 +1,12 @@
 import { useState, useEffect, ReactElement } from "react";
-import ModulesMenu from "../components/ModulesMenu";
+import ModulesMenu from "../components/UI/ModulesMenu";
 import { getModuleEnterprise } from "../Utils/util";
 import { Module } from "../interfaces";
-import { useGlobalContext } from "../components/Context";
+import { useGlobalContext } from "../context/Context";
 import useLoader from "../hooks/useLoader";
 
 export default function Home() {
-    const { loading, setLoading, loadingDiv } = useLoader({});
+    const { loading, setLoading, loadingDiv } = useLoader();
     const [modules, setModules] = useState<Module[] | []>([]);
     const { currentName } = useGlobalContext();
     let enterprise: string =
@@ -22,10 +22,8 @@ export default function Home() {
     };
 
     useEffect(() => {
-        console.log("enterprise: ", enterprise);
         setModules(getModuleEnterprise(enterprise || ""));
         setLoading(false);
-        console.log("Re-render with new enterprise");
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [enterprise]);
 

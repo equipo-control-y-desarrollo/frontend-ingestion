@@ -2,7 +2,7 @@ import { faPencil, faTrashCan } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
-import { backend_api } from "../Utils/util";
+import { backend_api } from "../../Utils/util";
 import { Tooltip } from "@chakra-ui/react";
 
 export default function RowTable({
@@ -15,13 +15,11 @@ export default function RowTable({
     const navigate = useNavigate();
 
     const viewThisRow = (): void => {
-        console.log(`Viewing row with id: ${id}`);
         navigate(`../row/${id}`, { state: { id: id } });
     };
 
     const editThisRow = (event: any): void => {
         event.stopPropagation();
-        console.log("Editing row with id: " + id);
         Swal.fire({
             icon: "info",
             title: "Editando",
@@ -39,7 +37,6 @@ export default function RowTable({
     const deleteThisRow = (event: any): void => {
         event.stopPropagation();
         let query = JSON.parse(localStorage.getItem("module") || "{}").query;
-        console.log("Deleting row of with id: " + id);
         Swal.fire({
             icon: "info",
             title: "Eliminando",
@@ -73,7 +70,11 @@ export default function RowTable({
     };
 
     return (
-        <Tooltip label="Ver registro" aria-label="Ver el registro" placement="left">
+        <Tooltip
+            label="Ver registro"
+            aria-label="Ver el registro"
+            placement="left"
+        >
             <div className="row grow" onClick={viewThisRow}>
                 <div className="crucialData">
                     <div>{header}</div>
@@ -85,7 +86,7 @@ export default function RowTable({
                             icon={faPencil}
                             className="icon"
                             id="pencil"
-                            ></FontAwesomeIcon>
+                        ></FontAwesomeIcon>
                     </Tooltip>
                     <Tooltip label="Eliminar">
                         <FontAwesomeIcon

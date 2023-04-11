@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { myGlobalContext } from "./Context";
+import { myGlobalContext } from "../context/Context";
 import {
     Login,
     Layout,
@@ -23,7 +23,7 @@ export default function App() {
             <BrowserRouter>
                 <Routes>
                     <Route path="/" element={<Login />} />
-                    <Route element={<PrivateRoute/>}> 
+                    <Route element={<PrivateRoute />}>
                         <Route path="/home" element={<Layout />}>
                             <Route path="modules" element={<Home />} />
                             <Route path=":module" element={<ViewModule />} />

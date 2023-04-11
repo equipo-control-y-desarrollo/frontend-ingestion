@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useGlobalContext } from "./Context";
-import { Module } from "../interfaces";
+import { useGlobalContext } from "../../context/Context";
+import { Module } from "../../interfaces";
 import Swal from "sweetalert2";
 import { ReactElement } from "react";
 

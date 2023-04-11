@@ -7,7 +7,7 @@ import { getRow } from "../services/viewRow";
 
 export default function ViewRow() {
     const [data, setData] = useState({} as any);
-    const {loading , setLoading, loadingDiv} = useLoader(false);
+    const { loading, setLoading, loadingDiv } = useLoader();
 
     const navigate = useNavigate();
     const location = useLocation();
@@ -16,7 +16,6 @@ export default function ViewRow() {
     const module = JSON.parse(localStorage.getItem("module") || "{}");
 
     useEffect(() => {
-        console.log(`Fetching data for the row with id: ${id}`);
         const query = `${module.query}/${id}`;
         setLoading(true);
         getRow(query)
@@ -24,7 +23,6 @@ export default function ViewRow() {
                 setData(res.data.data);
             })
             .catch((err) => {
-                console.log(err);
                 Swal.fire({
                     icon: "error",
                     title: "Oops...",
@@ -49,7 +47,6 @@ export default function ViewRow() {
             if (data[curr]) {
                 let date: boolean =
                     curr.includes("fecha") || curr.includes("date");
-                console.log(data[curr]);
                 let res: string = date
                     ? data[curr].toString().substring(0, 10)
                     : data[curr].toString();
@@ -104,7 +101,6 @@ export default function ViewRow() {
     };
 
     const editElement = (): void => {
-        console.log(`Editing element with id: ${id}`);
         Swal.fire({
             icon: "info",
             title: "Editando",

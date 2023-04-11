@@ -1,6 +1,6 @@
 import { useState } from "react";
 import ReactPaginate from "react-paginate";
-import { crucialData } from "../Utils/util";
+import { crucialData } from "../../Utils/util";
 import RowTable from "./RowTable";
 
 function Items({ currentItems }: { currentItems: {}[] }) {
@@ -9,7 +9,7 @@ function Items({ currentItems }: { currentItems: {}[] }) {
             {currentItems &&
                 currentItems.map((row: any, index: number) => (
                     <div key={index} className="row-container">
-                        <RowTable id={row.id} header={crucialData(row)}/>
+                        <RowTable id={row.id} header={crucialData(row)} />
                     </div>
                 ))}
         </>
@@ -31,16 +31,12 @@ export default function PaginatedItems({
     // (This could be items from props; or items loaded in a local state
     // from an API endpoint with useEffect and useState)
     const endOffset = itemOffset + itemsPerPage;
-    console.log(`Loading items from ${itemOffset} to ${endOffset}`);
     const currentItems = items.slice(itemOffset, endOffset);
     const pageCount = Math.ceil(items.length / itemsPerPage);
 
     // Invoke when user click to request another page.
     const handlePageClick = (event: any) => {
         const newOffset = (event.selected * itemsPerPage) % items.length;
-        console.log(
-            `User requested page number ${event.selected}, which is offset ${newOffset}`
-        );
         setItemOffset(newOffset);
     };
 

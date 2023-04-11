@@ -1,14 +1,14 @@
 import PaginatedItems from "./PaginatedItems";
 import SearchBar from "./SearchBar";
 import { useState } from "react";
-import { crucialData } from "../Utils/util";
+import { crucialData } from "../../Utils/util";
 
 /**
  * Component that renders a table with a search bar
  */
-export default function TableModule({rows}: { rows: {}[] }) {
+export default function TableModule({ rows }: { rows: {}[] }) {
     const [filterRows, setFilterRows] = useState<{}[]>(() => rows);
-    
+
     const handleEnter = (search: string): void => {
         if (search === "") {
             setFilterRows(rows);

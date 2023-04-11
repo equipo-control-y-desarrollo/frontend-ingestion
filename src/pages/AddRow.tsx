@@ -1,7 +1,7 @@
 import { useNavigate, useLocation } from "react-router-dom";
 import { ReactElement, useEffect, useState } from "react";
 import { Button } from "@chakra-ui/react";
-import { useGlobalContext } from "../components/Context";
+import { useGlobalContext } from "../context/Context";
 import { addRow } from "../services/addRow";
 import Swal from "sweetalert2";
 import useLoader from "../hooks/useLoader";
@@ -18,7 +18,7 @@ import {
 } from "../components/Forms";
 
 export default function AddRow() {
-    const { loading, setLoading, loadingDiv } = useLoader(false);
+    const { loading, setLoading, loadingDiv } = useLoader();
     const [data, setData] = useState<object>({});
     const navigate = useNavigate();
     const location = useLocation();
@@ -33,7 +33,6 @@ export default function AddRow() {
 
     useEffect(() => {
         if (data_state.isEdit) {
-            console.log(`We are editing a new row ${data_state.id}`);
             const query = `${module.query}/${data_state.id}`;
             addRow(query)
                 .then((res) => {
@@ -114,7 +113,6 @@ export default function AddRow() {
                     />
                 );
             case "Movimientos":
-                console.log(data_state);
                 return (
                     <MovimientosForm
                         is_update={data_state.isEdit}

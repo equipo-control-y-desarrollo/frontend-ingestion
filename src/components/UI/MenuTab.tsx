@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Box, Text } from "@chakra-ui/react";
-import { useGlobalContext } from "./Context";
+import { useGlobalContext } from "../../context/Context";
 
 export default function MenuTab({ name, id }: { name: string; id: string }) {
     const [selected, setSelected] = useState<boolean>(false);
@@ -18,8 +18,10 @@ export default function MenuTab({ name, id }: { name: string; id: string }) {
     }, [currentName]);
 
     useEffect(() => {
-        if(localStorage.getItem("companyData")){
-            const data = JSON.parse(localStorage.getItem("companyData") || "{}");
+        if (localStorage.getItem("companyData")) {
+            const data = JSON.parse(
+                localStorage.getItem("companyData") || "{}"
+            );
             if (data.id === id) {
                 setSelected(true);
                 setTextColor("black");
@@ -27,9 +29,9 @@ export default function MenuTab({ name, id }: { name: string; id: string }) {
                 setID(id);
                 setName(name);
             }
-        };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    },[])
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
     return (
         <Box

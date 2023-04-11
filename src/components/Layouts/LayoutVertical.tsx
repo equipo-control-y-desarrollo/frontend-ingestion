@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Outlet } from "react-router-dom";
-import VerticalNavbar from "../VerticalNavbar";
+import VerticalNavbar from "../UI/VerticalNavbar";
 import { useNavigate } from "react-router-dom";
 import { backend_api } from "../../Utils/util";
 import Swal from "sweetalert2";
@@ -14,7 +14,6 @@ export default function Layout() {
         backend_api
             .get("empresas/user")
             .then((res) => {
-                console.log("Setting companies");
                 setListCompanies(res.data);
             })
             .catch((err) => {

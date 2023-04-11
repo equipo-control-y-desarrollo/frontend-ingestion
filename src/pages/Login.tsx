@@ -7,7 +7,6 @@ import "../styles/index.scss";
 import { login } from "../services/login";
 
 export default function Login() {
-
     const [data, setData] = useState<{ username: string; password: string }>({
         username: "",
         password: "",
@@ -38,37 +37,35 @@ export default function Login() {
     const sendForm = (event: any): void => {
         event.preventDefault();
         if (!validForm()) return;
-        console.log(
-            `Sending data to server...(${data.username},${data.password})`
-        );
-        login(data.username, data.password).then((res) => {
-            let empresas = res.data.usuario.empresas;
-            cookies.set("token", res.data.token, { path: "/" });
-            console.log("Cookies has been set");
-            Swal.fire({
-                icon: "success",
-                title: `Bienvenido ${data.username}`,
-                text: "Ingreso exitoso",
-            }).then(() => {
-                navigate("/home/modules", {
-                    state: { enterprises: empresas },
+        login(data.username, data.password)
+            .then((res) => {
+                let empresas = res.data.usuario.empresas;
+                cookies.set("token", res.data.token, { path: "/" });
+                Swal.fire({
+                    icon: "success",
+                    title: `Bienvenido ${data.username}`,
+                    text: "Ingreso exitoso",
+                }).then(() => {
+                    navigate("/home/modules", {
+                        state: { enterprises: empresas },
+                    });
                 });
+            })
+            .catch((err) => {
+                if (err.response.data?.message === "Usuario not found") {
+                    Swal.fire({
+                        icon: "error",
+                        title: "Oops...",
+                        text: "Usuario o contraseña incorrectos",
+                    });
+                } else {
+                    Swal.fire({
+                        icon: "error",
+                        title: "Oops :(",
+                        text: "Error al intentar ingresar, por favor intenté más tarde",
+                    });
+                }
             });
-        }).catch((err) => {
-            if (err.response.data?.message === "Usuario not found") {
-                Swal.fire({
-                    icon: "error",
-                    title: "Oops...",
-                    text: "Usuario o contraseña incorrectos",
-                });
-            } else {
-                Swal.fire({
-                    icon: "error",
-                    title: "Oops :(",
-                    text: "Error al intentar ingresar, por favor intenté más tarde",
-                });
-            }
-        });
     };
 
     const alertForget = (): void => {
@@ -105,9 +102,7 @@ export default function Login() {
                         <button className="formButton" type="submit">
                             Iniciar Sesión
                         </button>
-                        <h4 onClick={alertForget}>
-                            ¿Olvidaste tu contraseña?
-                        </h4>
+                        <h4 onClick={alertForget}>¿Olvidaste tu contraseña?</h4>
                     </div>
                 </form>
             </div>

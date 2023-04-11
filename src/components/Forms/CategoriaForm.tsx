@@ -54,7 +54,6 @@ const CategoriasForm = ({
                 await backend_api.post(`${module.query}`, { ...values });
             else await backend_api.put(`${module.query}/${row}`, { ...values });
         } catch (e) {
-            console.log(e);
             Swal.fire({
                 icon: "error",
                 title: "Oops...",
