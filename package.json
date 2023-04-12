@@ -36,7 +36,8 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "jest",
+    "test:watch": "jest --watch",
     "eject": "react-scripts eject",
     "prepare": "husky install"
   },
@@ -73,6 +74,7 @@
     "husky": "^8.0.3",
     "jest-watch-typeahead": "^0.6.5",
     "lint-staged": "^13.1.0",
+    "prettier": "2.8.7",
     "prop-types": "^15.8.1",
     "react-test-renderer": "^18.2.0",
     "webpack": "^5.75.0"

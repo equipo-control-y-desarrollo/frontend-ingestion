@@ -1,520 +1,510 @@
-@import url('./effects.scss');
-@import url('https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
-
+@import url("./effects.scss");
+@import url("https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 
 // Style variables
-$main-blue-green: #00171F;
+$main-blue-green: #00171f;
 $module-color: #003459;
-$row-color: #D9D9D9;
-$main-blue-lines: #00A8E8;
+$row-color: #d9d9d9;
+$main-blue-lines: #00a8e8;
 $input-placeholder-text: rgba(0, 52, 89, 0.5);
 
-*{
-    font-family: 'Raleway', 'Roboto', sans-serif;
+* {
+  font-family: "Raleway", "Roboto", sans-serif;
 }
 
-#pencil{
-
-    &:hover{
-        color: green;
-    }
+#pencil {
+  &:hover {
+    color: green;
+  }
 }
 
-#can{
-    
-    &:hover{
-        color: red;
-    }
+#can {
+  &:hover {
+    color: red;
+  }
 }
 
-#backButton{
-    background-color: $main-blue-green;
+#backButton {
+  background-color: $main-blue-green;
 }
 
-.addView-page{
-    display: flex;
-    flex-direction: column;
+.addView-page {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100vh;
+  align-items: center;
+  justify-content: space-around;
+
+  .form-container {
     width: 100%;
-    height: 100vh;
-    align-items: center;
-    justify-content: space-around;
-
-    .form-container{
-        width: 100%;
-        display: flex;
-        flex-wrap: wrap;
-        align-items: center;
-
-        form{
-            display: flex;
-            flex-direction: column;
-            align-content: center;
-            height: 650px;
-            overflow: hidden;
-            width: 100%;
-            flex-wrap: wrap;
-            align-items: center;
-
-            .add-view-field{
-                display: flex;
-                flex-direction: column;
-                justify-content: center;
-                align-items: center;
-                padding: 20px;
-                
-                label{        
-                    padding-left: 20px;
-                    font-family: 'Raleway';
-                    font-style: normal;
-                    font-weight: 600;
-                    font-size: 20px;
-                }
-
-                .input-field-add{
-                    width: 200px;
-                    height: 35px;
-                    border-radius: 19px ;
-                    background-color: $row-color ;
-                    font-family: 'Raleway', 'Roboto', sans-serif;
-                    font-weight: 600;
-                    text-align: center;
-
-                    &::placeholder{
-                        font-size: 15px;
-                        color: $input-placeholder-text;
-                        font-family: 'Raleway', 'Roboto', sans-serif;
-                        text-align: center;
-                    }
-                }
-            }
-
-            button{
-                border-radius: 10px;
-                background-color: rgb(4, 219, 4);
-                width: 100px;
-                height: 45px;
-        
-                &:hover{
-                    transition: 0.5s;
-                    background-color: rgb(2, 173, 2)
-                }
-            }
-        }
-    }
-}
-
-.add-form{
     display: flex;
-    flex-direction: row;
-    gap: 20px;
-    
-    .form{
+    flex-wrap: wrap;
+    align-items: center;
+
+    form {
+      display: flex;
+      flex-direction: column;
+      align-content: center;
+      height: 650px;
+      overflow: hidden;
+      width: 100%;
+      flex-wrap: wrap;
+      align-items: center;
+
+      .add-view-field {
         display: flex;
         flex-direction: column;
-        gap: 25px;
+        justify-content: center;
+        align-items: center;
+        padding: 20px;
+
+        label {
+          padding-left: 20px;
+          font-family: "Raleway";
+          font-style: normal;
+          font-weight: 600;
+          font-size: 20px;
+        }
+
+        .input-field-add {
+          width: 200px;
+          height: 35px;
+          border-radius: 19px;
+          background-color: $row-color;
+          font-family: "Raleway", "Roboto", sans-serif;
+          font-weight: 600;
+          text-align: center;
+
+          &::placeholder {
+            font-size: 15px;
+            color: $input-placeholder-text;
+            font-family: "Raleway", "Roboto", sans-serif;
+            text-align: center;
+          }
+        }
+      }
+
+      button {
+        border-radius: 10px;
+        background-color: rgb(4, 219, 4);
+        width: 100px;
+        height: 45px;
+
+        &:hover {
+          transition: 0.5s;
+          background-color: rgb(2, 173, 2);
+        }
+      }
     }
+  }
 }
 
-.viewModule{
+.add-form {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
 
+  .form {
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
-    height: 100vh;
+    gap: 25px;
+  }
+}
 
-    h3{
-        text-align: center;
-        font-weight: 400;
-        font-size: 40px;
+.viewModule {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  height: 100vh;
+
+  h3 {
+    text-align: center;
+    font-weight: 400;
+    font-size: 40px;
+  }
+
+  .tableData {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    justify-content: center;
+
+    .row-container {
+      display: flex;
+      justify-content: center;
+      width: 100%;
     }
 
-    .tableData{
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 15px;
-        justify-content: center;
-
-        .row-container{
-            display: flex;
-            justify-content: center;
-            width: 100%;
-        }
-
-        .pagination {
-            width: 100%;
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            li{
-                display: inline;
-            }
-        }
+    .pagination {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      li {
+        display: inline;
+      }
     }
-
+  }
 }
 
 .icon {
-    width: 22px;
-    height: 22px;
+  width: 22px;
+  height: 22px;
 }
 
-.Layout{
-    display: flex;
-    flex-direction: row;
+.Layout {
+  display: flex;
+  flex-direction: row;
 
-    .vertical-navbar{
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 50px;
-        height: 100vh;
-        width: 30%;
-        background-color: $main-blue-green;
-
-        hr{
-            width: 100%;
-            border-top: 1px solid white;
-        }
-
-        .companies-container{
-            display: flex;
-            flex-direction: column;
-            width: 100%;
-            height: 100vh;
-
-            overflow-y: scroll;
-
-            // Remove scrollbar
-            -ms-overflow-style: none;  /* IE and Edge */
-            scrollbar-width: none;  /* Firefox */
-            &::-webkit-scrollbar {
-                display: none;
-            }
-        }
-
-        .companies-list{
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 20px;
-            width: 100%;
-            height: 100%;
-            font-family: "Raleway", "Robot", sans-serif;
-            font-weight: 600;
-            font-size: 18px;
-            color: white;
-
-
-            div{
-                display:flex;
-                flex-direction: row;
-                align-items: center;
-                justify-content: center;
-                width: 100%;
-                height: 70px;
-                cursor: pointer;
-            }
-
-            div:hover{
-                background-color: white;
-                color: $main-blue-green;
-            }
-        }
-        
-        .vertical-navbar-footer{
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: space-evenly;
-            width: 100%;
-            height: 20%;
-
-            svg{
-                width: 30px;
-                height: 30px;
-                color: white;
-                cursor: pointer;
-            }
-        }
-    }
-}
-
-.viewDataGrid{
+  .vertical-navbar {
     display: flex;
     flex-direction: column;
-    flex-wrap: wrap;
-    gap: 25px;
     align-items: center;
-    justify-content: space-around;
+    gap: 50px;
     height: 100vh;
+    width: 30%;
+    background-color: $main-blue-green;
 
-    .displayDataGrid{
-        display: grid;
-        width: 100%;
-        grid-template-columns: 1fr 1fr 1fr;
-        grid-template-rows: 1fr 1fr 1fr 1fr;
-        row-gap: 30px;
-
-        .fieldData {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            
-            h2{
-                font-family: "Raleway", "Roboto", sans-serif;
-                font-weight: 600;
-                font-size: 18px;
-            }
-
-            input{
-                background-color: $row-color;
-                border-radius: 15px;
-                width: 75%;
-                height: 48px;
-                text-align: center;
-                color: rgb(88, 88, 88);
-            }
-        }
+    hr {
+      width: 100%;
+      border-top: 1px solid white;
     }
-}
 
-.titleShow{
-    font-family: "Raleway", "Roboto", sans-serif;
-    font-weight: 600;
-    font-size: 40px;
-    margin-top: 20px;
-}
+    .companies-container {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      height: 100vh;
 
-.NoData{
-    text-align: center;
-    font-family: 'Raleway', 'Roboto', sans-serif;
-    font-size: 30px;
-}
+      overflow-y: scroll;
 
-.row{
-    display: flex;
-    direction: row;
-    justify-content: space-between;
-    padding-left: 40px;
-    padding-right: 40px;
-    background-color: $row-color;
-    font-family: "Raleway", "Roboto", sans-serif;
-    font-weight: 600;
-    font-size: 28px;
-
-    height: 110px;
-    width: 70%;
-
-}
-
-.buttons{
-    display: flex;
-    width: 100%;
-    display: column;
-    justify-content: center;
-    gap: 20px;
-}
-
-.crucialData{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
-
-.optionsRow{
-    gap: 20px;
-}
-
-.main-menu{
-    display: flex;
-    flex-direction: row;
-    width: 100%;
-
-    .modules-menu{
-        display: flex;
-        width: 100%;
-        height: 100vh;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        gap: 60px;
-
-        h2{
-            font-family: "Raleway", "Roboto", sans-serif;
-            font-weight: 600;
-            font-size: 57px;
-        }
-
-        .modules-container{
-            display: grid;
-            grid-auto-flow: column;
-            grid-template-rows: 1fr 1fr;
-            gap: 60px 30px;
-
-            .module{
-                display: flex;
-                flex-direction: column;
-                width: 250px;
-                height: 250px;
-                font-family: "Raleway", "Roboto", sans-serif;
-                font-weight: 600;
-                font-size: 20px;
-                background-color: $module-color;
-                color: white;
-                justify-content: center;
-                border-radius: 20px;
-                align-items: center;
-                gap: 10px;
-
-                svg{
-                    width: 150px;
-                    height: 150px;
-                }
-
-            }
-        }
+      // Remove scrollbar
+      -ms-overflow-style: none; /* IE and Edge */
+      scrollbar-width: none; /* Firefox */
+      &::-webkit-scrollbar {
+        display: none;
+      }
     }
-}
 
-main{
-    display: flex;
-    width: 100%;
-}
+    .companies-list {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+      width: 100%;
+      height: 100%;
+      font-family: "Raleway", "Robot", sans-serif;
+      font-weight: 600;
+      font-size: 18px;
+      color: white;
 
-
-.login-form-container{
-    display: flex;
-    width: 100%;
-    height: 100vh;
-    justify-content: center;
-    align-items: center;
-
-    #loginForm{
+      div {
         display: flex;
-        flex-direction: column;
+        flex-direction: row;
         align-items: center;
         justify-content: center;
-        width: 695px;
-        height: 675px;
-        gap: 100px;
+        width: 100%;
+        height: 70px;
+        cursor: pointer;
+      }
 
-        border-radius: 25px;
+      div:hover {
+        background-color: white;
+        color: $main-blue-green;
+      }
+    }
 
-        font-family: "Roboto", sans-serif;
-        background-color: $main-blue-green;
+    .vertical-navbar-footer {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-evenly;
+      width: 100%;
+      height: 20%;
+
+      svg {
+        width: 30px;
+        height: 30px;
         color: white;
-
-        input{
-            width: 60%;
-            border-bottom: 1px solid white;
-        }
-
-        input::placeholder {
-            color: white;
-        }
-
-        .inputs-form-login{
-            display: flex;
-            gap: 20px;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            width: 100%;
-
-            h4{
-                cursor: pointer;
-            }
-        }
+        cursor: pointer;
+      }
     }
+  }
 }
 
-.formButton{
-    text-align: center;
+.viewDataGrid {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  gap: 25px;
+  align-items: center;
+  justify-content: space-around;
+  height: 100vh;
+
+  .displayDataGrid {
+    display: grid;
+    width: 100%;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr;
+    row-gap: 30px;
+
+    .fieldData {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      h2 {
+        font-family: "Raleway", "Roboto", sans-serif;
+        font-weight: 600;
+        font-size: 18px;
+      }
+
+      input {
+        background-color: $row-color;
+        border-radius: 15px;
+        width: 75%;
+        height: 48px;
+        text-align: center;
+        color: rgb(88, 88, 88);
+      }
+    }
+  }
 }
 
-.loading{
+.titleShow {
+  font-family: "Raleway", "Roboto", sans-serif;
+  font-weight: 600;
+  font-size: 40px;
+  margin-top: 20px;
+}
+
+.NoData {
+  text-align: center;
+  font-family: "Raleway", "Roboto", sans-serif;
+  font-size: 30px;
+}
+
+.row {
+  display: flex;
+  direction: row;
+  justify-content: space-between;
+  padding-left: 40px;
+  padding-right: 40px;
+  background-color: $row-color;
+  font-family: "Raleway", "Roboto", sans-serif;
+  font-weight: 600;
+  font-size: 28px;
+
+  height: 110px;
+  width: 70%;
+}
+
+.buttons {
+  display: flex;
+  width: 100%;
+  display: column;
+  justify-content: center;
+  gap: 20px;
+}
+
+.crucialData {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.optionsRow {
+  gap: 20px;
+}
+
+.main-menu {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+
+  .modules-menu {
     display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
     width: 100%;
     height: 100vh;
-    gap: 20px;
-}
-
-.error-message-container{
-    display: flex;
-    height: 100vh;
-    width: 100vw;
-    overflow: hidden;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    gap: 60px;
 
-    h2{
-        font-family: 'Raleway', 'Roboto', sans-serif;
-        font-size: 38px;
+    h2 {
+      font-family: "Raleway", "Roboto", sans-serif;
+      font-weight: 600;
+      font-size: 57px;
     }
 
-    p{
-        font-family: 'Raleway', 'Roboto', sans-serif;
-        font-size: 16px;
-    }
+    .modules-container {
+      display: grid;
+      grid-auto-flow: column;
+      grid-template-rows: 1fr 1fr;
+      gap: 60px 30px;
 
-    img{
+      .module {
         display: flex;
-        height: 70%;
-        margin-bottom: -100px;
+        flex-direction: column;
+        width: 250px;
+        height: 250px;
+        font-family: "Raleway", "Roboto", sans-serif;
+        font-weight: 600;
+        font-size: 20px;
+        background-color: $module-color;
+        color: white;
+        justify-content: center;
+        border-radius: 20px;
+        align-items: center;
+        gap: 10px;
+
+        svg {
+          width: 150px;
+          height: 150px;
+        }
+      }
     }
+  }
 }
 
-body{
-    margin: 0;
-    padding: 0;
+main {
+  display: flex;
+  width: 100%;
 }
 
-@media screen and(min-width: 1250px){
-    .Layout{
-        .vertical-navbar{
-            .companies-container{
-                .companies-list{
-                    div{
-                        font-size: 20px;
-                    }
-                }
-            }
-        }
+.login-form-container {
+  display: flex;
+  width: 100%;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+
+  #loginForm {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 695px;
+    height: 675px;
+    gap: 100px;
+
+    border-radius: 25px;
+
+    font-family: "Roboto", sans-serif;
+    background-color: $main-blue-green;
+    color: white;
+
+    input {
+      width: 60%;
+      border-bottom: 1px solid white;
     }
 
-    .main-menu{
-        .modules-menu{
-            .modules-container{
-                .module{
-                    width: 300px;
-                    height: 300px;
-                    font-size: 30px;
-                    svg{
-                        width: 150px;
-                        height: 150px;
-                    }
-                }
-            }
-        }
+    input::placeholder {
+      color: white;
     }
 
-    .addView-page{
-        .form-container {
-            form{
-                height: 650px;
-                .add-view-field{
-                    .input-field-add{
-                        height: 50px;
-                        width: 200px ;
-                    }
-                }
-            }
-        }
+    .inputs-form-login {
+      display: flex;
+      gap: 20px;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+
+      h4 {
+        cursor: pointer;
+      }
     }
+  }
 }
 
+.formButton {
+  text-align: center;
+}
+
+.loading {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100vh;
+  gap: 20px;
+}
+
+.error-message-container {
+  display: flex;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  h2 {
+    font-family: "Raleway", "Roboto", sans-serif;
+    font-size: 38px;
+  }
+
+  p {
+    font-family: "Raleway", "Roboto", sans-serif;
+    font-size: 16px;
+  }
+
+  img {
+    display: flex;
+    height: 70%;
+    margin-bottom: -100px;
+  }
+}
+
+body {
+  margin: 0;
+  padding: 0;
+}
+
+@media screen and(min-width: 1250px) {
+  .Layout {
+    .vertical-navbar {
+      .companies-container {
+        .companies-list {
+          div {
+            font-size: 20px;
+          }
+        }
+      }
+    }
+  }
+
+  .main-menu {
+    .modules-menu {
+      .modules-container {
+        .module {
+          width: 300px;
+          height: 300px;
+          font-size: 30px;
+          svg {
+            width: 150px;
+            height: 150px;
+          }
+        }
+      }
+    }
+  }
+
+  .addView-page {
+    .form-container {
+      form {
+        height: 650px;
+        .add-view-field {
+          .input-field-add {
+            height: 50px;
+            width: 200px;
+          }
+        }
+      }
+    }
+  }
+}

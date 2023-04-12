@@ -9,13 +9,13 @@ import MovimientosForm from "./MovimientosForm";
 import GastoForm from "./GastoForm";
 
 export {
-    CuentasForm,
-    CarteraForm,
-    RegistroVentasForm,
-    FlujoCajaForm,
-    CuentaPendienteForm,
-    CuadroVentasForm,
-    CategoriasForm,
-    MovimientosForm,
-    GastoForm,
+  CuentasForm,
+  CarteraForm,
+  RegistroVentasForm,
+  FlujoCajaForm,
+  CuentaPendienteForm,
+  CuadroVentasForm,
+  CategoriasForm,
+  MovimientosForm,
+  GastoForm,
 };

@@ -6,52 +6,53 @@ import Cookies from "universal-cookie";
 import MenuTab from "./MenuTab";
 import { Company } from "../../interfaces";
 
-export default function VerticalNavbar({
-    logoImage,
-    companies,
-}: {
-    logoImage: string;
-    companies: Company[];
-}) {
-    const navigate = useNavigate();
+export interface Props {
+  logoImage: string;
+  companies: Company[];
+}
 
-    const Logout = (): void => {
-        const cookie = new Cookies();
-        cookie.remove("token", { path: "/" });
-        localStorage.clear();
-        navigate("/", { replace: true });
-    };
+export default function VerticalNavbar(props: Props) {
+  const { logoImage, companies } = props;
 
-    return (
-        <div className="vertical-navbar">
-            <div className="logo-container">
-                <img src={logoImage} alt="Your logo here"></img>
-            </div>
-            <div className="companies-container">
-                <div className="companies-list">
-                    {companies.length === 0 ? (
-                        <div>There is no company to this user</div>
-                    ) : (
-                        companies.map((company) => {
-                            return (
-                                <MenuTab
-                                    key={company.id}
-                                    id={company.id}
-                                    name={company.nombre}
-                                />
-                            );
-                        })
-                    )}
-                </div>
-            </div>
-            <div className="vertical-navbar-footer">
-                <hr></hr>
-                <div onClick={() => Logout()}>
-                    <Tooltip label="Cerrar Sesion">
-                        <FontAwesomeIcon icon={faRightFromBracket} />
-                    </Tooltip>
-                </div>
-            </div>
+  const navigate = useNavigate();
+
+  const Logout = (): void => {
+    const cookie = new Cookies();
+    cookie.remove("token", { path: "/" });
+    localStorage.clear();
+    navigate("/", { replace: true });
+  };
+
+  return (
+    <div className="vertical-navbar">
+      <div className="logo-container">
+        <img src={logoImage} alt="Your logo here"></img>
+      </div>
+      <div className="companies-container">
+        <div className="companies-list">
+          {companies.length === 0 ? (
+            <div>There is no company to this user</div>
+          ) : (
+            companies.map((company) => {
+              return (
+                <MenuTab
+                  key={company.id}
+                  id={company.id}
+                  name={company.nombre}
+                />
+              );
+            })
+          )}
         </div>
-    );
+      </div>
+      <div className="vertical-navbar-footer">
+        <hr></hr>
+        <div onClick={() => Logout()}>
+          <Tooltip label="Cerrar Sesion">
+            <FontAwesomeIcon icon={faRightFromBracket} />
+          </Tooltip>
+        </div>
+      </div>
+    </div>
+  );
 }
