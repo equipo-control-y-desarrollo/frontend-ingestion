@@ -1,18 +1,13 @@
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { backend_api } from "../../Utils/util";
 import { useNavigate } from "react-router-dom";
+import { FormProps } from ".";
 import Swal from "sweetalert2";
 import * as Yup from "yup";
 
-const CuadroVentasForm = ({
-  is_update,
-  update_values,
-  row,
-}: {
-  is_update: boolean;
-  update_values: any;
-  row: string;
-}) => {
+const CuadroVentasForm = (props: FormProps) => {
+  const { update_values, is_update, row} = props;
+  
   const module = JSON.parse(localStorage.getItem("module") || "{}");
   const navigate = useNavigate();
 

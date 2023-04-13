@@ -3,16 +3,16 @@ import { backend_api } from "../../Utils/util";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import * as Yup from "yup";
+import { ReactElement } from "react";
 
-const CategoriasForm = ({
-  is_update,
-  update_values,
-  row,
-}: {
+export interface FormProps {
   is_update: boolean;
   update_values: any;
-  row: string;
-}) => {
+  row: any;
+}
+
+const CategoriasForm = (props: FormProps) : ReactElement => {
+  const { update_values, is_update, row} = props;
   const module = JSON.parse(localStorage.getItem("module") || "{}");
   const navigate = useNavigate();
 
@@ -113,7 +113,7 @@ const CategoriasForm = ({
               className="input-field-add"
               placeholder="Ingrese la cantidad de efectivo"
             />
-            <ErrorMessage name="datafono" render={renderError} />
+            <ErrorMessage name="efectivo" render={renderError} />
           </div>
           <div className="add-view-field">
             <label htmlFor="datafono">Datafono</label>

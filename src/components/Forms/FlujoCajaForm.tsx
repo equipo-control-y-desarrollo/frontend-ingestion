@@ -2,17 +2,11 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import { backend_api } from "../../Utils/util";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
+import { FormProps } from ".";
 import * as Yup from "yup";
 
-const FlujoCajaForm = ({
-  is_update,
-  update_values,
-  row,
-}: {
-  is_update: boolean;
-  update_values: any;
-  row: string;
-}) => {
+const FlujoCajaForm = (props: FormProps) => {
+  const { update_values, is_update, row } = props;
   const module = JSON.parse(localStorage.getItem("module") || "{}");
   const navigate = useNavigate();
 

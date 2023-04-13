@@ -15,12 +15,7 @@ export default function RowTable(props: Props) {
   const { id, header } = props;
   const navigate = useNavigate();
 
-  const viewThisRow = (event: React.ChangeEvent<HTMLInputElement>): void => {
-    navigate(`../row/${id}`, { state: { id: id } });
-  };
-
-  const deleteTheRow = (event: React.ChangeEvent<HTMLInputElement>) : void => {
-    alert("delete")
+  const deleteTheRow = (event: React.MouseEvent<SVGSVGElement, MouseEvent>) : void => {
     event.stopPropagation();
     const query = JSON.parse(localStorage.getItem("module") || "{}").query;
     Swal.fire({
@@ -40,11 +35,16 @@ export default function RowTable(props: Props) {
             title: "Oops...",
             text: "Error eliminando registro",
           })
-        }       
+        }
+        messageModal({
+          iconType: "success",
+          title: "Eliminado",
+          text: "Registro eliminado correctamente",
+        })       
     }})
   }
 
-  const editThisRow = (event: React.ChangeEvent<HTMLInputElement>): void => {
+  const editThisRow = (event: React.MouseEvent<SVGSVGElement, MouseEvent>): void => {
     event.stopPropagation();
     Swal.fire({
       icon: "info",
@@ -62,14 +62,14 @@ export default function RowTable(props: Props) {
 
   return (
     <Tooltip label="Ver registro" aria-label="Ver el registro" placement="left">
-      <div className="row grow" onClick={() => viewThisRow}>
+      <div className="row grow" onClick={() => navigate(`../row/${id}`, { state: { id: id } })}>
         <div className="crucialData">
           <div>{header}</div>
         </div>
         <div className="crucialData optionsRow ">
           <Tooltip label="Editar">
             <FontAwesomeIcon
-              onClick={() => editThisRow}
+              onClick={editThisRow as React.MouseEventHandler<SVGSVGElement>}
               icon={faPencil}
               className="icon"
               id="pencil"
@@ -77,7 +77,7 @@ export default function RowTable(props: Props) {
           </Tooltip>
           <Tooltip label="Eliminar">
             <FontAwesomeIcon
-              onClick={() => deleteTheRow}
+              onClick={deleteTheRow as React.MouseEventHandler<SVGSVGElement>}
               icon={faTrashCan}
               className="icon"
               id="can"

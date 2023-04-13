@@ -3,20 +3,14 @@ import { backend_api } from "../../Utils/util";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import * as Yup from "yup";
+import { FormProps } from ".";
 
-const RegistroVentasForm = ({
-  is_update,
-  update_values,
-  row,
-}: {
-  is_update: boolean;
-  update_values: any;
-  row: string;
-}) => {
+const RegistroVentasForm = (props: FormProps) => {
+  const { update_values, is_update, row } = props;
   const module = JSON.parse(localStorage.getItem("module") || "{}");
   const navigate = useNavigate();
 
-  const productos = [
+  const PRODUCTOS = [
     "ACADEMIA",
     "UNIFORMES",
     "CANCHA6V6",
@@ -28,7 +22,7 @@ const RegistroVentasForm = ({
     "EVENTOS ESPECIALES",
   ];
 
-  const productoOptions = productos.map((product, key) => (
+  const productoOptions = PRODUCTOS.map((product, key) => (
     <option value={product} key={key}>
       {product}
     </option>

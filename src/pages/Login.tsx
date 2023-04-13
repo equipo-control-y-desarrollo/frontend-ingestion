@@ -38,8 +38,8 @@ export default function Login() {
 
   const loginForm = async () => {
     const res = await login(data.username, data.password);
-    cookies.set("token", res.data.token, { path: "/" });
-    setUser(res.data);
+    cookies.set("token", res.token, { path: "/" });
+    setUser(res);
   };
 
   const sendForm = async (event: React.FormEvent<HTMLFormElement>): Promise<any> => {
@@ -48,14 +48,14 @@ export default function Login() {
     try {
       await loginForm();
     } catch (error: any) {
-      console.log(error)
-      if (error.response.data?.message === "Usuario not found") {
+      if(error.response?.data) {
         messageModal({
           iconType: "error",
           title: "Oops...",
           text: "Usuario o contraseña incorrectos",
         });
       } else {
+        console.log(error)
         messageModal({
           iconType: "error",
           title: "Oops...",
@@ -65,8 +65,8 @@ export default function Login() {
       return;
     }
     messageModal({
-      iconType: "sucess",
-      title: "Bienvenido",
+      iconType: "success",
+      title: `Bienvenido ${user.nombre}`,
       text: "Ingreso exitoso",
       next: () => {
         navigate("/home/modules", { state: { enterprises: user?.usuario.empresas } });

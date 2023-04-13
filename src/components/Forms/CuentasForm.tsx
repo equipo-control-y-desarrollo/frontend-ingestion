@@ -2,22 +2,19 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import { backend_api } from "../../Utils/util";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
+import { FormProps } from ".";
 import * as Yup from "yup";
+import { ReactElement } from "react";
 
-const CuentasForm = ({
-  is_update,
-  update_values,
-  row,
-}: {
-  is_update: boolean;
-  update_values: any;
-  row: string;
-}) => {
-  let tiposCuenta = ["corriente", "ahorros", "fiducuenta"];
+const CuentasForm = (props: FormProps) : ReactElement => {
+
+  const { update_values, is_update, row } = props;
+
+  const TIPOSCUENTA = ["corriente", "ahorros", "fiducuenta"];
   const module = JSON.parse(localStorage.getItem("module") || "{}");
   const navigate = useNavigate();
 
-  const cuentasOptions = tiposCuenta.map((product, key) => (
+  const cuentasOptions = TIPOSCUENTA.map((product, key) => (
     <option value={product} key={key}>
       {product}
     </option>
@@ -35,7 +32,7 @@ const CuentasForm = ({
     numero: Yup.string()
       .required("Este campo es obligatorio")
       .max(20, "El numero de cuenta debe ser de maximo 20 digitos"),
-    tipo: Yup.string().required("Este campo es obligatorio").oneOf(tiposCuenta),
+    tipo: Yup.string().required("Este campo es obligatorio").oneOf(TIPOSCUENTA),
   });
 
   const renderError = (message: string) => (

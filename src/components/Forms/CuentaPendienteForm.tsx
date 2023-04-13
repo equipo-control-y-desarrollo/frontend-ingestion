@@ -3,16 +3,11 @@ import { backend_api } from "../../Utils/util";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import * as Yup from "yup";
+import { FormProps } from ".";
 
-const CuentaPendienteForm = ({
-  is_update,
-  update_values,
-  row,
-}: {
-  is_update: boolean;
-  update_values: any;
-  row: string;
-}) => {
+const CuentaPendienteForm = (props: FormProps) => {
+  const { update_values, is_update, row } = props;
+
   const module = JSON.parse(localStorage.getItem("module") || "{}");
   const navigate = useNavigate();
 

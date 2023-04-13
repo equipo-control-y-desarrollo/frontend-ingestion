@@ -52,14 +52,14 @@ export default function ViewRow() {
           ? data[curr].toString().substring(0, 10)
           : data[curr].toString();
         rows.push(
-          <div className="fieldData">
+          <div className="fieldData" key={curr}>
             <h2>{curr}</h2>
             <input value={res} readOnly={true}></input>
           </div>
         );
       } else {
         rows.push(
-          <div className="fieldData">
+          <div className="fieldData" key={curr}>
             <h2>{curr}</h2>
             <input value="N/A"></input>
           </div>
