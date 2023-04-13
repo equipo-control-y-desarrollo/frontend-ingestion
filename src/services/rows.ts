@@ -17,3 +17,12 @@ export const getRow = async (query: string): Promise<any> => {
     throw new Error(error.response.status, error.response.data);
   }
 };
+
+export const deleteRow = async (query: string): Promise<any> => {
+  try {
+    const response = await backend_api.delete(query);
+    return response;
+  } catch (error: any) {
+    throw new Error(error.response.status, error.response.data);
+  }
+}

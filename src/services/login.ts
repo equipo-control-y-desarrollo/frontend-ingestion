@@ -6,8 +6,9 @@ export const login = async (
   password: string
 ): Promise<any> => {
   try {
-    backend_api.post<User>("/auth/login", { username, password });
+    const res = await backend_api.post<User>("/auth/login", { username, password });
+    return res.data;
   } catch (error: any) {
-    throw new Error(error.response.status, error.response.data);
+    throw error;  
   }
 };

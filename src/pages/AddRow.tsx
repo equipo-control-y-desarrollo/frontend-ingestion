@@ -2,7 +2,6 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { ReactElement, useEffect, useState } from "react";
 import { Button } from "@chakra-ui/react";
 import { useGlobalContext } from "../context/Context";
-import Swal from "sweetalert2";
 import useLoader from "../hooks/useLoader";
 import { addRow } from "../services/rows";
 import { messageModal } from "../Utils/util";

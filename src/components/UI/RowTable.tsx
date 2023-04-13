@@ -2,8 +2,9 @@ import { faPencil, faTrashCan } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
-import { backend_api } from "../../Utils/util";
 import { Tooltip } from "@chakra-ui/react";
+import { deleteRow } from "../../services/rows";
+import { messageModal } from "../../Utils/util";
 
 export interface Props {
   id: string;
@@ -14,9 +15,34 @@ export default function RowTable(props: Props) {
   const { id, header } = props;
   const navigate = useNavigate();
 
-  const viewThisRow = (): void => {
+  const viewThisRow = (event: React.ChangeEvent<HTMLInputElement>): void => {
     navigate(`../row/${id}`, { state: { id: id } });
   };
+
+  const deleteTheRow = (event: React.ChangeEvent<HTMLInputElement>) : void => {
+    alert("delete")
+    event.stopPropagation();
+    const query = JSON.parse(localStorage.getItem("module") || "{}").query;
+    Swal.fire({
+      icon: "info",
+      title: "Eliminando",
+      text: "¿Estas seguro que deseas eliminar el siguiente registro?",
+      showCancelButton: true,
+      confirmButtonText: "Si",
+      cancelButtonText: "No",
+    }).then( async (result) => {
+      if (result.isConfirmed) {
+        try{
+          await deleteRow(`${query}/${id}`);
+        }catch(err){
+          messageModal({
+            iconType: "error",
+            title: "Oops...",
+            text: "Error eliminando registro",
+          })
+        }       
+    }})
+  }
 
   const editThisRow = (event: React.ChangeEvent<HTMLInputElement>): void => {
     event.stopPropagation();
@@ -34,44 +60,9 @@ export default function RowTable(props: Props) {
     });
   };
 
-  const deleteThisRow = (event: React.ChangeEvent<HTMLInputElement>): void => {
-    event.stopPropagation();
-    let query = JSON.parse(localStorage.getItem("module") || "{}").query;
-    Swal.fire({
-      icon: "info",
-      title: "Eliminando",
-      text: "¿Estas seguro que deseas eliminar el siguiente registro?",
-      showCancelButton: true,
-      confirmButtonText: "Si",
-      cancelButtonText: "No",
-    }).then((result) => {
-      if (result.isConfirmed) {
-        backend_api
-          .delete(`${query}/${id}`)
-          .then((res) => {
-            Swal.fire({
-              icon: "success",
-              title: "Completado",
-              text: "Registro eliminado con éxito",
-            }).then((res) => {
-              navigate("../modules");
-            });
-          })
-          .catch((err) => {
-            Swal.fire({
-              icon: "error",
-              title: "Oops...",
-              text: "Error eliminando registro",
-              footer: "Por favor intenta más tarde de nuevo",
-            });
-          });
-      }
-    });
-  };
-
   return (
     <Tooltip label="Ver registro" aria-label="Ver el registro" placement="left">
-      <div className="row grow" onClick={viewThisRow}>
+      <div className="row grow" onClick={() => viewThisRow}>
         <div className="crucialData">
           <div>{header}</div>
         </div>
@@ -86,7 +77,7 @@ export default function RowTable(props: Props) {
           </Tooltip>
           <Tooltip label="Eliminar">
             <FontAwesomeIcon
-              onClick={() => deleteThisRow}
+              onClick={() => deleteTheRow}
               icon={faTrashCan}
               className="icon"
               id="can"

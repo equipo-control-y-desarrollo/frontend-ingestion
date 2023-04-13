@@ -1,5 +1,4 @@
 import { useState } from "react";
-import Swal from "sweetalert2";
 import Cookies from "universal-cookie";
 import { useNavigate } from "react-router-dom";
 import { Input } from "@chakra-ui/react";
@@ -8,11 +7,13 @@ import { login } from "../services/login";
 import { messageModal } from "../Utils/util";
 
 export default function Login() {
+
   const [data, setData] = useState<{ username: string; password: string }>({
     username: "",
     password: "",
   });
 
+  const [user, setUser] = useState<any>();
   const navigate = useNavigate();
   const cookies = new Cookies();
 
@@ -25,8 +26,8 @@ export default function Login() {
 
   const validForm = (): boolean => {
     if (data.username === "" || data.password === "") {
-      Swal.fire({
-        icon: "error",
+      messageModal({
+        iconType: "error",
         title: "Oops...",
         text: "Por favor, ingrese un usuario y contraseña",
       });
@@ -35,18 +36,19 @@ export default function Login() {
     return true;
   };
 
-  const sendForm = (event: any): void => {
-    let empresas: any = [];
-    const loginF = async () => {
-      const res = await login(data.username, data.password);
-      empresas = res.data.usuario.empresas;
-      cookies.set("token", res.data.token, { path: "/" });
-    };
-    if (!validForm()) return;
+  const loginForm = async () => {
+    const res = await login(data.username, data.password);
+    cookies.set("token", res.data.token, { path: "/" });
+    setUser(res.data);
+  };
+
+  const sendForm = async (event: React.FormEvent<HTMLFormElement>): Promise<any> => {
     event.preventDefault();
+    if (!validForm()) return;
     try {
-      loginF();
+      await loginForm();
     } catch (error: any) {
+      console.log(error)
       if (error.response.data?.message === "Usuario not found") {
         messageModal({
           iconType: "error",
@@ -55,23 +57,28 @@ export default function Login() {
         });
       } else {
         messageModal({
-          iconType: "sucess",
-          title: "Bienvenido",
-          text: "Ingreso exitoso",
-          next: () => {
-            navigate("/home/modules", { state: { enterprises: empresas } });
-          },
+          iconType: "error",
+          title: "Oops...",
+          text: "Error al iniciar sesión",
         });
       }
+      return;
     }
+    messageModal({
+      iconType: "sucess",
+      title: "Bienvenido",
+      text: "Ingreso exitoso",
+      next: () => {
+        navigate("/home/modules", { state: { enterprises: user?.usuario.empresas } });
+      },
+    });
   };
 
   const alertForget = (): void => {
-    Swal.fire({
+    messageModal({
+      iconType: "question",
       title: "¿Olvidaste tu contraseña?",
       text: "Por favor ponte en contacto con el administrador",
-      icon: "question",
-      confirmButtonText: "OK",
     });
   };
 

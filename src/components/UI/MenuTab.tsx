@@ -9,7 +9,7 @@ export interface Props {
 
 export default function MenuTab(props: Props) {
   const { name, id } = props;
-
+  
   const [selected, setSelected] = useState<boolean>(false);
   const [textColor, setTextColor] = useState<string>("white");
   const [backgroundColor, setBackgroundColor] = useState<string>("#00171F");

@@ -2,8 +2,8 @@ import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useGlobalContext } from "../../context/Context";
 import { Module } from "../../interfaces";
-import Swal from "sweetalert2";
 import { ReactElement } from "react";
+import { messageModal } from "../../Utils/util";
 
 export interface Props {
   modules: Module[] | [];
@@ -31,8 +31,8 @@ export default function ModulesMenu(props: Props) {
       );
       navigate(`../${module_name}`);
     } else {
-      Swal.fire({
-        icon: "error",
+      messageModal({
+        iconType: "error",
         title: "Oops...",
         text: "Por favor, seleccione una empresa",
       });
