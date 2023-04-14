@@ -109,7 +109,8 @@ export default function ViewModule() {
                 <div className="buttons">
                     <Button
                         id="backButton"
-                        colorScheme={"#00171F"}
+                        colorScheme="gray"
+                        color="black"
                         onClick={() =>
                             navigate("../modules", { replace: true })
                         }

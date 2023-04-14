@@ -24,9 +24,20 @@ $input-placeholder-text: rgba(0, 52, 89, 0.5);
   }
 }
 
-#backButton {
-  background-color: $main-blue-green;
+input[type="checkbox"]{
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border-radius: 100%;
+  margin-right: 5px;
+  vertical-align: middle;
+  background-color: red;
+
+  &:checked {
+    background-color: green;
+  }
 }
+
 
 .addView-page {
   display: flex;
