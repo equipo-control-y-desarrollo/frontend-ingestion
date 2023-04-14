@@ -78,6 +78,7 @@
     "prettier": "2.8.7",
     "prop-types": "^15.8.1",
     "react-test-renderer": "^18.2.0",
+    "tslint-config-prettier": "^1.18.0",
     "webpack": "^5.75.0"
   }
 }

@@ -13,7 +13,7 @@ export default function SearchBar(props: Props) {
   const [search, setSearch] = useState<string>("");
 
   const handleInputChange = (
-    event: React.ChangeEvent<HTMLInputElement>
+    event: React.ChangeEvent<HTMLInputElement>,
   ): void => {
     setSearch(event.target.value);
     handleEnter(event.target.value);

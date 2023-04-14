@@ -9,7 +9,7 @@ export interface Props {
 
 export default function MenuTab(props: Props) {
   const { name, id } = props;
-  
+
   const [selected, setSelected] = useState<boolean>(false);
   const [textColor, setTextColor] = useState<string>("white");
   const [backgroundColor, setBackgroundColor] = useState<string>("#00171F");
@@ -21,7 +21,6 @@ export default function MenuTab(props: Props) {
       setTextColor("white");
       setBackgroundColor("#00171F");
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentName]);
 
   useEffect(() => {
@@ -35,7 +34,6 @@ export default function MenuTab(props: Props) {
         setName(name);
       }
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -56,7 +54,7 @@ export default function MenuTab(props: Props) {
             JSON.stringify({
               name: name,
               id: id,
-            })
+            }),
           );
         } else {
           setTextColor("white");
