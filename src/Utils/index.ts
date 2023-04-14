@@ -132,7 +132,7 @@ const messageModal = ({
     icon: iconType,
     title: title,
     text: text,
-  }).then((res) => {
+  }).then(() => {
     if (next) next();
   });
 };

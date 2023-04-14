@@ -49,7 +49,7 @@ const CuentasForm = (props: FormProps): ReactElement => {
         icon: "error",
         title: "Oops...",
         text: "¡Algo ha salido mal! por favor intenta más tarde",
-      }).then((res) => {
+      }).then(() => {
         return;
       });
     }

@@ -14,7 +14,7 @@ export default function Home() {
 
   const homeDiv = (): ReactElement => {
     return (
-      <div className="main-menu">
+      <div className="main-menu animate__animated animate__zoomIn">
         <ModulesMenu modules={modules}></ModulesMenu>
       </div>
     );

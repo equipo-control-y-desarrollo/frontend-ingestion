@@ -60,7 +60,7 @@ const CuentaPendienteForm = (props: FormProps): ReactElement => {
     <p className="help is-danger">{message}</p>
   );
 
-  const onSubmit = async (values: any) => {
+  const onSubmit = async (values: object) => {
     values = validationSchema.cast(values, { stripUnknown: true });
     try {
       if (!is_update) await backend_api.post(`${module.query}`, { ...values });
@@ -71,7 +71,7 @@ const CuentaPendienteForm = (props: FormProps): ReactElement => {
         icon: "error",
         title: "Oops...",
         text: "¡Algo ha salido mal! por favor intenta más tarde",
-      }).then((res) => {
+      }).then(() => {
         return;
       });
     }
