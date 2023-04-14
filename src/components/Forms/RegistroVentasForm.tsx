@@ -1,5 +1,5 @@
 import { Formik, Form, Field, ErrorMessage } from "formik";
-import { backend_api } from "../../Utils/util";
+import { backend_api } from "../../Utils";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import * as Yup from "yup";
@@ -28,13 +28,6 @@ const RegistroVentasForm = (props: FormProps): ReactElement => {
             {product}
         </option>
     ));
-
-    const clearDates = () => {
-        if (update_values.fecha)
-            update_values.fecha = update_values.fecha.substring(0, 10);
-    };
-
-    clearDates();
 
     const validationSchema = Yup.object({
         fecha: Yup.string().required("Esto campo es obligatorio").max(10),
@@ -90,6 +83,7 @@ const RegistroVentasForm = (props: FormProps): ReactElement => {
     return (
         <div className="form-container">
             <Formik
+                enableReinitialize
                 initialValues={update_values}
                 validationSchema={validationSchema}
                 onSubmit={async (values) => {

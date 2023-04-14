@@ -9,6 +9,7 @@ import CategoriasForm from "./CategoriaForm";
 import MovimientosForm from "./MovimientosForm";
 import CuadroVentasForm from "./CuadroVentasForm";
 import GastoForm from "./GastoForm";
+import { formatDates } from "../../Utils";
 
 interface GenericPropsForm {
     form_name: string;
@@ -19,37 +20,48 @@ interface GenericPropsForm {
 
 const Form = (props: GenericPropsForm): ReactElement | null => {
     const { form_name, state, formProps, data } = props;
-    const { isEdit, data_state } = props.state;
+    const { isEdit, data_state } = state;
+
+    const [clearData, clearFormProps] = formatDates([
+        data,
+        formProps.update_values,
+    ]);
+
+    const formPropsWithClearData = {
+        ...formProps,
+        update_values: clearFormProps,
+    };
+
     switch (form_name) {
         case "Cuentas bancarias":
-            return CuentasForm({ ...formProps });
+            return CuentasForm({ ...formPropsWithClearData });
         case "Cartera":
-            return CarteraForm({ ...formProps });
+            return CarteraForm({ ...formPropsWithClearData });
         case "Registro de ventas":
-            return RegistroVentasForm({ ...formProps });
+            return RegistroVentasForm({ ...formPropsWithClearData });
         case "Flujo de caja":
-            return FlujoCajaForm({ ...formProps });
+            return FlujoCajaForm({ ...formPropsWithClearData });
         case "Cuentas por pagar":
-            return CuentaPendienteForm({ ...formProps });
+            return CuentaPendienteForm({ ...formPropsWithClearData });
         case "Cuadro de ventas":
-            return CuadroVentasForm({ ...formProps });
+            return CuadroVentasForm({ ...formPropsWithClearData });
         case "Gastos":
-            return GastoForm({ ...formProps });
+            return GastoForm({ ...formPropsWithClearData });
         case "Categoria":
             return CategoriasForm({
-                ...formProps,
+                ...formPropsWithClearData,
                 update_values: {
-                    ...data,
+                    ...clearData,
                     flujo_caja_id: localStorage.getItem("father_module_row_id"),
                 },
             });
         case "Movimientos":
             return MovimientosForm({
-                ...formProps,
+                ...formPropsWithClearData,
                 update_values: isEdit
-                    ? data
+                    ? clearData
                     : {
-                          ...data,
+                          ...clearData,
                           saldo_inicial: data_state.previous_data["saldo"],
                           cuenta_id: localStorage.getItem(
                               "father_module_row_id"

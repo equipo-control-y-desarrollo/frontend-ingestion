@@ -1,5 +1,5 @@
 import { Formik, Form, Field, ErrorMessage } from "formik";
-import { backend_api } from "../../Utils/util";
+import { backend_api } from "../../Utils";
 import { useNavigate } from "react-router-dom";
 import { FormProps } from "../../interfaces";
 import Swal from "sweetalert2";
@@ -10,19 +10,6 @@ const CarteraForm = (props: FormProps): ReactElement => {
     const { update_values, is_update, row } = props;
     const module = JSON.parse(localStorage.getItem("module") || "{}");
     const navigate = useNavigate();
-
-    const clearDates = () => {
-        if (update_values.fecha_factura)
-            update_values.fecha_factura = update_values.fecha_factura.substring(
-                0,
-                10
-            );
-        if (update_values.fecha_vencimiento)
-            update_values.fecha_vencimiento =
-                update_values.fecha_vencimiento.substring(0, 10);
-    };
-
-    clearDates();
 
     const validationSchema = Yup.object({
         valor: Yup.number()
@@ -86,6 +73,7 @@ const CarteraForm = (props: FormProps): ReactElement => {
     return (
         <div className="form-container">
             <Formik
+                enableReinitialize
                 initialValues={update_values}
                 validationSchema={validationSchema}
                 onSubmit={async (values) => {

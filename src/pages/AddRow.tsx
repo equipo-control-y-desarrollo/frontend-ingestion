@@ -4,7 +4,7 @@ import { Button } from "@chakra-ui/react";
 import { useGlobalContext } from "../context/Context";
 import useLoader from "../hooks/useLoader";
 import { getRow } from "../services/rows";
-import { messageModal } from "../Utils/util";
+import { messageModal } from "../Utils";
 import Form from "../components/Forms";
 import { FormProps } from "../interfaces";
 

@@ -1,5 +1,5 @@
 import { Formik, Form, Field, ErrorMessage } from "formik";
-import { backend_api } from "../../Utils/util";
+import { backend_api } from "../../Utils";
 import { useNavigate } from "react-router-dom";
 import { FormProps } from "../../interfaces";
 import Swal from "sweetalert2";
@@ -11,13 +11,6 @@ const CuadroVentasForm = (props: FormProps): ReactElement => {
 
     const module = JSON.parse(localStorage.getItem("module") || "{}");
     const navigate = useNavigate();
-
-    const clearDates = () => {
-        if (update_values.fecha)
-            update_values.fecha = update_values.fecha.substring(0, 10);
-    };
-
-    clearDates();
 
     const validationSchema = Yup.object({
         empresa_id: Yup.number()
@@ -86,6 +79,7 @@ const CuadroVentasForm = (props: FormProps): ReactElement => {
     return (
         <div className="form-container">
             <Formik
+                enableReinitialize
                 initialValues={update_values}
                 validationSchema={validationSchema}
                 onSubmit={async (values) => {

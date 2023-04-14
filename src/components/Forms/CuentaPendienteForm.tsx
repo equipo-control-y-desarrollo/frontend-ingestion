@@ -1,5 +1,5 @@
 import { Formik, Form, Field, ErrorMessage } from "formik";
-import { backend_api } from "../../Utils/util";
+import { backend_api } from "../../Utils";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import * as Yup from "yup";
@@ -60,19 +60,6 @@ const CuentaPendienteForm = (props: FormProps): ReactElement => {
             .min(1),
     });
 
-    const clearDates = () => {
-        if (update_values.fecha_recibido)
-            update_values.fecha_recibido =
-                update_values.fecha_recibido.substring(0, 10);
-        if (update_values.fecha_vencida)
-            update_values.fecha_vencida = update_values.fecha_vencida.substring(
-                0,
-                10
-            );
-    };
-
-    clearDates();
-
     const renderError = (message: string) => (
         <p className="help is-danger">{message}</p>
     );
@@ -112,6 +99,7 @@ const CuentaPendienteForm = (props: FormProps): ReactElement => {
     return (
         <div className="form-container">
             <Formik
+                enableReinitialize
                 initialValues={update_values}
                 validationSchema={validationSchema}
                 onSubmit={async (values) => {

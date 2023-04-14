@@ -1,5 +1,5 @@
 import { Formik, Form, Field, ErrorMessage } from "formik";
-import { backend_api } from "../../Utils/util";
+import { backend_api } from "../../Utils";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import { FormProps } from "../../interfaces";
@@ -77,6 +77,7 @@ const CuentasForm = (props: FormProps): ReactElement => {
     return (
         <div className="form-container">
             <Formik
+                enableReinitialize
                 initialValues={update_values}
                 validationSchema={validationSchema}
                 onSubmit={async (values) => {
