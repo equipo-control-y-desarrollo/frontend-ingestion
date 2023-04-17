@@ -6,7 +6,7 @@ import { ReactElement } from "react";
 import { messageModal } from "../../Utils";
 
 export interface Props {
-  modules: Module[] | [];
+  modules?: Module[] | [];
 }
 
 export default function ModulesMenu(props: Props) {
@@ -39,21 +39,24 @@ export default function ModulesMenu(props: Props) {
     }
   };
 
-  const showModules = (): ReactElement[] => {
-    return modules.map((module) => {
-      return (
-        <div
-          key={module.name}
-          className="module grow"
-          onClick={() =>
-            selectModule(module.value, module.name, module.submodules)
-          }
-        >
-          <FontAwesomeIcon icon={module.icon} size="2x" />
-          <h3>{module.name}</h3>
-        </div>
-      );
-    });
+  const showModules = (): ReactElement[] | ReactElement => {
+    if (modules) {
+      return modules.map((module) => {
+        return (
+          <div
+            key={module.name}
+            className="module grow"
+            onClick={() =>
+              selectModule(module.value, module.name, module.submodules)
+            }
+          >
+            <FontAwesomeIcon icon={module.icon} size="2x" />
+            <h3>{module.name}</h3>
+          </div>
+        );
+      });
+    }
+    return <div>No hay modulos para esta empresa</div>;
   };
 
   return (
