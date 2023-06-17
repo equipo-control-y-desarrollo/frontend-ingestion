@@ -12,7 +12,7 @@ const CuentaPendienteForm = (props: FormProps): ReactElement => {
   const module = JSON.parse(localStorage.getItem("module") || "{}");
   const navigate = useNavigate();
 
-  const estadoCuenta = ["CXP", "Pagada", "Anulada"];
+  const estadoCuenta = ["CXP", "Pagada", "Anulada", "Abonado"];
 
   const clasificacionesCuentas = [
     "Projecto",
